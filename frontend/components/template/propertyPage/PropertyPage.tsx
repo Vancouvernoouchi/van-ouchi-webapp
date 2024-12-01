@@ -221,7 +221,7 @@ const PropertyPage = ({ property }: { property: FormattedPropertyData }) => {
           </div>
           <div className="flex flex-col items-center">
             <div className="text-gray-400 text-sm">MOVE IN</div>
-            <div>2024/12/01</div>
+            <div>{property.moveInDate}</div>
           </div>
         </div>
       </div>
