@@ -32,7 +32,8 @@ export default function GoogleMapMarker({
       throw new Error("現在、マップ表示は準備中です。");
     }
   } catch (err) {
-    error = err instanceof Error ? err.message : "未知のエラーが発生しました。";
+    error =
+      err instanceof Error ? err.message : "予期せぬエラーが発生しました。";
   }
 
   const center = lat !== null && lng !== null ? { lat, lng } : null;
