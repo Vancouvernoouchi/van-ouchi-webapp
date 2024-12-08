@@ -39,6 +39,7 @@ import Image from "next/image";
 import OuchiLogo from "@/public/vancouver_no_ouchi_logo2.png";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 /**
  * 物件詳細ページのコンポーネント
@@ -161,7 +162,17 @@ const PropertyPage = ({ property }: { property: FormattedPropertyData }) => {
       title: "スタッフからのコメント",
       body: <StaffComment comment={property.staffComment} />,
     },
-    // { id: "map", title: "アクセスマップ", body: <AccessMap /> },
+    {
+      id: "map",
+      title: "アクセスマップ",
+      body: (
+        <AccessMap
+          geoPosition={property.geoPosition}
+          closestStation={property.closestStation}
+          timeToStation={property.timeToStation}
+        />
+      ),
+    },
     { id: "neighbors", title: "周辺情報", body: <Neighbors /> },
     // {
     //   id: "available-properties",
@@ -171,6 +182,24 @@ const PropertyPage = ({ property }: { property: FormattedPropertyData }) => {
   ];
 
   const { statusBgColor, statusTextColor } = getStatusColor(property.status);
+
+  const router = useRouter();
+
+  /**
+   * パンクズリスト物件一覧に戻る
+   * @param e {React.MouseEvent<HTMLAnchorElement>}
+   */
+  const handleBack = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault(); // リンクのデフォルト動作を無効化
+
+    // 履歴がある場合は戻る
+    if (window.history.length > 2) {
+      router.back();
+    } else {
+      // 外部ページから遷移した場合等、履歴がない場合は特定のURLに遷移
+      router.push("/properties");
+    }
+  };
 
   return (
     <div key={property.id} className="lg:px-12">
@@ -186,10 +215,8 @@ const PropertyPage = ({ property }: { property: FormattedPropertyData }) => {
             </BreadcrumbItem>
             <BreadcrumbSeparator /> */}
             <BreadcrumbItem>
-              <BreadcrumbLink>
-                <Link href="/properties" className="cursor-pointer">
-                  物件一覧
-                </Link>
+              <BreadcrumbLink onClick={handleBack} className="cursor-pointer">
+                物件一覧
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
@@ -204,9 +231,9 @@ const PropertyPage = ({ property }: { property: FormattedPropertyData }) => {
 
       <div className="px-base flex flex-col sm:flex-row sm:justify-between items-center gap-3 py-3 sm:py-5">
         {/* ---　　タイトルエリア --- */}
-        <div className="flex gap-2 items-center">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
           <div
-            className={`px-5 py-2 rounded-full bg-${statusBgColor} text-${statusTextColor}`}
+            className={`px-5 py-2 text-sm rounded-full bg-${statusBgColor} text-${statusTextColor}`}
           >
             {property.status}
           </div>
@@ -242,7 +269,7 @@ const PropertyPage = ({ property }: { property: FormattedPropertyData }) => {
         <div className="w-full lg:w-[40%] xl:pl-14">
           {/* お問い合わせエリア */}
           <div>
-            <div className="text-base sm:text-xl font-semibold tracking-widest">
+            <div className="text-base sm:text-xl font-semibold tracking-wides pt-8 md:pt-0">
               お問い合わせ
             </div>
             <ContactCard />
