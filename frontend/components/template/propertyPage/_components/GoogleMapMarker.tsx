@@ -4,6 +4,9 @@ import React from "react";
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
+import VanMap from "@/public/vancouver_map.png";
+import { MESSAGES } from "@/app/constants/messages";
 
 type Coordinates = {
   geoPosition: string;
@@ -13,6 +16,12 @@ type Coordinates = {
 const NEXT_PUBLIC_GOOGLE_MAPS_API_KEY =
   process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
 
+/**
+ * GoogleMapコンポーネント
+ *
+ * @param geoPosition {string}　- 緯度・経度の座標（例: "34.6873,135.5259"）
+ * @param className {string}
+ */
 export default function GoogleMapMarker({
   geoPosition,
   className,
@@ -23,17 +32,16 @@ export default function GoogleMapMarker({
 
   try {
     if (!geoPosition || !geoPosition.includes(",")) {
-      throw new Error("現在、マップ表示は準備中です。");
+      throw new Error(MESSAGES.ERROR_PREPAIRING("この物件のマップ"));
     }
 
     [lat, lng] = geoPosition.split(",").map(Number);
 
     if (isNaN(lat) || isNaN(lng)) {
-      throw new Error("現在、マップ表示は準備中です。");
+      throw new Error(MESSAGES.ERROR_PREPAIRING("この物件のマップ"));
     }
   } catch (err) {
-    error =
-      err instanceof Error ? err.message : "予期せぬエラーが発生しました。";
+    error = err instanceof Error ? err.message : MESSAGES.ERROR_UNEXPECTED;
   }
 
   const center = lat !== null && lng !== null ? { lat, lng } : null;
@@ -44,27 +52,15 @@ export default function GoogleMapMarker({
   });
 
   if (error) {
-    return (
-      <div className="flex items-center justify-center w-full h-full text-red-500 bg-gray-300">
-        {error}
-      </div>
-    );
+    return <MapError message={error} />;
   }
 
   if (loadError) {
-    return (
-      <div className="flex items-center justify-center w-full h-full text-red-500 bg-gray-300">
-        マップの読み込みに失敗しました。
-      </div>
-    );
+    return <MapError message={MESSAGES.ERROR_LOADING("マップ")} />;
   }
 
   if (!center) {
-    return (
-      <div className="flex items-center justify-center w-full h-full text-red-500 bg-gray-300">
-        現在、マップ表示は準備中です。
-      </div>
-    );
+    return <MapError message={MESSAGES.ERROR_PREPAIRING("この物件のマップ")} />;
   }
 
   if (!isLoaded) {
@@ -88,3 +84,34 @@ export default function GoogleMapMarker({
     </GoogleMap>
   );
 }
+
+/**
+ * 地図表示エラーコンポーネント
+ *
+ * @param message {string}
+ * @param className {string}
+ */
+const MapError = ({
+  message,
+  className,
+}: {
+  message: string;
+  className?: string;
+}) => {
+  return (
+    <div className="relative flex items-center justify-center w-full h-full">
+      {/* 地図画像 */}
+      <Image
+        src={VanMap}
+        alt="バンクーバーの地図"
+        objectFit="cover"
+        className={cn("w-full h-[400px] object-cover opacity-70", className)}
+      />
+      {/* エラーメッセージ */}
+      <div className="absolute text-center text-white p-4 bg-black/60 rounded-md text-sm sm:text-base">
+        <p>{message}</p>
+        <p>詳しい住所はスタッフまでお問い合わせください。</p>
+      </div>
+    </div>
+  );
+};
