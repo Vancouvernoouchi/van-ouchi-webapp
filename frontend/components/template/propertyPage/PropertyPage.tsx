@@ -214,9 +214,9 @@ const PropertyPage = ({ property }: { property: FormattedPropertyData }) => {
 
       <div className="px-base flex flex-col sm:flex-row sm:justify-between items-center gap-3 py-3 sm:py-5">
         {/* ---　　タイトルエリア --- */}
-        <div className="flex gap-2 items-center">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
           <div
-            className={`px-5 py-2 rounded-full bg-${statusBgColor} text-${statusTextColor}`}
+            className={`px-5 py-2 text-sm rounded-full bg-${statusBgColor} text-${statusTextColor}`}
           >
             {property.status}
           </div>
@@ -252,7 +252,7 @@ const PropertyPage = ({ property }: { property: FormattedPropertyData }) => {
         <div className="w-full lg:w-[40%] xl:pl-14">
           {/* お問い合わせエリア */}
           <div>
-            <div className="text-base sm:text-xl font-semibold tracking-widest">
+            <div className="text-base sm:text-xl font-semibold tracking-wides pt-8 md:pt-0">
               お問い合わせ
             </div>
             <ContactCard />
