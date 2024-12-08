@@ -161,7 +161,17 @@ const PropertyPage = ({ property }: { property: FormattedPropertyData }) => {
       title: "スタッフからのコメント",
       body: <StaffComment comment={property.staffComment} />,
     },
-    // { id: "map", title: "アクセスマップ", body: <AccessMap /> },
+    {
+      id: "map",
+      title: "アクセスマップ",
+      body: (
+        <AccessMap
+          geoPosition={property.geoPosition}
+          closestStation={property.closestStation}
+          timeToStation={property.timeToStation}
+        />
+      ),
+    },
     { id: "neighbors", title: "周辺情報", body: <Neighbors /> },
     // {
     //   id: "available-properties",
