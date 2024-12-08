@@ -2,10 +2,11 @@ import PropertyPage from "@/components/template/propertyPage/PropertyPage";
 import { FormattedPropertyData, NotionProperty } from "@/types/notionTypes";
 import { formatPropertyData } from "@/utlis/getPropertyValue";
 import { AxiosResponse } from "axios";
-import { apiClient, apiClientFetch } from "@/config/apiClient";
+import { apiClient } from "@/config/apiClient";
 import { getPropertyValue } from "@/utlis/getPropertyValue";
-import axios from "axios";
 import type { Metadata, ResolvingMetadata } from "next";
+import ErrorState from "@/components/atoms/common/ErrorState";
+import { MESSAGES } from "@/app/constants/messages";
 
 type Props = {
   params: Promise<{ propertyId: string }>;
@@ -56,6 +57,7 @@ const PropertyDetailPage = async ({
     const response: AxiosResponse = await apiClient.get(
       `/properties/${propertyId}`
     );
+
     const data: NotionProperty = response.data;
     const propertyData: FormattedPropertyData | null = formatPropertyData(data);
 
@@ -67,17 +69,15 @@ const PropertyDetailPage = async ({
       );
     } else {
       return (
-        <div className="h-[88vh] p-2 flex flex-col justify-center items-center text-center text-red-500 text-xl">
-          物件情報が見つかりませんでした。URLをお確かめください。
-        </div>
+        <ErrorState
+          responseCode="404"
+          errorMessage={MESSAGES.ERROR_NOT_FOUND("物件情報")}
+        />
       );
     }
-  } catch (error) {
-    console.error("Failed to fetch properties:", error);
+  } catch (error: any) {
     return (
-      <div className="h-[88vh] p-2 flex flex-col justify-center items-center text-center text-red-500 text-xl">
-        データの取得中にエラーが発生しました。もう一度お試しください。
-      </div>
+      <ErrorState responseCode={error.status} errorMessage={MESSAGES.ERROR} />
     );
   }
 };
