@@ -127,6 +127,7 @@ export type PropertyData = {
   デポジット: NumberProperty;
   お問い合わせフォーム: URLProperty;
   最寄り駅: SelectProperty;
+  マップ表示用座標: RichTextProperty;
   住居人の性別: SelectProperty;
   鍵付き: CheckboxProperty;
   エリア: SelectProperty;
@@ -166,6 +167,7 @@ export type FormattedPropertyData = {
   deposit: number;
   inquiryForm: string;
   closestStation: string;
+  geoPosition: string;
   roommatesGender: string;
   hasKey: boolean;
   area: string;

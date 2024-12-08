@@ -11,6 +11,7 @@ import {
   TrainFront,
 } from "lucide-react";
 import { ReactNode, useEffect, useState } from "react";
+import GoogleMapMarker from "./_components/GoogleMapMarker";
 
 /**
  * 各セクションのラッパーコンポーネント
@@ -196,11 +197,32 @@ export const StaffComment = ({ comment }: { comment: string }) => {
 /**
  * アクセスマップコンポーネント
  *
- * @param latitude {number}
- * @param longitude {number}
+ * @param geoPosition {string}
+ * @param closestStation {string}
+ * @param timeToStation {string}
  */
-export const AccessMap = () => {
-  return <SectionWrapper>準備中</SectionWrapper>;
+export const AccessMap = ({
+  geoPosition,
+  closestStation,
+  timeToStation,
+}: {
+  geoPosition: string;
+  closestStation: string;
+  timeToStation: string;
+}) => {
+  return (
+    <SectionWrapper>
+      <GoogleMapMarker
+        geoPosition={geoPosition}
+        className=" w-full h-[400px]"
+      />
+
+      <div className="pt-5 py-2 font-semibold">最寄駅 / バス停</div>
+      <div className="text-sm">
+        {closestStation}: 徒歩{timeToStation}
+      </div>
+    </SectionWrapper>
+  );
 };
 
 /**
