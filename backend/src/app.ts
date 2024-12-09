@@ -9,9 +9,19 @@ import { setUpCronJobs } from "./cron/cron";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import apicache from "apicache";
+import { TRUSTED_PROXIES } from "./env";
 
 export const app = express();
 const cache = apicache.options({ debug: true }).middleware;
+app.set("trust proxy", TRUSTED_PROXIES);
+
+// テスト用
+// console.log(TRUSTED_PROXIES, "");
+// app.use((req, res, next) => {
+//   console.log("X-Forwarded-For:", req.headers["x-forwarded-for"]);
+//   console.log("Request IP:", req.ip);
+//   next();
+// });
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

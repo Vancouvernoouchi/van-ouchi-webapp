@@ -10,3 +10,6 @@ export const NOTION_PAGE_ID = process.env.NOTION_PAGE_ID;
 export const NOTION_DATABASE_ID = process.env.NOTION_DATABASE_ID;
 export const API_PUBLIC_BASEURL = process.env.API_PUBLIC_BASEURL || "";
 export const PORT = process.env.PORT || 3000;
+export const TRUSTED_PROXIES = process.env.TRUSTED_PROXIES
+  ? process.env.TRUSTED_PROXIES.split(",")
+  : ["::1", "127.0.0.1"]; // デフォルトはローカルホストを設定
