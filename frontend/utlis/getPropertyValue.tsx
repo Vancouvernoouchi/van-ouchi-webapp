@@ -255,7 +255,7 @@ export const formatDateToJapanese = (dateString: string): string => {
  * 入居可能日を取得する
  *
  * @param moveInDate {string} - 例：　２０２５−０１−０１
- * @param moveInDate {string} - 例：　２０２５−０１−０１
+ * @param moveOutDate {string} - 例：　２０２５−０１−０１
  * @param status
  *
  * @return {string} - statusに応じた入居可能日の表示
