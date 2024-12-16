@@ -34,18 +34,24 @@ import {
   SectionWrapper,
   StaffComment,
 } from "./SectionContents";
-import { getStatusColor } from "@/utlis/getColor";
 import Image from "next/image";
 import OuchiLogo from "@/public/vancouver_no_ouchi_logo2.png";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { getMoveInDateByStatus } from "@/utlis/getPropertyValue";
 
 /**
  * 物件詳細ページのコンポーネント
  * @param property　 {FormattedPropertyData}
  */
 const PropertyPage = ({ property }: { property: FormattedPropertyData }) => {
+  const moveInDate = getMoveInDateByStatus(
+    property.moveInDate,
+    property.moveOutDate,
+    property.status
+  );
+
   const targetGender = () => {
     if (property.forFemale) {
       return "女性";
@@ -143,7 +149,7 @@ const PropertyPage = ({ property }: { property: FormattedPropertyData }) => {
           area={property.area}
           closestStation={property.closestStation}
           zone={property.zone}
-          moveInDate={property.moveInDate}
+          moveInDate={moveInDate}
         />
       ),
     },
@@ -180,8 +186,6 @@ const PropertyPage = ({ property }: { property: FormattedPropertyData }) => {
     //   body: <AvailableProperties />,
     // },
   ];
-
-  const { statusBgColor, statusTextColor } = getStatusColor(property.status);
 
   const router = useRouter();
 
@@ -222,33 +226,35 @@ const PropertyPage = ({ property }: { property: FormattedPropertyData }) => {
             <BreadcrumbSeparator />
             <BreadcrumbItem>
               <BreadcrumbPage className="text-gray-500">
-                {property.title}
+                {property.roomName}
               </BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
       </div>
 
-      <div className="px-base flex flex-col sm:flex-row sm:justify-between items-center gap-3 py-3 sm:py-5">
+      <div className="px-base flex flex-col sm:flex-row sm:justify-between items-center gap-3 py-3 sm:py-6">
         {/* ---　　タイトルエリア --- */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
-          <div
-            className={`px-5 py-2 text-sm rounded-full bg-${statusBgColor} text-${statusTextColor}`}
-          >
+        <div className="flex flex-col items-start gap-2 w-full sm:w-[50%] lg:w-[60%]">
+          {/* 空き状況ステータス */}
+          <div className="py-1.5 px-4 bg-white rounded-full z-50 top-3 left-3 shadow-lg opacity-85 text-xs sm:text-sm border border-themeColor text-themeColor">
             {property.status}
           </div>
-          <h1 className="text-2xl font-semibold">{property.title}</h1>
+
+          <h1 className="text-base sm:text-base lg:text-2xl font-semibold">
+            {property.title}
+          </h1>
         </div>
 
         {/* ---　　右上エリア：　家賃と入居日 --- */}
         <div className="flex gap-7 tracking-widest font-semibold">
           <div className="flex flex-col items-center">
             <div className="text-gray-400 text-sm">MONTHLY RENT</div>
-            <div>${property.rent}</div>
+            <div className="text-sm sm:text-base">${property.rent}</div>
           </div>
           <div className="flex flex-col items-center">
             <div className="text-gray-400 text-sm">MOVE IN</div>
-            <div>{property.moveInDate}</div>
+            <div className="text-sm sm:text-base">{moveInDate}</div>
           </div>
         </div>
       </div>
