@@ -162,7 +162,8 @@ export type FormattedPropertyData = {
   minimumStay: string;
   bathroomShareCount: string;
   rent: number;
-  status: string;
+  // TODO: ステータスの種類が固まったら型を確定
+  status: string; // "即入居可能" | "入居者募集中" | "入居中" | "成約済み" | "休止中";
   forCouple: boolean;
   deposit: number;
   inquiryForm: string;
@@ -186,6 +187,7 @@ export type FormattedPropertyData = {
   zone: string;
   houseShareCount: string;
   title: string;
+  roomName: string;
 };
 
 // Notionページ全体の型定義

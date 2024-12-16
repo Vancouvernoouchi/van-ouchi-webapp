@@ -177,6 +177,110 @@ export const formatPropertyData = (
     thumbnail: data.properties["サムネイル"]?.files?.[0]?.file?.url || null,
     zone: data.properties["ゾーン"]?.select?.name || null,
     houseShareCount: data.properties["物件のシェア人数"]?.select?.name || null,
-    title: data.properties["タイトル"]?.title?.[0]?.text?.content || null,
+    title:
+      data.properties["メインタイトル"]?.rich_text?.[0]?.text?.content || null,
+    roomName: data.properties["タイトル"]?.title?.[0]?.text?.content || null,
   };
+};
+/**
+ * ステータスに応じた色を返す関数
+ * カードと詳細ページで使用予定
+ *
+ * @param status {string}
+ * @return { { statusBgColor: string, statusTextColor: string } }
+ */
+export const getStatusColor = (
+  status: string
+): { statusBgColor: string; statusTextColor: string } => {
+  let statusBgColor = "white";
+  let statusTextColor = "black";
+
+  if (status === "入居中" || status === "成約済み" || status === "休止中") {
+    statusBgColor = "slate-200";
+    statusTextColor = "black";
+  } else if (status === "即入居可能") {
+    statusBgColor = "red-500";
+    statusTextColor = "white";
+  } else if (status === "入居者募集中") {
+    statusBgColor = "yellow-500";
+    statusTextColor = "white";
+  }
+
+  return { statusBgColor, statusTextColor };
+};
+
+/**
+ * 日付が今日または過去であるかを判定
+ *
+ * @param dateString {string} - 判定する日付（例: "2025-01-01"）
+ * @returns {boolean} - 今日または過去なら true、それ以外なら false
+ */
+export const isTodayOrPast = (dateString: string): boolean => {
+  const targetDate = new Date(dateString);
+
+  // 今日の日付を取得し、時刻を 0:00:00 にリセット
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  // 今日または過去の日付であれば true を返す
+  return targetDate <= today;
+};
+
+/**
+ * 現在募集中かどうか判定
+ *
+ * @param status {string}
+ * @returns {boolean} - 入居者募集中or即日入居可能の場合true
+ */
+export const isAvailable = (status: string): boolean => {
+  return status === "入居者募集中" || status === "即入居可能";
+};
+
+/**
+ * 日付を2025-01-01から2025年1月1日に変換する
+ *
+ * @param dateString {string} - 例：　２０２５−０１−０１
+ * @return {string} - 例：　2025年1月1日
+ */
+export const formatDateToJapanese = (dateString: string): string => {
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+
+  return `${year}年${month}月${day}日`;
+};
+
+/**
+ * 入居可能日を取得する
+ *
+ * @param moveInDate {string} - 例：　２０２５−０１−０１
+ * @param moveInDate {string} - 例：　２０２５−０１−０１
+ * @param status
+ *
+ * @return {string} - statusに応じた入居可能日の表示
+ */
+export const getMoveInDateByStatus = (
+  moveInDate: string,
+  moveOutDate: string,
+  status: string
+): string => {
+  // すでに入居者がいる場合、退去予定日を返す
+  if (status === "入居中" || status === "成約済み") {
+    return moveOutDate
+      ? `${formatDateToJapanese(moveOutDate)}退去予定`
+      : "退去日未定";
+
+    // ステータスが即入居可能 or 入居可能日が今日より過去の場合、「即入居可能」を返す
+  } else if (status === "即入居可能" || isTodayOrPast(moveInDate)) {
+    return "即入居可能";
+
+    // 入居者募集中の場合、入居可能日を返す
+  } else if (status === "入居者募集中") {
+    return `${formatDateToJapanese(moveInDate)}から入居可能`;
+
+    // 例外。「確認中」を返す
+  } else {
+    return "入居日程確認中";
+  }
 };

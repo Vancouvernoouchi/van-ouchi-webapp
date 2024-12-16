@@ -1,54 +1,34 @@
-import Tag from "@/components/atoms/propertiesList/RentTag";
-import { cn } from "@/lib/utils";
-import {
-  BadgeCheck,
-  CalendarIcon,
-  HouseIcon,
-  MapIcon,
-  TrainIcon,
-} from "lucide-react";
+import { FormattedPropertyData } from "@/types/notionTypes";
+import { getMoveInDateByStatus, isAvailable } from "@/utlis/getPropertyValue";
 import Image from "next/image";
 import Link from "next/link";
-import React, { FC } from "react";
+import React from "react";
 
-type PropertyCardProps = {
-  id: string | null;
-  title: string | null;
-  status: string | null;
-  startDate: string | JSX.Element | null;
-  rent: number | string;
-  imgUrl: string | null;
-  area: string | null;
-  zone: string | null;
-};
+/**
+ * 物件一覧ページのカード
+ * ＠params peoperty {FormattedPropertyData}
+ *
+ */
+const PropertyCard = ({ property }: { property: FormattedPropertyData }) => {
+  const moveIndate = getMoveInDateByStatus(
+    property.moveInDate,
+    property.moveOutDate,
+    property.status
+  );
+  const isPropertyAvailable = isAvailable(property.status);
 
-const PropertyCard: FC<PropertyCardProps> = ({
-  id,
-  title,
-  status,
-  startDate,
-  rent,
-  imgUrl,
-  area,
-  zone,
-}) => {
   return (
-    <Link
-      href={`/properties/property/${id}`}
-      className="relative shadow-md border border-gray-200 rounded-lg sm:hover:scale-105"
-    >
-      {/* image */}
-      <div className="relative z-0 min-w-full h-64 sm:h-48 xl:h-56 bg-slate-300 rounded-lg">
-        {imgUrl ? (
+    <Link href={`/properties/property/${property.id}`} className="relative">
+      {/* 画像 */}
+      <div className="relative z-0 w-full rounded-lg aspect-[9/8]">
+        {property.thumbnail ? (
           <Image
-            src={imgUrl}
-            alt={title ?? "物件画像"}
+            src={property.thumbnail}
+            alt={property.title ?? "物件画像"}
             fill
             style={{ objectFit: "cover" }}
-            className="rounded-t-lg"
+            className="rounded-lg"
             loading="lazy"
-            sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
-            unoptimized={true}
           />
         ) : (
           <div className="flex items-center justify-center h-full text-gray-500 rounded-lg">
@@ -56,39 +36,26 @@ const PropertyCard: FC<PropertyCardProps> = ({
           </div>
         )}
       </div>
-      <Tag rent={rent} />
-      {/* detail */}
-      <div className="flex flex-col gap-1 w-full p-2 pb-5">
-        <div className="flex items-center">
-          <HouseIcon className="iconLabelItem" />
-          <span className="text-balance flex-1">{title}</span>
+
+      {/* 募集中の物件のみ「入居者募集中」のタグ */}
+      {isPropertyAvailable && (
+        <div className="absolute py-1.5 px-4 bg-white rounded-full z-50 top-3 left-3 shadow-md text-xs sm:text-sm opacity-85">
+          入居者募集中
         </div>
-        <div className="flex items-center">
-          <BadgeCheck className="iconLabelItem" />
-          <span
-            className={cn(
-              "text-white bg-slate-400  rounded-lg px-2 font-semibold",
-              status === "即入居可能" && "bg-red-400",
-              status === "入居者募集中" && "bg-orange-400",
-              status === "入居中" && "bg-yellow-400",
-              status === "成約済み" && "bg-slate-400",
-              status === "休止中" && "bg-slate-400"
-            )}
-          >
-            {status}
-          </span>
+      )}
+      <div className="flex flex-col w-full gap-1 pt-2 pb-6">
+        <div className="text-sm sm:text-base">
+          {property.title ? property.title : property.roomName}
         </div>
-        <div className="flex items-center">
-          <CalendarIcon className="iconLabelItem text-balance " />
-          <span>{startDate}</span>
+        <div className="text-xs sm:text-sm text-gray-500">{moveIndate}</div>
+        <div className="text-xs sm:text-sm text-gray-500">
+          【{property.zone}】 {property.area}エリア
         </div>
-        <div className="flex items-center">
-          <MapIcon className="iconLabelItem text-balance" />
-          <span>{area}</span>
+        <div className="text-xs sm:text-sm text-gray-500">
+          {property.closestStation}駅まで徒歩{property.timeToStation}
         </div>
-        <div className="flex items-center">
-          <TrainIcon className="iconLabelItem text-balance" />
-          <span>{zone}</span>
+        <div className="font-semibold text-base tracking-wider">
+          ${property.rent} <span className="text-xs">/MONTH</span>
         </div>
       </div>
     </Link>

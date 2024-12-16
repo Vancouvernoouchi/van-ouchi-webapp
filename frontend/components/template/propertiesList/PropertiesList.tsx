@@ -1,13 +1,13 @@
 import { FilterDialog } from "@/components/organisms/propertiesList/FilterDialog";
 import PropertyCards from "@/components/organisms/propertiesList/PropertyCards";
-import { NotionPage } from "@/types/notionTypes";
+import { NotionProperty } from "@/types/notionTypes";
 import SortSelect from "@/components/organisms/propertiesList/SortSelect";
 import { FC } from "react";
 import PaginationList from "@/components/organisms/propertiesList/PaginationList";
 import SearchBar from "@/components/molecules/propertiesList/SearchBar";
 
 interface PropertiesPageProps {
-  paginatedProperties: NotionPage[];
+  paginatedProperties: NotionProperty[];
   filteredPropertiesNumber: number;
   currentPage: number;
   totalPage: number;
@@ -26,6 +26,7 @@ const PropertiesList: FC<PropertiesPageProps> = ({
     currentPage * itemsPerPage,
     filteredPropertiesNumber
   );
+
   return (
     <>
       <div className="flex flex-col sm:flex-row justify-between items-center my-2 gap-2">
@@ -46,10 +47,12 @@ const PropertiesList: FC<PropertiesPageProps> = ({
             条件に一致する物件が見つかりませんでした。
           </div>
         ) : (
-          <div className="flex flex-col gap-8 mb-2">
+          <>
             <PropertyCards paginatedProperties={paginatedProperties} />
-            <PaginationList currentPage={currentPage} totalPage={totalPage} />
-          </div>
+            <div className="py-5">
+              <PaginationList currentPage={currentPage} totalPage={totalPage} />
+            </div>
+          </>
         )}
       </>
     </>
