@@ -68,7 +68,12 @@ const PaginationList: FC<PaginationListType> = ({ currentPage, totalPage }) => {
 
         {/* current page */}
         <PaginationItem>
-          <PaginationLink isActive>{currentPage}</PaginationLink>
+          <PaginationLink
+            className="bg-grayThemeColor text-themeColor border border-themeColor"
+            isActive
+          >
+            {currentPage}
+          </PaginationLink>
         </PaginationItem>
 
         {/* next page number */}

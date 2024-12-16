@@ -1,3 +1,5 @@
+import { MESSAGES } from "@/app/constants/messages";
+import ErrorState from "@/components/atoms/common/ErrorState";
 import PropertiesList from "@/components/template/propertiesList/PropertiesList"; // 修正ポイント
 import {
   fetchAndFilterProperties,
@@ -16,6 +18,7 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
       totalPage,
       itemsPerPage,
     } = await fetchAndFilterProperties(searchParams);
+
     return (
       <PropertiesList
         filteredPropertiesNumber={filteredPropertiesNumber}
@@ -25,13 +28,8 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
         itemsPerPage={itemsPerPage}
       />
     );
-  } catch (error) {
-    console.error("Failed to fetch properties:", error);
-    return (
-      <div className="h-[88vh] p-2 flex flex-col justify-center items-center text-center text-red-500 text-xl">
-        データの取得中にエラーが発生しました。もう一度お試しください。
-      </div>
-    );
+  } catch (error: any) {
+    return <ErrorState errorMessage={MESSAGES.ERROR} />;
   }
 };
 
