@@ -148,13 +148,13 @@ export type PropertyData = {
   タイトル: TitleProperty;
 };
 
-export type NotionProperty = {
+export interface NotionProperty {
   object: string;
   id: string;
   properties: Record<string, any>;
-};
+}
 
-export type FormattedPropertyData = {
+export interface PropertyDetailData {
   id: string;
   moveInDate: string;
   image: string;
@@ -188,18 +188,33 @@ export type FormattedPropertyData = {
   houseShareCount: string;
   title: string;
   roomName: string;
-};
+}
+
+export interface PropertyCardData {
+  id: string;
+  moveInDate: string;
+  image: string;
+  rent: number;
+  status: string;
+  closestStation: string;
+  area: string;
+  moveOutDate: string;
+  timeToStation: string;
+  thumbnail: string;
+  zone: string;
+  title: string;
+}
 
 // Notionページ全体の型定義
-export type NotionPage = {
+export interface NotionPage {
   object: "page";
   id: string;
   created_time: string;
   properties: PropertyData;
-};
+}
 
-export type AmenitiesProps = {
+export interface AmenitiesProps {
   icon: LucideIcon;
   value: boolean;
   message: string;
-};
+}

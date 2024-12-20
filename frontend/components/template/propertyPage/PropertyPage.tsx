@@ -1,7 +1,7 @@
 "use client";
 import PropertyImage from "@/components/atoms/propertyPage/PropertyImage";
 import React, { ReactNode, useEffect, useState } from "react";
-import { AmenitiesProps, FormattedPropertyData } from "@/types/notionTypes";
+import { AmenitiesProps, PropertyDetailData } from "@/types/notionTypes";
 import {
   ArrowRight,
   Check,
@@ -43,9 +43,9 @@ import { getMoveInDateByStatus } from "@/utlis/getPropertyValue";
 
 /**
  * 物件詳細ページのコンポーネント
- * @param property　 {FormattedPropertyData}
+ * @param property　 {PropertyDetailData}
  */
-const PropertyPage = ({ property }: { property: FormattedPropertyData }) => {
+const PropertyPage = ({ property }: { property: PropertyDetailData }) => {
   const moveInDate = getMoveInDateByStatus(
     property.moveInDate,
     property.moveOutDate,

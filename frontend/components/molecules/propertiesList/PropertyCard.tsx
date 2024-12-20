@@ -1,4 +1,4 @@
-import { FormattedPropertyData } from "@/types/notionTypes";
+import { PropertyCardData } from "@/types/notionTypes";
 import { getMoveInDateByStatus, isAvailable } from "@/utlis/getPropertyValue";
 import Image from "next/image";
 import Link from "next/link";
@@ -6,10 +6,10 @@ import React from "react";
 
 /**
  * 物件一覧ページのカード
- * ＠params peoperty {FormattedPropertyData}
+ * ＠params peoperty {PropertyCardData}
  *
  */
-const PropertyCard = ({ property }: { property: FormattedPropertyData }) => {
+const PropertyCard = ({ property }: { property: PropertyCardData }) => {
   const moveIndate = getMoveInDateByStatus(
     property.moveInDate,
     property.moveOutDate,
@@ -44,9 +44,7 @@ const PropertyCard = ({ property }: { property: FormattedPropertyData }) => {
         </div>
       )}
       <div className="flex flex-col w-full gap-1 pt-2 pb-6">
-        <div className="text-sm sm:text-base">
-          {property.title ? property.title : property.roomName}
-        </div>
+        <div className="text-sm sm:text-base">{property.title}</div>
         <div className="text-xs sm:text-sm text-gray-500">{moveIndate}</div>
         <div className="text-xs sm:text-sm text-gray-500">
           【{property.zone}】 {property.area}エリア

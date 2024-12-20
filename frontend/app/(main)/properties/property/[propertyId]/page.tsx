@@ -1,6 +1,6 @@
 import PropertyPage from "@/components/template/propertyPage/PropertyPage";
-import { FormattedPropertyData, NotionProperty } from "@/types/notionTypes";
-import { formatPropertyData } from "@/utlis/getPropertyValue";
+import { NotionProperty, PropertyDetailData } from "@/types/notionTypes";
+import { formatPropertyDetailData } from "@/utlis/getPropertyValue";
 import { AxiosResponse } from "axios";
 import { apiClient } from "@/config/apiClient";
 import { getPropertyValue } from "@/utlis/getPropertyValue";
@@ -59,7 +59,8 @@ const PropertyDetailPage = async ({
     );
 
     const data: NotionProperty = response.data;
-    const propertyData: FormattedPropertyData | null = formatPropertyData(data);
+    const propertyData: PropertyDetailData | null =
+      formatPropertyDetailData(data);
 
     if (propertyData !== null) {
       return (
