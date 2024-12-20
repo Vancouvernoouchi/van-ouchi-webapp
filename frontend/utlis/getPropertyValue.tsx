@@ -1,8 +1,10 @@
+import { MESSAGES } from "@/app/constants/messages";
 import { formatDateToYMD } from "@/components/organisms/propertiesList/FilterDialog";
 import {
   DateProperty,
-  FormattedPropertyData,
   NotionProperty,
+  PropertyCardData,
+  PropertyDetailData,
 } from "@/types/notionTypes";
 import { BadgeCheck, Ban, Circle, X } from "lucide-react";
 export const getPropertyValue = (
@@ -126,18 +128,16 @@ export const matchParams = (
 };
 
 /**
- * fechした物件データをkeyとvalueに整理する関数
- * カードと詳細ページで使用予定
+ * fechした物件データをkeyとvalueに整理する関数（詳細ページ用）
  *
  * @param data {NotionProperty}
- * @return {FormattedPropertyData}
+ * @return {PropertyDetailData}
  */
-export const formatPropertyData = (
+export const formatPropertyDetailData = (
   data: NotionProperty
-): FormattedPropertyData | null => {
+): PropertyDetailData | null => {
   // propertiesが存在しない場合はnullを返す
   if (!data || !data.properties) {
-    console.error("propertiesデータが存在しません");
     return null;
   }
 
@@ -182,6 +182,39 @@ export const formatPropertyData = (
     roomName: data.properties["タイトル"]?.title?.[0]?.text?.content || null,
   };
 };
+
+/**
+ * fechした物件データをkeyとvalueに整理する関数（カード用）
+ *
+ * @param data {NotionProperty}
+ * @return {PropertyCardData}
+ */
+export const formatPropertyCardData = (
+  data: NotionProperty
+): PropertyCardData | null => {
+  // propertiesが存在しない場合はnullを返す
+  if (!data || !data.properties) {
+    return null;
+  }
+
+  return {
+    id: data.id,
+    moveInDate: data.properties["入居可能日"]?.date?.start || null,
+    image: data.properties["物件写真"]?.url || null,
+    rent: data.properties["家賃"]?.number || 0,
+    status: data.properties["ステータス"]?.status?.name || null,
+    closestStation: data.properties["最寄り駅"]?.select?.name || null,
+    area: data.properties["エリア"]?.select?.name || null,
+    moveOutDate: data.properties["退去予定日"]?.date?.start || null,
+    timeToStation: data.properties["最寄り駅まで"]?.select?.name || null,
+    thumbnail: data.properties["サムネイル"]?.files?.[0]?.file?.url || null,
+    zone: data.properties["ゾーン"]?.select?.name || null,
+    title:
+      data.properties["メインタイトル"]?.rich_text?.[0]?.text?.content || null,
+    roomName: data.properties["タイトル"]?.title?.[0]?.text?.content || null,
+  };
+};
+
 /**
  * ステータスに応じた色を返す関数
  * カードと詳細ページで使用予定

@@ -1,4 +1,4 @@
-import { FormattedPropertyData } from "@/types/notionTypes";
+import { PropertyCardData } from "@/types/notionTypes";
 import { getMoveInDateByStatus, isAvailable } from "@/utlis/getPropertyValue";
 import Image from "next/image";
 import Link from "next/link";
@@ -6,10 +6,10 @@ import React from "react";
 
 /**
  * 物件一覧ページのカード
- * ＠params peoperty {FormattedPropertyData}
+ * ＠params peoperty {PropertyCardData}
  *
  */
-const PropertyCard = ({ property }: { property: FormattedPropertyData }) => {
+const PropertyCard = ({ property }: { property: PropertyCardData }) => {
   const moveIndate = getMoveInDateByStatus(
     property.moveInDate,
     property.moveOutDate,
