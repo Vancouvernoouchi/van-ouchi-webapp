@@ -148,13 +148,13 @@ export type PropertyData = {
   タイトル: TitleProperty;
 };
 
-export type NotionProperty = {
+export interface NotionProperty {
   object: string;
   id: string;
   properties: Record<string, any>;
-};
+}
 
-export type FormattedPropertyData = {
+export interface PropertyDetailData {
   id: string;
   moveInDate: string;
   image: string;
@@ -162,7 +162,8 @@ export type FormattedPropertyData = {
   minimumStay: string;
   bathroomShareCount: string;
   rent: number;
-  status: string;
+  // TODO: ステータスの種類が固まったら型を確定
+  status: string; // "即入居可能" | "入居者募集中" | "入居中" | "成約済み" | "休止中";
   forCouple: boolean;
   deposit: number;
   inquiryForm: string;
@@ -186,18 +187,35 @@ export type FormattedPropertyData = {
   zone: string;
   houseShareCount: string;
   title: string;
-};
+  roomName: string;
+}
+
+export interface PropertyCardData {
+  id: string;
+  moveInDate: string;
+  image: string;
+  rent: number;
+  status: string;
+  closestStation: string;
+  area: string;
+  moveOutDate: string;
+  timeToStation: string;
+  thumbnail: string;
+  zone: string;
+  title: string;
+  roomName: string;
+}
 
 // Notionページ全体の型定義
-export type NotionPage = {
+export interface NotionPage {
   object: "page";
   id: string;
   created_time: string;
   properties: PropertyData;
-};
+}
 
-export type AmenitiesProps = {
+export interface AmenitiesProps {
   icon: LucideIcon;
   value: boolean;
   message: string;
-};
+}
