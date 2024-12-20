@@ -203,6 +203,7 @@ export interface PropertyCardData {
   thumbnail: string;
   zone: string;
   title: string;
+  roomName: string;
 }
 
 // Notionページ全体の型定義

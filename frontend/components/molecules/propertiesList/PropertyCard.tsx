@@ -44,7 +44,9 @@ const PropertyCard = ({ property }: { property: PropertyCardData }) => {
         </div>
       )}
       <div className="flex flex-col w-full gap-1 pt-2 pb-6">
-        <div className="text-sm sm:text-base">{property.title}</div>
+        <div className="text-sm sm:text-base">
+          {property.title ? property.title : property.roomName}
+        </div>
         <div className="text-xs sm:text-sm text-gray-500">{moveIndate}</div>
         <div className="text-xs sm:text-sm text-gray-500">
           【{property.zone}】 {property.area}エリア

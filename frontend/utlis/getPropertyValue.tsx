@@ -211,6 +211,7 @@ export const formatPropertyCardData = (
     zone: data.properties["ゾーン"]?.select?.name || null,
     title:
       data.properties["メインタイトル"]?.rich_text?.[0]?.text?.content || null,
+    roomName: data.properties["タイトル"]?.title?.[0]?.text?.content || null,
   };
 };
 
