@@ -46,11 +46,15 @@ import { getMoveInDateByStatus } from "@/utlis/getPropertyValue";
  * @param property　 {PropertyDetailData}
  */
 const PropertyPage = ({ property }: { property: PropertyDetailData }) => {
-  const moveInDate = getMoveInDateByStatus(
+  const moveInDateByStatus = getMoveInDateByStatus(
     property.moveInDate,
     property.moveOutDate,
     property.status
   );
+
+  const moveInDate = moveInDateByStatus
+    .replace("から入居可能", "")
+    .replace("退去予定", "");
 
   const targetGender = () => {
     if (property.forFemale) {
@@ -254,7 +258,9 @@ const PropertyPage = ({ property }: { property: PropertyDetailData }) => {
           </div>
           <div className="flex flex-col items-center">
             <div className="text-gray-400 text-sm">MOVE IN</div>
-            <div className="text-sm sm:text-base">{moveInDate}</div>
+            <div className="text-sm sm:text-base">
+              {moveInDate.replace("から入居可能", "").replace("退去予定", "")}
+            </div>
           </div>
         </div>
       </div>
@@ -320,7 +326,7 @@ const SectionTitle = ({ title }: { title: string }) => {
 const ContactPopUpPC = () => {
   return (
     <Link
-      className="fixed sm:bottom-10 sm:right-10 h-32 w-32 rounded-full bg-red-600 text-white flex flex-col items-center justify-center gap-1 tracking-widest hover:scale-105"
+      className="fixed sm:bottom-10 sm:right-10 h-32 w-32 rounded-full bg-red-600 text-white flex flex-col items-center justify-center gap-1 tracking-widest hover:scale-105 z-50"
       href="https://www.instagram.com/vancouver.no.ouchi/"
       target="_blank"
     >
@@ -338,7 +344,7 @@ const ContactPopUpPC = () => {
 const ContactPopUpSP = () => {
   return (
     <Link
-      className="fixed bottom-0 right-0 bg-red-600 text-white flex items-center gap-1 tracking-widest p-3 rounded-tl-lg"
+      className="fixed bottom-0 right-0 bg-red-600 text-white flex items-center gap-1 tracking-widest p-3 rounded-tl-lg z-50"
       href="https://www.instagram.com/vancouver.no.ouchi/"
       target="_blank"
     >

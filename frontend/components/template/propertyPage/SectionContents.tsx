@@ -4,10 +4,11 @@ import PropertyConditionCard from "@/components/atoms/propertyPage/PropertyCondi
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { AmenitiesProps } from "@/types/notionTypes";
 import {
-  BadgeDollarSign,
-  Calendar,
-  DollarSign,
-  MapPin,
+  CalendarCheck,
+  CircleDollarSign,
+  HandCoins,
+  LandPlot,
+  Map,
   TrainFront,
 } from "lucide-react";
 import { ReactNode, useEffect, useState } from "react";
@@ -60,24 +61,24 @@ export const BasicInfo = ({
   return (
     <SectionWrapper className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
       <PropertyConditionCard
-        icon={DollarSign}
+        icon={CircleDollarSign}
         label="家賃"
         value={`$${rent}`}
       />
       <PropertyConditionCard
-        icon={BadgeDollarSign}
+        icon={HandCoins}
         label="デポジット"
         value={`$${deposit}`}
       />
       <PropertyConditionCard
-        icon={Calendar}
+        icon={CalendarCheck}
         label="入居可能日"
         value={moveInDate}
       />
-      <PropertyConditionCard icon={Calendar} label="エリア" value={area} />
-      <PropertyConditionCard icon={TrainFront} label="ゾーン" value={zone} />
+      <PropertyConditionCard icon={Map} label="エリア" value={area} />
+      <PropertyConditionCard icon={LandPlot} label="ゾーン" value={zone} />
       <PropertyConditionCard
-        icon={MapPin}
+        icon={TrainFront}
         label="最寄駅"
         value={closestStation}
       />
