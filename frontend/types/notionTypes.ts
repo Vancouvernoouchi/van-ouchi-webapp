@@ -162,8 +162,7 @@ export interface PropertyDetailData {
   minimumStay: string;
   bathroomShareCount: string;
   rent: number;
-  // TODO: ステータスの種類が固まったら型を確定
-  status: string; // "即入居可能" | "入居者募集中" | "入居中" | "成約済み" | "休止中";
+  status: "即入居可能" | "入居者募集中" | "入居中" | "成約済み" | "休止中";
   forCouple: boolean;
   deposit: number;
   inquiryForm: string;
