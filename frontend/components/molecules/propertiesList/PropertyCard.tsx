@@ -28,6 +28,7 @@ const PropertyCard = ({ property }: { property: PropertyCardData }) => {
             style={{ objectFit: "cover" }}
             className="rounded-lg"
             loading="lazy"
+            unoptimized={true}
           />
         ) : (
           <div className="flex items-center justify-center h-full text-gray-500 rounded-lg">
