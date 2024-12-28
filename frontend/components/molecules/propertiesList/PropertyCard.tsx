@@ -15,7 +15,6 @@ const PropertyCard = ({ property }: { property: PropertyCardData }) => {
     property.moveOutDate,
     property.status
   );
-  const isPropertyAvailable = isAvailable(property.status);
 
   return (
     <Link href={`/properties/property/${property.id}`} className="relative">
@@ -37,10 +36,17 @@ const PropertyCard = ({ property }: { property: PropertyCardData }) => {
         )}
       </div>
 
-      {/* 募集中の物件のみ「入居者募集中」のタグ */}
-      {isPropertyAvailable && (
-        <div className="absolute py-1.5 px-4 bg-white rounded-full z-50 top-3 left-3 shadow-md text-xs sm:text-sm opacity-85">
-          入居者募集中
+      {/* 募集中の物件のみ「入居者募集中」 or 「即入居可能」のタグ */}
+      {(property.status === "入居者募集中" ||
+        property.status === "即入居可能") && (
+        <div
+          className={`absolute py-1.5 px-4 rounded-full z-50 top-3 left-3 shadow-md text-xs sm:text-sm opacity-85 ${
+            property.status === "入居者募集中"
+              ? "bg-white"
+              : "bg-themeColor text-white"
+          }`}
+        >
+          {property.status}
         </div>
       )}
       <div className="flex flex-col w-full gap-1 pt-2 pb-6">

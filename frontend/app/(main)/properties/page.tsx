@@ -1,4 +1,4 @@
-import { MESSAGES } from "@/app/constants/messages";
+import { MESSAGES } from "@/app/_constants/messages";
 import ErrorState from "@/components/atoms/common/ErrorState";
 import PropertiesList from "@/components/template/propertiesList/PropertiesList"; // 修正ポイント
 import {
