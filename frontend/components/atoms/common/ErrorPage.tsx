@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 
-const ErrorState = ({
+const ErrorPage = ({
   responseCode,
   errorMessage,
 }: {
@@ -37,4 +37,4 @@ const ErrorState = ({
   );
 };
 
-export default ErrorState;
+export default ErrorPage;

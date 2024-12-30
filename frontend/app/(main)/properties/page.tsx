@@ -1,5 +1,5 @@
 import { MESSAGES } from "@/app/_constants/messages";
-import ErrorState from "@/components/atoms/common/ErrorState";
+import ErrorPage from "@/components/atoms/common/ErrorPage";
 import PropertiesList from "@/components/template/propertiesList/PropertiesList"; // 修正ポイント
 import {
   fetchAndFilterProperties,
@@ -29,7 +29,7 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
       />
     );
   } catch (error: any) {
-    return <ErrorState errorMessage={MESSAGES.ERROR} />;
+    return <ErrorPage errorMessage={MESSAGES.ERROR} />;
   }
 };
 
