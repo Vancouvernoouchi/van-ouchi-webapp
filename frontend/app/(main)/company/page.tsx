@@ -1,7 +1,7 @@
 import DevelopingPage from "@/components/atoms/common/DevelopingPage";
 import React from "react";
 
-const Home = () => {
+const CompanyPage = () => {
   return (
     <main>
       <DevelopingPage />
@@ -9,4 +9,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default CompanyPage;
