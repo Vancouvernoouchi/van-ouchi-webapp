@@ -1,33 +1,56 @@
-import { Pencil1Icon } from "@radix-ui/react-icons";
-import { HouseIcon, MailIcon, X } from "lucide-react";
+import { LINKS } from "@/app/_constants/links";
+import { JP, CA, CN, FlagComponent } from "country-flag-icons/react/3x2";
 
-type HeaderOptionsProps = {
-  id: number;
-  category: "サービス案内" | "お問い合わせ" | "その他";
+interface HeaderOptionsProps {
   name: string;
   href: string;
-  icon: React.ComponentType<{ className?: string }>;
-};
+}
+
 export const headerOptions: HeaderOptionsProps[] = [
   {
-    id: 1,
-    category: "サービス案内",
-    name: "部屋探し",
+    name: "ホーム",
+    href: "/",
+  },
+  {
+    name: "シェアハウスを探す",
     href: "/properties",
-    icon: HouseIcon,
   },
   {
-    id: 2,
-    category: "サービス案内",
-    name: "ブログ",
-    href: "/blog",
-    icon: Pencil1Icon,
+    name: "生活ガイド",
+    href: LINKS.GUIDE,
   },
   {
-    id: 3,
-    category: "お問い合わせ",
-    name: "コンタクト",
-    href: "/contact",
-    icon: MailIcon,
+    name: "英語レッスン",
+    href: LINKS.THREADS,
   },
+  {
+    name: "会社情報",
+    href: "/company",
+  },
+  {
+    name: "お問い合わせ",
+    href: LINKS.INSTAGRAM,
+  },
+  {
+    name: "家を探されている方",
+    href: "/tenant",
+  },
+  {
+    name: "物件掲載希望の方",
+    href: "/landlord",
+  },
+];
+
+export type Language = "jp" | "en" | "cn";
+
+interface LanguageOption {
+  code: Language;
+  name: string;
+  Flag: FlagComponent;
+}
+
+export const LanguageOptions: LanguageOption[] = [
+  { code: "jp", name: "日本語", Flag: JP },
+  { code: "en", name: "English", Flag: CA },
+  { code: "cn", name: "中文", Flag: CN },
 ];
