@@ -35,7 +35,6 @@ import {
   StaffComment,
 } from "./SectionContents";
 import Image from "next/image";
-import OuchiLogo from "@/public/vancouver_no_ouchi_logo2.png";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
@@ -389,12 +388,17 @@ const ContactCard = () => {
 
   return (
     <SectionWrapper>
-      <div className="rounded-lg px-8 py-12 shadow-xl border-[1px] border-gray-300">
+      <div className="rounded-lg px-4 py-8 sm:px-8 sm:py-12 shadow-xl border-[1px] border-gray-300">
         <div className="w-full flex justify-center items-center">
           <Image
-            src={OuchiLogo}
+            src="/vancouver_no_ouchi_logo2.png"
             alt="バンクーバーのお家ロゴ"
-            className="w-32"
+            className="pr-4"
+            loading="lazy"
+            unoptimized={true}
+            width={90}
+            height={80}
+            style={{ objectFit: "cover" }}
           />
           <div className="flex flex-col items-center justify-center gap-1">
             <p className="text-sm">シェアハウス探しは</p>
@@ -402,7 +406,7 @@ const ContactCard = () => {
             <p className="text-sm">にお任せください</p>
           </div>
         </div>
-        <div className="text-sm pb-3 text-center text-themeColor font-semibold">
+        <div className="text-sm py-2 text-center text-themeColor font-semibold">
           \ お問い合わせはこちらから /
         </div>
         <div className="flex flex-col gap-4">
