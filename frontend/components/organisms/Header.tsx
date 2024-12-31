@@ -122,7 +122,13 @@ const NavMenuPC = ({
       <ul className="flex items-center gap-6">
         {headerOptions.slice(0, 5).map((header) => (
           <li key={header.href} className="text-sm">
-            <Link href={header.href} className="hover:opacity-60">
+            <Link
+              href={header.href}
+              className="hover:opacity-60"
+              // 外部リンクの時、別タブで開く
+              target={header.isExternalLink ? "_blank" : undefined}
+              rel={header.isExternalLink ? "noopener noreferrer" : undefined}
+            >
               {header.name}
             </Link>
           </li>
@@ -175,9 +181,9 @@ const NavMenuMobile = ({
               >
                 メニュー
               </span>
-              {headerOptions.map((item, index) => {
+              {headerOptions.map((header, index) => {
                 // 現在のリンクがアクティブかどうか
-                const isActive = pathname === item.href;
+                const isActive = pathname === header.href;
                 // 次のリンクがアクティブかどうか
                 const isNextActive =
                   index < headerOptions.length - 1 &&
@@ -185,8 +191,8 @@ const NavMenuMobile = ({
 
                 return (
                   <Link
-                    key={item.name}
-                    href={item.href}
+                    key={header.name}
+                    href={header.href}
                     className={`h-12 flex justify-between items-center ${
                       isActive
                         ? "border-b border-t border-l-4 border-themeColor bg-grayThemeColor text-themeColor"
@@ -195,8 +201,13 @@ const NavMenuMobile = ({
                       isNextActive ? "border-b-0" : "border-b" // 次の要素がアクティブならborder-bを削除
                     }`}
                     onClick={() => setIsOpen(false)}
+                    // 外部リンクの時、別タブで開く
+                    target={header.isExternalLink ? "_blank" : undefined}
+                    rel={
+                      header.isExternalLink ? "noopener noreferrer" : undefined
+                    }
                   >
-                    <span className="pl-4 text-sm">{item.name}</span>
+                    <span className="pl-4 text-sm">{header.name}</span>
                     <ChevronRight className="pr-2" />
                   </Link>
                 );
@@ -209,29 +220,24 @@ const NavMenuMobile = ({
               <div className="pt-4 pb-10 px-4">
                 <span className="text-sm font-semibold">FOLLOW US</span>
                 <div className="flex items-center gap-4 pt-4">
-                  <Link href={LINKS.INSTAGRAM}>
+                  <Link href={LINKS.INSTAGRAM} target="_blank">
                     <Image
                       src="/instagram_logo.png"
-                      alt="インスタロゴ"
+                      alt="Instagram"
                       width={30}
                       height={30}
                     />
                   </Link>
-                  <Link href={LINKS.INSTAGRAM}>
+                  <Link href={LINKS.THREADS} target="_blank">
                     <Image
                       src="/threads_logo.png"
-                      alt="スレッズロゴ"
+                      alt="Threads"
                       width={30}
                       height={30}
                     />
                   </Link>
-                  <Link href={LINKS.INSTAGRAM}>
-                    <Image
-                      src="/x_logo.png"
-                      alt="インスタロゴ"
-                      width={30}
-                      height={30}
-                    />
+                  <Link href={LINKS.X} target="_blank">
+                    <Image src="/x_logo.png" alt="X" width={30} height={30} />
                   </Link>
                 </div>
               </div>
