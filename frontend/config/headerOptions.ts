@@ -50,7 +50,7 @@ export const headerOptions: HeaderOptionsProps[] = [
   },
 ];
 
-export type Language = "jp" | "en" | "cn";
+export type Language = "japanese" | "english" | "chinese";
 
 interface LanguageOption {
   code: Language;
@@ -59,7 +59,7 @@ interface LanguageOption {
 }
 
 export const LanguageOptions: LanguageOption[] = [
-  { code: "jp", name: "日本語", Flag: JP },
-  { code: "en", name: "English", Flag: CA },
-  { code: "cn", name: "中文", Flag: CN },
+  { code: "japanese", name: "日本語", Flag: JP },
+  { code: "english", name: "English", Flag: CA },
+  { code: "chinese", name: "中文", Flag: CN },
 ];

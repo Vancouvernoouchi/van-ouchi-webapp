@@ -31,19 +31,19 @@ import {
  * ヘッダーコンポーネント
  */
 const Header = () => {
-  const [language, setLanguage] = useState<Language>("jp");
+  const [language, setLanguage] = useState<Language>("japanese");
   const router = useRouter();
   const pathname = usePathname();
   const origin = typeof window !== "undefined" ? window.location.origin : "";
 
   useEffect(() => {
     // 現在のパス（pathname）に基づいて言語を設定
-    if (pathname.includes("/en")) {
-      setLanguage("en");
-    } else if (pathname.includes("/cn")) {
-      setLanguage("cn");
+    if (pathname.includes("/english")) {
+      setLanguage("english");
+    } else if (pathname.includes("/chinese")) {
+      setLanguage("chinese");
     } else {
-      setLanguage("jp"); // デフォルトは日本語
+      setLanguage("japanese"); // デフォルトは日本語
     }
   }, [pathname]);
 
@@ -51,19 +51,19 @@ const Header = () => {
     setLanguage(selectedLanguage);
 
     //　現在パスのまま他言語パスを削除
-    if (selectedLanguage === "jp") {
-      const newPath = pathname.replace(/^\/(en|cn)/, "");
+    if (selectedLanguage === "japanese") {
+      const newPath = pathname.replace(/^\/(english|chinese)/, "");
       router.push(`/${newPath}`);
     }
 
-    // 英語選択時、必ず/service/enに遷移
-    else if (selectedLanguage === "en") {
-      router.push(`${origin}/service/en`);
+    // 英語選択時、必ず/englishに遷移
+    else if (selectedLanguage === "english") {
+      router.push(`${origin}/english`);
     }
 
-    // 中国語選択時、必ず/service/chに遷移
-    else if (selectedLanguage === "cn") {
-      router.push(`${origin}/service/ch`);
+    // 中国語選択時、必ず/chineseに遷移
+    else if (selectedLanguage === "chinese") {
+      router.push(`${origin}/chinese`);
     }
   };
 
@@ -183,7 +183,12 @@ const NavMenuMobile = ({
               </span>
               {headerOptions.map((header, index) => {
                 // 現在のリンクがアクティブかどうか
-                const isActive = pathname === header.href;
+                const isActive =
+                  header.href === "/"
+                    ? pathname === header.href // ルートパスは厳密一致
+                    : pathname === header.href ||
+                      pathname.startsWith(`${header.href}/`);
+
                 // 次のリンクがアクティブかどうか
                 const isNextActive =
                   index < headerOptions.length - 1 &&
@@ -311,9 +316,8 @@ const LanguageSelectMobile = ({
         <AccordionContent className="p-0">
           <ul>
             {LanguageOptions.map(({ code, name, Flag }) => (
-              <Link
+              <div
                 key={code}
-                href={code}
                 className="h-10 px-6 flex items-center gap-1 border-b"
                 onClick={() => selectLanguage(code)}
               >
@@ -324,7 +328,7 @@ const LanguageSelectMobile = ({
                 )}
                 <Flag className="w-4 p-0 border" />
                 <span>{name}</span>
-              </Link>
+              </div>
             ))}
           </ul>
         </AccordionContent>
