@@ -1,33 +1,65 @@
-import { Pencil1Icon } from "@radix-ui/react-icons";
-import { HouseIcon, MailIcon, X } from "lucide-react";
+import { LINKS } from "@/app/_constants/links";
+import { JP, CA, CN, FlagComponent } from "country-flag-icons/react/3x2";
 
-type HeaderOptionsProps = {
-  id: number;
-  category: "サービス案内" | "お問い合わせ" | "その他";
+interface HeaderOptionsProps {
   name: string;
   href: string;
-  icon: React.ComponentType<{ className?: string }>;
-};
+  isExternalLink: boolean; // 外部リンクかどうか
+}
+
 export const headerOptions: HeaderOptionsProps[] = [
   {
-    id: 1,
-    category: "サービス案内",
-    name: "部屋探し",
+    name: "ホーム",
+    href: "/",
+    isExternalLink: false,
+  },
+  {
+    name: "シェアハウスを探す",
     href: "/properties",
-    icon: HouseIcon,
+    isExternalLink: false,
   },
   {
-    id: 2,
-    category: "サービス案内",
-    name: "ブログ",
-    href: "/blog",
-    icon: Pencil1Icon,
+    name: "生活ガイド",
+    href: LINKS.GUIDE,
+    isExternalLink: true,
   },
   {
-    id: 3,
-    category: "お問い合わせ",
-    name: "コンタクト",
-    href: "/contact",
-    icon: MailIcon,
+    name: "英語レッスン",
+    href: LINKS.THREADS,
+    isExternalLink: true,
   },
+  {
+    name: "会社情報",
+    href: "/company",
+    isExternalLink: false,
+  },
+  {
+    name: "お問い合わせ",
+    href: LINKS.INSTAGRAM,
+    isExternalLink: true,
+  },
+  {
+    name: "家を探されている方",
+    href: "/tenant",
+    isExternalLink: false,
+  },
+  {
+    name: "物件掲載希望の方",
+    href: "/landlord",
+    isExternalLink: false,
+  },
+];
+
+export type Language = "japanese" | "english" | "chinese";
+
+interface LanguageOption {
+  code: Language;
+  name: string;
+  Flag: FlagComponent;
+}
+
+export const LanguageOptions: LanguageOption[] = [
+  { code: "japanese", name: "日本語", Flag: JP },
+  { code: "english", name: "English", Flag: CA },
+  { code: "chinese", name: "中文", Flag: CN },
 ];
