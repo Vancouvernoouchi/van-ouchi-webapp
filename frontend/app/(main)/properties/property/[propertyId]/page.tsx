@@ -6,7 +6,7 @@ import { apiClient } from "@/config/apiClient";
 import { getPropertyValue } from "@/utlis/getPropertyValue";
 import type { Metadata, ResolvingMetadata } from "next";
 import ErrorPage from "@/components/atoms/common/ErrorPage";
-import { MESSAGES } from "@/app/_constants/messages";
+import { MESSAGES } from "@/constants/messages";
 
 type Props = {
   params: Promise<{ propertyId: string }>;

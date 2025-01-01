@@ -1,4 +1,4 @@
-import { LINKS } from "@/app/_constants/links";
+import { LINKS } from "@/constants/links";
 import { JP, CA, CN, FlagComponent } from "country-flag-icons/react/3x2";
 
 interface HeaderOptionsProps {

@@ -1,6 +1,6 @@
-import { MESSAGES } from "@/app/_constants/messages";
 import ErrorPage from "@/components/atoms/common/ErrorPage";
 import PropertiesList from "@/components/template/propertiesList/PropertiesList"; // 修正ポイント
+import { MESSAGES } from "@/constants/messages";
 import {
   fetchAndFilterProperties,
   SearchParams,

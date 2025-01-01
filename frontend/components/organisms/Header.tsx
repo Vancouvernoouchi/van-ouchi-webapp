@@ -18,7 +18,6 @@ import {
 import { usePathname, useRouter } from "next/navigation";
 import { Button } from "../ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
-import { LINKS } from "@/app/_constants/links";
 import Image from "next/image";
 import {
   Accordion,
@@ -26,6 +25,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "../ui/accordion";
+import { LINKS } from "@/constants/links";
 
 /**
  * ヘッダーコンポーネント
