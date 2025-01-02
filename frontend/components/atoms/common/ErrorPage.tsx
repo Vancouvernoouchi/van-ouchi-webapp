@@ -23,7 +23,7 @@ const ErrorPage = ({
   return (
     <div className="pt-10 flex flex-col justify-center items-center gap-4 text-gray-900">
       <div className="flex flex-col justify-center items-center text-base font-medium">
-        <p>Error {responseCode}</p>
+        {responseCode && <p>Error {responseCode}</p>}
         <p>{errorMessage}</p>
       </div>
 
