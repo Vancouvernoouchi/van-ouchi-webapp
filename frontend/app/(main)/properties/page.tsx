@@ -1,15 +1,17 @@
-import { MESSAGES } from "@/app/_constants/messages";
 import ErrorPage from "@/components/atoms/common/ErrorPage";
-import PropertiesList from "@/components/template/propertiesList/PropertiesList"; // 修正ポイント
+import PropertyList from "@/components/template/propertyList/PropertyList"; // 修正ポイント
+import { MESSAGES } from "@/constants/messages";
 import {
   fetchAndFilterProperties,
   SearchParams,
 } from "@/utlis/filterSort/propertyService";
-interface PropertiesPageProps {
-  searchParams: SearchParams;
-}
 
-const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
+
+const PropertyListPage = async ({
+  searchParams,
+}: {
+  searchParams: SearchParams;
+}) => {
   try {
     const {
       filteredPropertiesNumber,
@@ -20,7 +22,7 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
     } = await fetchAndFilterProperties(searchParams);
 
     return (
-      <PropertiesList
+      <PropertyList
         filteredPropertiesNumber={filteredPropertiesNumber}
         paginatedProperties={paginatedProperties}
         currentPage={currentPage}
@@ -33,4 +35,4 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
   }
 };
 
-export default PropertiesPage;
+export default PropertyListPage;

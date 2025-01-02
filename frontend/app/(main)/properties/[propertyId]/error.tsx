@@ -1,9 +1,10 @@
 "use client";
+
 import ErrorPage from "@/components/atoms/common/ErrorPage";
 import { MESSAGES } from "@/constants/messages";
 
-const PropertyListError = () => {
+const PropertyDetailPageError = () => {
   return <ErrorPage errorMessage={MESSAGES.ERROR_UNEXPECTED} />;
 };
 
-export default PropertyListError;
+export default PropertyDetailPageError;

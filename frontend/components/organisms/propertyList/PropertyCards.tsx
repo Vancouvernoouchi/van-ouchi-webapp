@@ -1,5 +1,5 @@
 "use client";
-import PropertyCard from "@/components/molecules/propertiesList/PropertyCard";
+import PropertyCard from "@/components/molecules/propertyList/PropertyCard";
 
 import { FC } from "react";
 import { NotionProperty, PropertyCardData } from "@/types/notionTypes";

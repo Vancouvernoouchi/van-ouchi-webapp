@@ -6,7 +6,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import VanMap from "@/public/vancouver_map.png";
-import { MESSAGES } from "@/app/_constants/messages";
+import { MESSAGES } from "@/constants/messages";
 
 type Coordinates = {
   geoPosition: string;

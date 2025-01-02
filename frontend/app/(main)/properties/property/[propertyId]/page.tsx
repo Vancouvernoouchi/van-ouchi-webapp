@@ -1,86 +1,45 @@
-import PropertyPage from "@/components/template/propertyPage/PropertyPage";
-import { NotionProperty, PropertyDetailData } from "@/types/notionTypes";
-import { formatPropertyDetailData } from "@/utlis/getPropertyValue";
-import { AxiosResponse } from "axios";
-import { apiClient } from "@/config/apiClient";
-import { getPropertyValue } from "@/utlis/getPropertyValue";
-import type { Metadata, ResolvingMetadata } from "next";
-import ErrorPage from "@/components/atoms/common/ErrorPage";
-import { MESSAGES } from "@/app/_constants/messages";
-
-type Props = {
-  params: Promise<{ propertyId: string }>;
-};
-
-export async function generateMetadata(
-  { params }: Props,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
-  try {
-    const propertyId = (await params).propertyId;
-
-    // fetch data
-    const { data: property } = await apiClient.get(`/properties/${propertyId}`);
-
-    const previousImage = getPropertyValue(
-      property.properties.サムネイル,
-      "file"
-    );
-
-    return {
-      title: getPropertyValue(property.properties.タイトル, "title"),
-      openGraph: {
-        images: [previousImage],
-      },
-    };
-  } catch (error) {
-    console.error("Failed to generate metadata:", error);
-    return {
-      title: "Default Title",
-    };
-  }
-}
+"use client";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import React, { useEffect } from "react";
 
 /**
- * 物件詳細ページに必要なデータをfetchし整理するコンポーネント
- *
- * @param params { propertyId: string }
- *
+ * 以前使用していた物件詳細パス
+ * もしアクセスされた場合、新しい物件詳細ページにリダイレクト
  */
-const PropertyDetailPage = async ({
+const PreviousPropertyDetailPage = ({
   params,
 }: {
   params: { propertyId: string };
 }) => {
-  const { propertyId } = params;
-  try {
-    const response: AxiosResponse = await apiClient.get(
-      `/properties/${propertyId}`
-    );
+  const propertyId = params.propertyId;
+  const router = useRouter();
+  const newPath = `/properties/${propertyId}`;
 
-    const data: NotionProperty = response.data;
-    const propertyData: PropertyDetailData | null =
-      formatPropertyDetailData(data);
-
-    if (propertyData !== null) {
-      return (
-        <div>
-          <PropertyPage property={propertyData} />
-        </div>
-      );
-    } else {
-      return (
-        <ErrorPage
-          responseCode="404"
-          errorMessage={MESSAGES.ERROR_NOT_FOUND("物件情報")}
-        />
-      );
+  useEffect(() => {
+    if (propertyId) {
+      // 新しいルートにリダイレクト
+      router.replace(`/properties/${propertyId}`);
     }
-  } catch (error: any) {
-    return (
-      <ErrorPage responseCode={error.status} errorMessage={MESSAGES.ERROR} />
-    );
-  }
+  }, [propertyId, router]);
+
+  return (
+    <div className="pt-10 flex flex-col justify-center items-center gap-4 text-gray-900">
+      <div className="text-base font-medium">
+        <p>このページは、別のURLへ移動しました。</p>
+        <p>
+          数秒後に自動的に新しいURLへ移動しますが、切り替わらない場合は下記のリンクをクリックしてください。
+        </p>
+      </div>
+
+      <Link
+        className="text-themeColor border-b border-themeColor cursor-pointer hover:opacity-60"
+        href={newPath}
+      >
+        新しいURLへ移動
+      </Link>
+    </div>
+  );
 };
 
-export default PropertyDetailPage;
+export default PreviousPropertyDetailPage;

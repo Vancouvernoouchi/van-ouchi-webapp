@@ -17,7 +17,7 @@ const PropertyCard = ({ property }: { property: PropertyCardData }) => {
   );
 
   return (
-    <Link href={`/properties/property/${property.id}`} className="relative">
+    <Link href={`/properties/${property.id}`} className="relative">
       {/* 画像 */}
       <div className="relative z-0 w-full rounded-lg aspect-[9/8]">
         {property.thumbnail ? (

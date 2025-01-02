@@ -1,5 +1,5 @@
 "use client";
-import PropertyImage from "@/components/atoms/propertyPage/PropertyImage";
+import PropertyImage from "@/components/atoms/propertyDetail/PropertyImage";
 import React, { ReactNode, useEffect, useState } from "react";
 import { AmenitiesProps, PropertyDetailData } from "@/types/notionTypes";
 import {
@@ -33,7 +33,7 @@ import {
   Neighbors,
   SectionWrapper,
   StaffComment,
-} from "./SectionContents";
+} from "@/components/atoms/propertyDetail/SectionContents";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
@@ -44,7 +44,7 @@ import { getMoveInDateByStatus } from "@/utlis/getPropertyValue";
  * 物件詳細ページのコンポーネント
  * @param property　 {PropertyDetailData}
  */
-const PropertyPage = ({ property }: { property: PropertyDetailData }) => {
+const PropertyDetail = ({ property }: { property: PropertyDetailData }) => {
   const moveInDateByStatus = getMoveInDateByStatus(
     property.moveInDate,
     property.moveOutDate,
@@ -95,7 +95,7 @@ const PropertyPage = ({ property }: { property: PropertyDetailData }) => {
     {
       icon: KeyRound,
       value: property.hasKey,
-      message: property.hasKey ? "鍵付き" : "鍵なし",
+      message: property.hasKey ? "部屋の鍵付き" : "部屋の鍵なし",
     },
     {
       icon: WashingMachine,
@@ -303,7 +303,7 @@ const PropertyPage = ({ property }: { property: PropertyDetailData }) => {
   );
 };
 
-export default PropertyPage;
+export default PropertyDetail;
 
 /**
  * 項目のタイトルコンポーネント

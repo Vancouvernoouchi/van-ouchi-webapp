@@ -1,6 +1,5 @@
 import { ReadMore } from "@/components/atoms/common/ReadMore";
 import { Tab } from "@/components/atoms/common/Tab";
-import PropertyConditionCard from "@/components/atoms/propertyPage/PropertyConditionCard";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { AmenitiesProps } from "@/types/notionTypes";
 import {
@@ -12,7 +11,7 @@ import {
   TrainFront,
 } from "lucide-react";
 import { ReactNode, useEffect, useState } from "react";
-import GoogleMapMarker from "./_components/GoogleMapMarker";
+import GoogleMapMarker from "@/components/template/propertyDetail/_components/GoogleMapMarker";
 
 /**
  * 各セクションのラッパーコンポーネント
@@ -30,6 +29,33 @@ export const SectionWrapper = ({
 }) => {
   return (
     <div className={`pt-3 pb-8 sm:pt-5 sm:pb-10 ${className}`}>{children}</div>
+  );
+};
+
+/**
+ * 基本情報のカードコンポーネント
+ *
+ * @param icon {React.ComponentType<{ className?: string }>}
+ * @param label {string}
+ * @param value {string}
+ */
+const PropertyConditionCard = ({
+  icon: Icon,
+  label,
+  value,
+}: {
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+  value: string;
+}) => {
+  return (
+    <div className="flex justify-center items-center gap-1 px-2 sm:px-6 py-2 min-h-24 border border-themeColor rounded-md shadow-md">
+      <Icon className="flex items-center justify-center text-themeColor w-8 h-8" />
+      <div className="flex flex-col items-center justify-center w-full text-sm sm:text-base">
+        <p className="font-bold text-themeColor">{label}</p>
+        <p>{value}</p>
+      </div>
+    </div>
   );
 };
 
@@ -126,10 +152,10 @@ export const Conditions = ({
  * 設備コンポーネント
  *
  * @param amenities {
-    icon: React.ComponentType<{ className?: string }>;
-    value: boolean;
-    message: string;
-  }[]
+ *  　icon: React.ComponentType<{ className?: string }>;
+ *  　value: boolean;
+ *  　message: string;
+ *  }[]
  */
 export const Amenities = ({ amenities }: { amenities: AmenitiesProps[] }) => {
   return (
@@ -169,12 +195,6 @@ export const Amenities = ({ amenities }: { amenities: AmenitiesProps[] }) => {
  * @param comment {string}
  */
 export const StaffComment = ({ comment }: { comment: string }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
-
-  // テキストを改行ごとに分割し、最初の6行までを表示
-  const lines = comment ? comment.split("\n") : [];
-  const previewText = lines.slice(0, 6).join("\n");
-
   return (
     <>
       {comment ? (
@@ -228,16 +248,14 @@ export const AccessMap = ({
 
 /**
  * 周辺情報コンポーネント
- *
- *
  */
 export const Neighbors = () => {
   const tabLabels: string[] = ["エリア紹介", "飲食店", "その他"];
 
   const contents: ReactNode[] = [
     <div key="0">準備中</div>,
+    <div key="1">準備中</div>,
     <div key="2">準備中</div>,
-    <div key="3">準備中</div>,
   ];
 
   return (
