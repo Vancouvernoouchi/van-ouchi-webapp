@@ -1,12 +1,12 @@
-import PropertyPageSkeleton from "@/components/molecules/propertyPage/SkeltonPropertyPage";
+import PropertyDetailSkeleton from "@/components/molecules/propertyDetail/PropertyDetailSkeleton";
 import React from "react";
 
-const PropertyPageLoading = () => {
+const PropertyDetailLoading = () => {
   return (
     <div>
-      <PropertyPageSkeleton />
+      <PropertyDetailSkeleton />
     </div>
   );
 };
 
-export default PropertyPageLoading;
+export default PropertyDetailLoading;

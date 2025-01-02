@@ -1,4 +1,3 @@
-import PropertyPage from "@/components/template/propertyPage/PropertyPage";
 import { NotionProperty, PropertyDetailData } from "@/types/notionTypes";
 import { formatPropertyDetailData } from "@/utlis/getPropertyValue";
 import { AxiosResponse } from "axios";
@@ -7,6 +6,7 @@ import { getPropertyValue } from "@/utlis/getPropertyValue";
 import type { Metadata, ResolvingMetadata } from "next";
 import ErrorPage from "@/components/atoms/common/ErrorPage";
 import { MESSAGES } from "@/constants/messages";
+import PropertyDetail from "@/components/template/propertyDetail/PropertyDetail";
 
 type Props = {
   params: Promise<{ propertyId: string }>;
@@ -65,7 +65,7 @@ const PropertyDetailPage = async ({
     if (propertyData !== null) {
       return (
         <div>
-          <PropertyPage property={propertyData} />
+          <PropertyDetail property={propertyData} />
         </div>
       );
     } else {

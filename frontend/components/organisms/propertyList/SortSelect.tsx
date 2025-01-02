@@ -1,5 +1,5 @@
 "use client";
-import { PrimarySelect } from "@/components/atoms/propertiesList/SortSelect";
+import { PrimarySelect } from "@/components/atoms/propertyList/SortSelect";
 import { sortOptions } from "@/config/commonOptions";
 import { createQueryString } from "@/utlis/queryStringHelper";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";

@@ -1,12 +1,12 @@
-import { FilterDialog } from "@/components/organisms/propertiesList/FilterDialog";
-import PropertyCards from "@/components/organisms/propertiesList/PropertyCards";
+import { FilterDialog } from "@/components/organisms/propertyList/FilterDialog";
+import PropertyCards from "@/components/organisms/propertyList/PropertyCards";
 import { NotionProperty } from "@/types/notionTypes";
-import SortSelect from "@/components/organisms/propertiesList/SortSelect";
+import SortSelect from "@/components/organisms/propertyList/SortSelect";
 import { FC } from "react";
-import PaginationList from "@/components/organisms/propertiesList/PaginationList";
-import SearchBar from "@/components/molecules/propertiesList/SearchBar";
+import PaginationList from "@/components/organisms/propertyList/PaginationList";
+import SearchBar from "@/components/molecules/propertyList/SearchBar";
 
-interface PropertiesPageProps {
+interface PropertyListProps {
   paginatedProperties: NotionProperty[];
   filteredPropertiesNumber: number;
   currentPage: number;
@@ -14,7 +14,7 @@ interface PropertiesPageProps {
   itemsPerPage: number;
 }
 
-const PropertiesList: FC<PropertiesPageProps> = ({
+const PropertyList: FC<PropertyListProps> = ({
   filteredPropertiesNumber,
   paginatedProperties,
   currentPage,
@@ -59,4 +59,4 @@ const PropertiesList: FC<PropertiesPageProps> = ({
   );
 };
 
-export default PropertiesList;
+export default PropertyList;

@@ -1,6 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton";
 
-const PropertyPageSkeleton = () => {
+const PropertyDetailSkeleton = () => {
   return (
     <div>
       <Skeleton className="w-full h-64" />
@@ -27,4 +27,4 @@ const PropertyPageSkeleton = () => {
   );
 };
 
-export default PropertyPageSkeleton;
+export default PropertyDetailSkeleton;
