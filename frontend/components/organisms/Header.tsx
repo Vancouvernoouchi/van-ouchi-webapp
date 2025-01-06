@@ -103,24 +103,28 @@ const NavMenuPC = ({
     <nav className="flex flex-col gap-1.5">
       <div className="flex justify-end gap-4">
         <Link
-          className="px-4 text-sm bg-themeColor text-white rounded-full flex items-center justify-center hover:opacity-80"
-          href="/tenant"
+          className="px-4 py-2 text-sm bg-themeColor text-white rounded-full flex items-center justify-center hover:opacity-80"
+          // TODO: ページ完成したらリンク先変更
+          href={LINKS.SERVICE_TENANT}
+          target="_blank"
         >
-          留学生の方
+          家を探されている方
         </Link>
         <Link
-          className="px-4 text-sm bg-red-600 text-white rounded-full flex items-center justify-center  hover:opacity-80"
-          href="/landlord"
+          className="px-4 py-2 text-sm bg-red-600 text-white rounded-full flex items-center justify-center  hover:opacity-80"
+          // TODO: ページ完成したらリンク先変更
+          href={LINKS.SERVICE_LANDLORD}
+          target="_blank"
         >
           物件掲載希望の方
         </Link>
 
         {/* 言語選択エリア */}
-        <LanguageSelectPC language={language} selectLanguage={selectLanguage} />
+        {/* <LanguageSelectPC language={language} selectLanguage={selectLanguage} /> */}
       </div>
 
       <ul className="flex items-center gap-6">
-        {headerOptions.slice(0, 5).map((header) => (
+        {headerOptions.slice(0, 4).map((header) => (
           <li key={header.href} className="text-sm">
             <Link
               href={header.href}
@@ -217,10 +221,10 @@ const NavMenuMobile = ({
                   </Link>
                 );
               })}
-              <LanguageSelectMobile
+              {/* <LanguageSelectMobile
                 language={language}
                 selectLanguage={selectLanguage}
-              />
+              /> */}
 
               <div className="pt-4 pb-10 px-4">
                 <span className="text-sm font-semibold">FOLLOW US</span>
