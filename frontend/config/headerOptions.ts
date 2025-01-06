@@ -8,11 +8,11 @@ interface HeaderOptionsProps {
 }
 
 export const headerOptions: HeaderOptionsProps[] = [
-  {
-    name: "ホーム",
-    href: "/",
-    isExternalLink: false,
-  },
+  // {
+  //   name: "ホーム",
+  //   href: "/",
+  //   isExternalLink: false,
+  // },
   {
     name: "シェアハウスを探す",
     href: "/properties",
@@ -28,11 +28,11 @@ export const headerOptions: HeaderOptionsProps[] = [
     href: LINKS.THREADS,
     isExternalLink: true,
   },
-  {
-    name: "会社情報",
-    href: "/company",
-    isExternalLink: false,
-  },
+  // {
+  //   name: "会社情報",
+  //   href: "/company",
+  //   isExternalLink: false,
+  // },
   {
     name: "お問い合わせ",
     href: LINKS.INSTAGRAM,
@@ -40,13 +40,13 @@ export const headerOptions: HeaderOptionsProps[] = [
   },
   {
     name: "家を探されている方",
-    href: "/tenant",
-    isExternalLink: false,
+    href: LINKS.SERVICE_TENANT,
+    isExternalLink: true,
   },
   {
     name: "物件掲載希望の方",
-    href: "/landlord",
-    isExternalLink: false,
+    href: LINKS.SERVICE_LANDLORD,
+    isExternalLink: true,
   },
 ];
 
