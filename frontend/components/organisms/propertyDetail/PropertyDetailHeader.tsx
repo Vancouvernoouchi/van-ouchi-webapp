@@ -9,7 +9,7 @@ const propertyInfoList: {
   { id: "basic-info", title: "基本情報" },
   { id: "conditions", title: "入居条件" },
   { id: "facilities", title: "設備" },
-  { id: "comment", title: "スタッフコメント" },
+  { id: "comment", title: "スタッフからのコメント" },
   { id: "map", title: "アクセスマップ" },
   { id: "neighbors", title: "周辺情報" },
   { id: "contact", title: "お問い合わせ" },
@@ -152,8 +152,8 @@ export function PropertyDetailHeader() {
 
   return (
     <header
-      className={`fixed base-px top-0 left-0 right-0 h-14 bg-white shadow-md transition-transform duration-300 ease-in-out z-50 ${
-        isVisible ? "translate-y-0" : "-translate-y-full"
+      className={`fixed base-px top-0 left-0 right-0 h-14 bg-white transition-transform duration-300 ease-in-out z-50 ${
+        isVisible ? "translate-y-0 shadow-md" : "-translate-y-full"
       }`}
     >
       <div className="mx-auto lg:px-12">
