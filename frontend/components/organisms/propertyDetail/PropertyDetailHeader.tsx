@@ -152,8 +152,8 @@ export function PropertyDetailHeader() {
 
   return (
     <header
-      className={`fixed base-px top-0 left-0 right-0 h-14 bg-white shadow-md transition-transform duration-300 ease-in-out z-50 ${
-        isVisible ? "translate-y-0" : "-translate-y-full"
+      className={`fixed base-px top-0 left-0 right-0 h-14 bg-white transition-transform duration-300 ease-in-out z-50 ${
+        isVisible ? "translate-y-0 shadow-md" : "-translate-y-full"
       }`}
     >
       <div className="mx-auto lg:px-12">
