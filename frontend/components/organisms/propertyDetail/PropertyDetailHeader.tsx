@@ -9,7 +9,7 @@ const propertyInfoList: {
   { id: "basic-info", title: "基本情報" },
   { id: "conditions", title: "入居条件" },
   { id: "facilities", title: "設備" },
-  { id: "comment", title: "スタッフコメント" },
+  { id: "comment", title: "スタッフからのコメント" },
   { id: "map", title: "アクセスマップ" },
   { id: "neighbors", title: "周辺情報" },
   { id: "contact", title: "お問い合わせ" },
