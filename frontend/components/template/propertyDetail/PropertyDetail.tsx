@@ -39,6 +39,7 @@ import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { getMoveInDateByStatus } from "@/utlis/getPropertyValue";
+import { PropertyDetailHeader } from "@/components/organisms/propertyDetail/PropertyDetailHeader";
 
 /**
  * 物件詳細ページのコンポーネント
@@ -210,6 +211,7 @@ const PropertyDetail = ({ property }: { property: PropertyDetailData }) => {
 
   return (
     <div key={property.id} className="lg:px-12">
+      <PropertyDetailHeader />
       {/* --- 左上エリア：　パンクズリスト　--- 　*/}
       <div className="pt-5 text-sm">
         <Breadcrumb>
@@ -240,7 +242,7 @@ const PropertyDetail = ({ property }: { property: PropertyDetailData }) => {
         {/* ---　　タイトルエリア --- */}
         <div className="flex flex-col items-start gap-2 w-full sm:w-[50%] lg:w-[60%]">
           {/* 空き状況ステータス */}
-          <div className="py-1.5 px-4 bg-white rounded-full z-50 top-3 left-3 shadow-lg opacity-85 text-xs sm:text-sm border border-themeColor text-themeColor">
+          <div className="py-1.5 px-4 bg-white rounded-full z-40 top-3 left-3 shadow-lg opacity-85 text-xs sm:text-sm border border-themeColor text-themeColor">
             {property.status}
           </div>
 
@@ -279,14 +281,14 @@ const PropertyDetail = ({ property }: { property: PropertyDetailData }) => {
 
         <div className="w-full lg:w-[40%] xl:pl-14">
           {/* お問い合わせエリア */}
-          <div>
-            <div className="text-base sm:text-xl font-semibold tracking-wides pt-8 md:pt-0">
+          <div id="contact" className="border-b lg:border-none">
+            <div className="text-base sm:text-xl font-semibold tracking-wides pt-8 lg:pt-0">
               お問い合わせ
             </div>
             <ContactCard />
           </div>
           {/* サービス内容紹介エリア */}
-          <div>
+          <div id="about-us">
             <SectionTitle title="バンクーバーのお家について" />
             <InstagramAds />
           </div>
