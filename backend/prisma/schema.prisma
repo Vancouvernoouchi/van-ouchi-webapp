@@ -13,28 +13,198 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Post {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  title     String   @db.VarChar(255)
-  content   String?
-  published Boolean  @default(false)
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  Int
+/**
+ * ===========================
+ * Owner -> owners
+ * ===========================
+ */
+model Owner {
+  id              Int     @id @default(autoincrement())
+  authId          String  @unique @map("auth_id") @db.VarChar(255) // Supabase AuthのユーザーID
+  name            String  @map("name") @db.VarChar(255)
+  profileImageUrl String? @map("profile_image_url") @db.VarChar(255)
+  email           String  @unique @map("email") @db.VarChar(255)
+  isApproved      Boolean @default(false) @map("is_approved")
+  memo            String? @map("memo") @db.Text
+
+  // リレーション
+  properties Property[]
+
+  // DB上のテーブル名を指定
+  @@map("owners")
 }
 
-model Profile {
-  id     Int     @id @default(autoincrement())
-  bio    String?
-  user   User    @relation(fields: [userId], references: [id])
-  userId Int     @unique
+/**
+ * ===========================
+ * Property -> properties
+ * ===========================
+ */
+model Property {
+  id                          Int      @id @default(autoincrement())
+  ownerId                     Int      @map("owner_id")
+  areaId                      Int      @map("area_id")
+  closestStationId            Int      @map("closest_station_id")
+  countryId                   Int      @map("country_id")
+  rentPaymentMethodId         Int      @map("rent_payment_method_id")
+  title                       String   @map("title") @db.VarChar(255)
+  street                      String   @map("street") @db.VarChar(255)
+  city                        String   @map("city") @db.VarChar(100)
+  province                    String   @map("province") @db.VarChar(100)
+  postalCode                  String   @map("postal_code") @db.VarChar(20)
+  createdAt                   DateTime @default(now()) @map("created_at") @db.Timestamp
+  updatedAt                   DateTime @updatedAt @map("updated_at") @db.Timestamp
+  zone                        Int      @map("zone") @db.SmallInt
+  closestStationDuration      Int      @map("closest_station_duration") @db.SmallInt
+  otherTransportation         String?  @map("other_transportation")
+  otherTransportationDuration Int?     @map("other_transportation_duration") @db.SmallInt
+  thumbnailUrl                String?  @map("thumbnail_url") @db.VarChar(255)
+  googlePhotoUrl              String?  @map("google_photo_url") @db.VarChar(255)
+  houseRules                  String?  @map("house_rules") @db.Text
+  rentPaymentDay              String?  @map("rent_payment_day") @db.VarChar(255)
+
+  // リレーション
+  rentPaymentMethod PaymentMethod  @relation(fields: [rentPaymentMethodId], references: [id])
+  owner             Owner          @relation(fields: [ownerId], references: [id])
+  area              Area           @relation(fields: [areaId], references: [id])
+  closestStation    ClosestStation @relation(fields: [closestStationId], references: [id])
+  country           Country        @relation(fields: [countryId], references: [id])
+  rooms             Room[]
+
+  // チェック制約（データベース上でのカラム名を参照） *experimentの機能なためコメントアウト
+  // @@check(query: "zone BETWEEN 0 AND 4")
+  // @@check(query: "closest_station_duration BETWEEN 5 AND 60")
+  // @@check(query: "other_transportation_duration BETWEEN 5 AND 60")
+
+  // インデックス
+  @@index([ownerId], name: "owner_id")
+  @@index([areaId], name: "area_id")
+  @@index([closestStationId], name: "closest_station_id")
+  @@index([countryId], name: "country_id")
+  @@index([rentPaymentMethodId], name: "rent_payment_method_id")
+  // DB上のテーブル名
+  @@map("properties")
 }
 
-model User {
-  id      Int      @id @default(autoincrement())
-  email   String   @unique
-  name    String?
-  posts   Post[]
-  profile Profile?
+/**
+ * ===========================
+ * Area -> areas
+ * ===========================
+ */
+model Area {
+  id   Int    @id @default(autoincrement())
+  name String @map("name") @db.VarChar(30)
+
+  // リレーション
+  properties Property[]
+
+  @@map("areas")
+}
+
+/**
+ * ===========================
+ * ClosestStation -> closest_stations
+ * ===========================
+ */
+model ClosestStation {
+  id   Int    @id @default(autoincrement())
+  name String @map("name") @db.VarChar(30)
+
+  // リレーション
+  properties Property[]
+
+  @@map("closest_stations")
+}
+
+/**
+ * ===========================
+ * Status -> statuses
+ * ===========================
+ */
+model Status {
+  id   Int    @id @default(autoincrement())
+  name String @map("name") @db.VarChar(30)
+
+  // リレーション
+  rooms Room[]
+
+  @@map("statuses")
+}
+
+/**
+ * ===========================
+ * Country -> countries
+ * ===========================
+ */
+model Country {
+  id   Int    @id @default(autoincrement())
+  name String @map("name") @db.VarChar(30)
+
+  // リレーション
+  properties Property[]
+  rooms      Room[]
+
+  @@map("countries")
+}
+
+/**
+ * ===========================
+ * PaymentMethod -> payment_methods
+ * ===========================
+ */
+model PaymentMethod {
+  id   Int    @id @default(autoincrement())
+  name String @map("name") @db.VarChar(30)
+
+  // リレーション
+  properties Property[]
+
+  @@map("payment_methods")
+}
+
+/**
+ * ===========================
+ * Room -> rooms
+ * ===========================
+ */
+model Room {
+  id                    Int       @id @default(autoincrement())
+  propertyId            Int       @map("property_id")
+  statusId              Int       @map("status_id")
+  countryId             Int       @map("country_id")
+  roomName              String    @map("room_name") @db.VarChar(255)
+  createdAt             DateTime  @default(now()) @map("created_at") @db.Timestamp
+  updatedAt             DateTime  @updatedAt @map("updated_at") @db.Timestamp
+  isApproved            Boolean   @map("is_approved")
+  rent                  Decimal   @db.Decimal(6, 2)
+  deposit               Decimal   @db.Decimal(6, 2)
+  moveOutDate           DateTime? @map("move_out_date") @db.Date
+  moveInDate            DateTime? @map("move_in_date") @db.Date
+  thumbnailUrl          String?   @map("thumbnail_url") @db.VarChar(255)
+  googlePhotoUrl        String?   @map("google_photo_url") @db.VarChar(255)
+  minStay               Int?      @map("min_stay") @db.SmallInt
+  isFemaleOnly          Boolean?  @map("is_female_only")
+  isMaleOnly            Boolean?  @map("is_male_only")
+  hasGym                Boolean?  @map("has_gym")
+  hasPool               Boolean?  @map("has_pool")
+  hasSauna              Boolean?  @map("has_sauna")
+  isCouple              Boolean?  @map("is_couple")
+  utilitiesIncluded     Boolean?  @map("utilities_included")
+  hasLaundry            Boolean?  @map("has_laundry")
+  hasWifi               Boolean?  @map("has_wifi")
+  hasLock               Boolean?  @map("has_lock")
+  housemateShareCount   Int?      @map("housemate_share_count") @db.SmallInt
+  bathroomShareCount    Int?      @map("bathroom_share_count") @db.SmallInt
+  kitchenShareCount     Int?      @map("kitchen_share_count") @db.SmallInt
+  staffComment          String?   @map("staff_comment") @db.Text
+  areaDescription       String?   @map("area_description") @db.Text
+  restaurantDescription String?   @map("restaurant_description") @db.Text
+  groceryDescription    String?   @map("grocery_description") @db.Text
+  otherDescription      String?   @map("other_description") @db.Text
+
+  // リレーション
+  property Property @relation(fields: [propertyId], references: [id])
+  status   Status   @relation(fields: [statusId], references: [id])
+  country  Country  @relation(fields: [countryId], references: [id])
+
+  @@map("rooms")
 }
