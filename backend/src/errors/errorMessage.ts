@@ -24,5 +24,6 @@ export const ERROR_MESSAGE = {
     RATE_LIMIT: "リクエストが多すぎます。しばらくしてから再度お試しください。",
     UNKNOWN_ERROR: "不明なAPIエラーが発生しました。",
     DUPLICATE: "そのデータは既に存在しています。",
+    NOT_FOUND: "データが見つかりません。",
   },
 };
