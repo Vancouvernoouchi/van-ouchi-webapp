@@ -12,6 +12,8 @@ import {
 } from "lucide-react";
 import { ReactNode, useEffect, useState } from "react";
 import GoogleMapMarker from "@/components/template/propertyDetail/_components/GoogleMapMarker";
+import { MapNotFound } from "../common/MapNotFound";
+import { MESSAGES } from "@/constants/messages";
 
 /**
  * 各セクションのラッパーコンポーネント
@@ -233,10 +235,12 @@ export const AccessMap = ({
 }) => {
   return (
     <SectionWrapper>
-      <GoogleMapMarker
+      {/* TODO: 郵便番号でエリア表示させるように修正するまで一旦非表示 */}
+      {/* <GoogleMapMarker
         geoPosition={geoPosition}
         className=" w-full h-[400px]"
-      />
+      /> */}
+      <MapNotFound message={MESSAGES.ERROR_PREPAIRING("この物件のマップ")} />
 
       <div className="pt-5 py-2 font-semibold">最寄駅 / バス停</div>
       <div className="text-sm">
@@ -296,7 +300,7 @@ export const InstagramAds = () => {
     <SectionWrapper>
       <blockquote
         className="instagram-media"
-        data-instgrm-permalink="https://www.instagram.com/p/DBZuf3Dz_zF/?utm_source=ig_embed&amp;utm_campaign=loading"
+        data-instgrm-permalink="https://www.instagram.com/p/DE4IZAURGFU/?utm_source=ig_embed&amp;utm_campaign=loading"
         data-instgrm-version="14"
         style={{
           background: "#FFF",
@@ -309,7 +313,7 @@ export const InstagramAds = () => {
       >
         <div style={{ padding: "16px" }}>
           <a
-            href="https://www.instagram.com/p/DBZuf3Dz_zF/?utm_source=ig_embed&amp;utm_campaign=loading"
+            href="https://www.instagram.com/p/DE4IZAURGFU/?utm_source=ig_embed&amp;utm_campaign=loading"
             style={{
               background: "#FFFFFF",
               lineHeight: "0",
@@ -389,6 +393,126 @@ export const InstagramAds = () => {
                 この投稿をInstagramで見る
               </div>
             </div>
+            <div style={{ padding: "12.5% 0" }}></div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                marginBottom: "14px",
+                alignItems: "center",
+              }}
+            >
+              <div>
+                <div
+                  style={{
+                    backgroundColor: "#F4F4F4",
+                    borderRadius: "50%",
+                    height: "12.5px",
+                    width: "12.5px",
+                    transform: "translateX(0px) translateY(7px)",
+                  }}
+                ></div>
+                <div
+                  style={{
+                    backgroundColor: "#F4F4F4",
+                    height: "12.5px",
+                    transform: "rotate(-45deg) translateX(3px) translateY(1px)",
+                    width: "12.5px",
+                    flexGrow: "0",
+                    marginRight: "14px",
+                    marginLeft: "2px",
+                  }}
+                ></div>
+                <div
+                  style={{
+                    backgroundColor: "#F4F4F4",
+                    borderRadius: "50%",
+                    height: "12.5px",
+                    width: "12.5px",
+                    transform: "translateX(9px) translateY(-18px)",
+                  }}
+                ></div>
+              </div>
+              <div style={{ marginLeft: "8px" }}>
+                <div
+                  style={{
+                    backgroundColor: "#F4F4F4",
+                    borderRadius: "50%",
+                    flexGrow: "0",
+                    height: "20px",
+                    width: "20px",
+                  }}
+                ></div>
+                <div
+                  style={{
+                    width: "0",
+                    height: "0",
+                    borderTop: "2px solid transparent",
+                    borderLeft: "6px solid #f4f4f4",
+                    borderBottom: "2px solid transparent",
+                    transform:
+                      "translateX(16px) translateY(-4px) rotate(30deg)",
+                  }}
+                ></div>
+              </div>
+              <div style={{ marginLeft: "auto" }}>
+                <div
+                  style={{
+                    width: "0px",
+                    borderTop: "8px solid #F4F4F4",
+                    borderRight: "8px solid transparent",
+                    transform: "translateY(16px)",
+                  }}
+                ></div>
+                <div
+                  style={{
+                    backgroundColor: "#F4F4F4",
+                    flexGrow: "0",
+                    height: "12px",
+                    width: "16px",
+                    transform: "translateY(-4px)",
+                  }}
+                ></div>
+                <div
+                  style={{
+                    width: "0",
+                    height: "0",
+                    borderTop: "8px solid #F4F4F4",
+                    borderLeft: "8px solid transparent",
+                    transform: "translateY(-4px) translateX(8px)",
+                  }}
+                ></div>
+              </div>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                flexGrow: "1",
+                justifyContent: "center",
+                marginBottom: "24px",
+              }}
+            >
+              <div
+                style={{
+                  backgroundColor: "#F4F4F4",
+                  borderRadius: "4px",
+                  flexGrow: "0",
+                  height: "14px",
+                  marginBottom: "6px",
+                  width: "224px",
+                }}
+              ></div>
+              <div
+                style={{
+                  backgroundColor: "#F4F4F4",
+                  borderRadius: "4px",
+                  flexGrow: "0",
+                  height: "14px",
+                  width: "144px",
+                }}
+              ></div>
+            </div>
           </a>
           <p
             style={{
@@ -406,7 +530,7 @@ export const InstagramAds = () => {
             }}
           >
             <a
-              href="https://www.instagram.com/p/DBZuf3Dz_zF/?utm_source=ig_embed&amp;utm_campaign=loading"
+              href="https://www.instagram.com/p/DE4IZAURGFU/?utm_source=ig_embed&amp;utm_campaign=loading"
               style={{
                 color: "#c9c8cd",
                 fontFamily: "Arial, sans-serif",
@@ -419,7 +543,8 @@ export const InstagramAds = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              バンクーバーのお家🇨🇦(@vancouver.no.ouchi)がシェアした投稿
+              バンクーバーのお家🇨🇦 |
+              渡航前にシェアハウスを選べる(@vancouver.no.ouchi)がシェアした投稿
             </a>
           </p>
         </div>

@@ -4,9 +4,8 @@ import React from "react";
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
-import VanMap from "@/public/vancouver_map.png";
 import { MESSAGES } from "@/constants/messages";
+import { MapNotFound } from "@/components/atoms/common/MapNotFound";
 
 type Coordinates = {
   geoPosition: string;
@@ -52,15 +51,17 @@ export default function GoogleMapMarker({
   });
 
   if (error) {
-    return <MapError message={error} />;
+    return <MapNotFound message={error} />;
   }
 
   if (loadError) {
-    return <MapError message={MESSAGES.ERROR_LOADING("マップ")} />;
+    return <MapNotFound message={MESSAGES.ERROR_LOADING("マップ")} />;
   }
 
   if (!center) {
-    return <MapError message={MESSAGES.ERROR_PREPAIRING("この物件のマップ")} />;
+    return (
+      <MapNotFound message={MESSAGES.ERROR_PREPAIRING("この物件のマップ")} />
+    );
   }
 
   if (!isLoaded) {
@@ -84,34 +85,3 @@ export default function GoogleMapMarker({
     </GoogleMap>
   );
 }
-
-/**
- * 地図表示エラーコンポーネント
- *
- * @param message {string}
- * @param className {string}
- */
-const MapError = ({
-  message,
-  className,
-}: {
-  message: string;
-  className?: string;
-}) => {
-  return (
-    <div className="relative flex items-center justify-center w-full h-full">
-      {/* 地図画像 */}
-      <Image
-        src={VanMap}
-        alt="バンクーバーの地図"
-        objectFit="cover"
-        className={cn("w-full h-[400px] object-cover opacity-70", className)}
-      />
-      {/* エラーメッセージ */}
-      <div className="absolute text-center text-white p-4 bg-black/60 rounded-md text-sm sm:text-base">
-        <p>{message}</p>
-        <p>詳しい住所はスタッフまでお問い合わせください。</p>
-      </div>
-    </div>
-  );
-};
