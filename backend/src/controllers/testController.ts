@@ -29,7 +29,7 @@ export const getAllRooms = async (req: Request, res: Response) => {
       maxBathPeople,
       minStationTime,
       maxStationTime,
-      moveInDate,
+      preferredMoveInDate,
       gym,
       sauna,
       pool,
@@ -158,6 +158,28 @@ export const getAllRooms = async (req: Request, res: Response) => {
     if (lock) where.hasLock = lock === "true";
     if (man) where.isMaleOnly = man === "true";
     if (woman) where.isFemaleOnly = woman === "true";
+    if (preferredMoveInDate && typeof preferredMoveInDate === "string") {
+      const preferredMoveInDateObj = new Date(preferredMoveInDate);
+      where.AND = [
+        {
+          OR: [
+            // moveInDate がある場合: moveInDate が preferredMoveInDate 以前
+            {
+              moveInDate: { lte: preferredMoveInDateObj },
+            },
+            // moveInDate がなく、moveOutDate がある場合: moveOutDate が preferredMoveInDate 以降
+            {
+              moveInDate: null,
+              moveOutDate: { lte: preferredMoveInDateObj },
+            },
+          ],
+        },
+        {
+          // moveInDate と moveOutDate のどちらかは必ず null ではない
+          OR: [{ moveInDate: { not: null } }, { moveOutDate: { not: null } }],
+        },
+      ];
+    }
 
     // ページネーション
 
