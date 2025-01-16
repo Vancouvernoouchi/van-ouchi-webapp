@@ -23,6 +23,7 @@ export const MapNotFound = ({
         width={400}
         height={300}
         objectFit="cover"
+        unoptimized={true}
         className={cn("w-full h-[400px] object-cover opacity-70", className)}
       />
       {/* エラーメッセージ */}
