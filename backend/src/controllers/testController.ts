@@ -69,10 +69,16 @@ export const getAllRooms = async (req: Request, res: Response) => {
     /**
      * フィルタリング
      * 1. 認証済みの物件のみ
-     * 2. その他の条件
+     * 2. クエリ条件に応じてフィルタリング
+     * 3. 休止中の物件を表示しない
+     * 4. キーワード検索
      */
 
     const where: Prisma.RoomWhereInput = {};
+    // 認証済みの物件のみ
+    where.isApproved = true;
+
+    //　クエリ条件に応じてフィルタリング
     if (minPrice || maxPrice) {
       where.rent = {};
       if (minPrice) {
@@ -158,6 +164,7 @@ export const getAllRooms = async (req: Request, res: Response) => {
     if (lock) where.hasLock = lock === "true";
     if (man) where.isMaleOnly = man === "true";
     if (woman) where.isFemaleOnly = woman === "true";
+
     if (preferredMoveInDate && typeof preferredMoveInDate === "string") {
       const preferredMoveInDateObj = new Date(preferredMoveInDate);
       where.AND = [
@@ -178,6 +185,32 @@ export const getAllRooms = async (req: Request, res: Response) => {
           // moveInDate と moveOutDate のどちらかは必ず null ではない
           OR: [{ moveInDate: { not: null } }, { moveOutDate: { not: null } }],
         },
+      ];
+    }
+
+    /**
+     * キーワード検索
+     * 1. 各値から空白を削除。
+     * 2. キーワードから空白を削除し、小文字に変換。
+     * 3. いずれかのフィールドの値（小文字）がキーワード（小文字）を含むかどうかを判定。
+     */
+
+    if (keyword && typeof keyword === "string") {
+      const keywordWithoutSpaces = keyword
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, ""); // 空白を除去し、小文字に変換
+
+      where.OR = [
+        { roomName: { contains: keywordWithoutSpaces } },
+        { property: { title: { contains: keywordWithoutSpaces } } },
+        { property: { area: { name: { contains: keywordWithoutSpaces } } } },
+        {
+          property: {
+            closestStation: { name: { contains: keywordWithoutSpaces } },
+          },
+        },
+        { status: { name: { contains: keywordWithoutSpaces } } },
       ];
     }
 
