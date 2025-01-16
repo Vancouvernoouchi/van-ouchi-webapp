@@ -10,7 +10,39 @@ import { handlePrismaError } from "../lib/errorHandler";
  */
 export const getAllRooms = async (req: Request, res: Response) => {
   try {
-    const { page = 1, itemsPerPage = 20, sortBy = "latest" } = req.query;
+    const {
+      page = 1,
+      itemsPerPage = 20,
+      sortBy = "latest",
+      minPrice,
+      maxPrice,
+      zone,
+      areaId,
+      statusId,
+      minMonth,
+      maxMonth,
+      minHousePeople,
+      maxHousePeople,
+      minKitchenPeople,
+      maxKitchenPeople,
+      minBathPeople,
+      maxBathPeople,
+      minStationTime,
+      maxStationTime,
+      moveInDate,
+      gym,
+      sauna,
+      pool,
+      couple,
+      utilities,
+      laundry,
+      wifi,
+      lock,
+      man,
+      woman,
+      stationId,
+      keyword,
+    } = req.query;
 
     /**
      * ソート DONE
@@ -40,10 +72,98 @@ export const getAllRooms = async (req: Request, res: Response) => {
      * 2. その他の条件
      */
 
+    const where: Prisma.RoomWhereInput = {};
+    if (minPrice || maxPrice) {
+      where.rent = {};
+      if (minPrice) {
+        where.rent.gte = Number(minPrice);
+      }
+      if (maxPrice) {
+        where.rent.lte = Number(maxPrice);
+      }
+    }
+
+    if (zone || areaId || minStationTime || maxStationTime || stationId) {
+      where.property = {}; // where.property を空オブジェクトで初期化
+      if (zone) {
+        where.property.zone = Number(zone);
+      }
+      if (areaId) {
+        where.property.areaId = Number(areaId);
+      }
+      if (minStationTime) {
+        where.property.closestStationDuration = {
+          gte: Number(minStationTime),
+        };
+      }
+      if (maxStationTime) {
+        where.property.closestStationDuration = {
+          lte: Number(maxStationTime),
+        };
+      }
+      if (stationId) {
+        where.property.closestStationId = Number(stationId);
+      }
+    }
+    if (statusId) {
+      where.statusId = Number(statusId);
+    }
+    if (minMonth || maxMonth) {
+      where.minStay = {};
+      if (minMonth) {
+        where.minStay.gte = Number(minMonth);
+      }
+      if (maxMonth) {
+        where.minStay.lte = Number(maxMonth);
+      }
+    }
+
+    if (minHousePeople || maxHousePeople) {
+      where.housemateShareCount = {};
+      if (minHousePeople) {
+        where.housemateShareCount.gte = Number(minHousePeople);
+      }
+      if (maxHousePeople) {
+        where.housemateShareCount.lte = Number(maxHousePeople);
+      }
+    }
+
+    if (minKitchenPeople || maxKitchenPeople) {
+      where.kitchenShareCount = {};
+      if (minKitchenPeople) {
+        where.kitchenShareCount.gte = Number(minKitchenPeople);
+      }
+      if (maxKitchenPeople) {
+        where.kitchenShareCount.lte = Number(maxKitchenPeople);
+      }
+    }
+
+    if (minBathPeople || maxBathPeople) {
+      where.bathroomShareCount = {};
+      if (minBathPeople) {
+        where.bathroomShareCount.gte = Number(minBathPeople);
+      }
+      if (maxBathPeople) {
+        where.bathroomShareCount.lte = Number(maxBathPeople);
+      }
+    }
+
+    if (gym) where.hasGym = gym === "true";
+    if (sauna) where.hasSauna = sauna === "true";
+    if (pool) where.hasPool = pool === "true";
+    if (couple) where.isCouple = couple === "true";
+    if (utilities) where.utilitiesIncluded = utilities === "true";
+    if (laundry) where.hasLaundry = laundry === "true";
+    if (wifi) where.hasWifi = wifi === "true";
+    if (lock) where.hasLock = lock === "true";
+    if (man) where.isMaleOnly = man === "true";
+    if (woman) where.isFemaleOnly = woman === "true";
+
     // ページネーション
 
     // roomsテーブルから全てのプロパティを取得
     const allProperties = await prisma.room.findMany({
+      where,
       orderBy,
       take: Number(itemsPerPage),
       include: { property: true },
