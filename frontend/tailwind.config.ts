@@ -79,7 +79,21 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    // スクロールバーを表示するとデザインが崩れる時に使う
+    function ({ addUtilities }: { addUtilities: (utilities: object) => void }) {
+      addUtilities({
+        ".hide-scrollbar": {
+          "scrollbar-width": "none", // Firefox
+          "-ms-overflow-style": "none", // IE
+        },
+        ".hide-scrollbar::-webkit-scrollbar": {
+          display: "none", // Chrome, Safari, Edge
+        },
+      });
+    },
+  ],
 } satisfies Config;
 
 export default config;

@@ -1,6 +1,7 @@
 import Header from "@/components/organisms/Header";
 import { Suspense } from "react";
 import { Analytics } from "@vercel/analytics/react";
+import { Categories } from "@/components/organisms/Categories";
 
 const MainLayout = ({
   children,
@@ -11,6 +12,7 @@ const MainLayout = ({
     <div>
       <div className="flex flex-col min-h-screen">
         <Header />
+        <Categories />
         <main className="base-px flex-1 z-0">
           <Suspense>{children}</Suspense>
           <Analytics />

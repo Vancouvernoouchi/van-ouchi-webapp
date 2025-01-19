@@ -71,7 +71,7 @@ const PropertyDetailPage = async ({
     } else {
       return (
         <ErrorPage
-          responseCode="404"
+          responseCode={404}
           errorMessage={MESSAGES.ERROR_NOT_FOUND("物件情報")}
         />
       );

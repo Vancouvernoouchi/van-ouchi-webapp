@@ -7,7 +7,10 @@ import Image from "next/image";
  */
 const OuchiLogo = () => {
   return (
-    <Link href="/properties" className="flex items-center gap-2">
+    <Link
+      href="/properties"
+      className="flex items-center gap-2 whitespace-nowrap"
+    >
       <Image
         src="/vancouver_no_ouchi_logo2.png"
         width={80}

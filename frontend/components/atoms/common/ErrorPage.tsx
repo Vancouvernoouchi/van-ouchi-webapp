@@ -5,7 +5,7 @@ const ErrorPage = ({
   responseCode,
   errorMessage,
 }: {
-  responseCode?: string;
+  responseCode?: number;
   errorMessage: string;
 }) => {
   const router = useRouter();
