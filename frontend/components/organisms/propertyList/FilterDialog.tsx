@@ -186,12 +186,13 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
+      <DialogTrigger asChild className="">
         <Button
           variant="outline"
-          className="flex items-center justify-center w-12 h-12 rounded-full font-medium hover:bg-grayThemeColor"
+          className="flex items-center justify-center gap-2 sm:px-4 p-0 min-w-10 min-h-10 rounded-full hover:border-themeColor hover:text-themeColor hover:bg-grayThemeColor"
         >
-          <SlidersHorizontal className="w-10 h-10 text-themeColor" />
+          <SlidersHorizontal size={18} />
+          <span className="text-sm hidden sm:block">フィルター</span>
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px] max-h-[80vh] overflow-y-auto">

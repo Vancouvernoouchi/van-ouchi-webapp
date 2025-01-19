@@ -29,15 +29,29 @@ const PropertyList: FC<PropertyListProps> = ({
 
   return (
     <>
-      <div className="flex flex-col sm:flex-row justify-between items-center my-2 gap-2">
-        <p className="text-sm text-left sm:text-base order-2 sm:order-1">
-          {filteredPropertiesNumber} 件中（
-          {endItem === 0 ? 0 : `${startItem}〜${endItem}`} 件目）
-        </p>
-        <div className="flex items-center sm:flex-row gap-2 order-1 sm:order-2">
-          <SearchBar />
-          <SortSelect />
-          <FilterDialog filteredPropertiesNumbers={filteredPropertiesNumber} />
+      <div className="sm:hidden flex items-center gap-2 pt-2">
+        <SearchBar />
+        <FilterDialog filteredPropertiesNumbers={filteredPropertiesNumber} />
+      </div>
+      <div className="flex flex-col my-2">
+        <div className="flex justify-between items-center w-full">
+          {/* 表示件数 */}
+          <p className="flex flex-col items-start sm:flex-row sm:gap-1 text-sm sm:text-base">
+            <span>合計{filteredPropertiesNumber} 件</span>
+            <span>
+              ({endItem === 0 ? 0 : `${startItem}〜${endItem}`} 件表示)
+            </span>
+          </p>
+          <div className="flex gap-4">
+            <div className="hidden sm:block">
+              {/* フィルター */}
+              <FilterDialog
+                filteredPropertiesNumbers={filteredPropertiesNumber}
+              />
+            </div>
+            {/* 並び替え */}
+            <SortSelect />
+          </div>
         </div>
       </div>
 
