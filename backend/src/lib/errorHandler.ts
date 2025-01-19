@@ -16,7 +16,9 @@ export const handlePrismaError = (error: any, res: Response) => {
       return;
     }
   } else if (error instanceof Error) {
-    res.status(500).json({ message: error.message });
+    res
+      .status(500)
+      .json({ message: ERROR_MESSAGE.SERVER.INTERNAL, error: error.message });
     return;
   } else {
     res.status(500).json({ message: ERROR_MESSAGE.API.UNKNOWN_ERROR });
