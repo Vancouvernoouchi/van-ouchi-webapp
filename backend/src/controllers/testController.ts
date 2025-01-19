@@ -242,7 +242,18 @@ export const getAllRooms = async (req: Request, res: Response) => {
       orderBy,
       skip,
       take: Number(itemsPerPage),
-      include: { property: true },
+      include: {
+        property: {
+          include: {
+            area: { select: { name: true } },
+            closestStation: { select: { name: true } },
+            country: { select: { name: true } },
+            owner: { select: { name: true } },
+            rentPaymentMethod: { select: { name: true } },
+          },
+        },
+        status: { select: { name: true } },
+      },
     });
 
     // 検索結果が0件の場合は空配列を返す
