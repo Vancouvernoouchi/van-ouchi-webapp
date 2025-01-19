@@ -11,8 +11,9 @@ import {
   TrainFront,
 } from "lucide-react";
 import { ReactNode, useEffect, useState } from "react";
-import { MapNotFound } from "@/components/common/MapNotFound";
+import { MapNotFound } from "@/components/common/map/MapNotFound";
 import { MESSAGES } from "@/constants/messages";
+import Image from "next/image";
 
 /**
  * 各セクションのラッパーコンポーネント
@@ -30,6 +31,52 @@ export const SectionWrapper = ({
 }) => {
   return (
     <div className={`pt-3 pb-8 sm:pt-5 sm:pb-10 ${className}`}>{children}</div>
+  );
+};
+
+/**
+ * 物件画像コンポーネント
+ *
+ * @param imageUrl {string}　- サムネイル画像URL
+ * @param title {string} - タイトル
+ * @param googlePhotoUrl {string} - GooglePhotoのURL
+ */
+export const PropertyImage = ({
+  imgUrl,
+  title,
+  googlePhotoUrl,
+}: {
+  imgUrl: string;
+  title: string;
+  googlePhotoUrl: string;
+}) => {
+  return (
+    <div className="propertyPageImage mt-2 flex flex-col rounded-lg">
+      {imgUrl ? (
+        <div>
+          <Image
+            src={imgUrl}
+            alt={title ?? "物件画像"}
+            className="rounded-t-lg object-cover"
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
+            unoptimized={true}
+          />
+
+          <a
+            href={googlePhotoUrl}
+            target="_blank"
+            className="inline-block p-2 shadow-lg text-white absolute bottom-0 left-0 w-full bg-themeColor hover:bg-black bg-opacity-70 hover:bg-opacity-70 text-center"
+          >
+            もっと見る
+          </a>
+        </div>
+      ) : (
+        <div className="flex items-center justify-center h-full text-gray-500">
+          画像がありません
+        </div>
+      )}
+    </div>
   );
 };
 

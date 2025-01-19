@@ -1,5 +1,4 @@
 "use client";
-import PropertyImage from "@/components/feature/property/PropertyImage";
 import React, { ReactNode, useEffect, useState } from "react";
 import { AmenitiesProps, PropertyDetailData } from "@/types/notionTypes";
 import {
@@ -31,15 +30,17 @@ import {
   Conditions,
   InstagramAds,
   Neighbors,
+  PropertyImage,
   SectionWrapper,
   StaffComment,
-} from "@/components/feature/property/SectionContents";
+} from "@/components/feature/property/PropertyDetailContents";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { getMoveInDateByStatus } from "@/utlis/getPropertyValue";
 import { PropertyDetailHeader } from "@/components/feature/property/PropertyDetailHeader";
+import DetailPageFrame from "@/components/common/frame/DetailPageFrame";
 
 /**
  * 物件詳細ページのコンポーネント
@@ -139,7 +140,7 @@ const PropertyDetail = ({ property }: { property: PropertyDetailData }) => {
         <PropertyImage
           imgUrl={property.thumbnail}
           title={property.title}
-          imgLink={property.image}
+          googlePhotoUrl={property.image}
         />
       ),
     },
@@ -210,7 +211,7 @@ const PropertyDetail = ({ property }: { property: PropertyDetailData }) => {
   };
 
   return (
-    <div key={property.id} className="lg:px-12">
+    <DetailPageFrame>
       <PropertyDetailHeader />
       {/* --- 左上エリア：　パンクズリスト　--- 　*/}
       <div className="pt-5 text-sm">
@@ -238,7 +239,7 @@ const PropertyDetail = ({ property }: { property: PropertyDetailData }) => {
         </Breadcrumb>
       </div>
 
-      <div className="px-base flex flex-col sm:flex-row sm:justify-between items-center gap-3 py-3 sm:py-6">
+      <div className="flex flex-col sm:flex-row sm:justify-between items-center gap-3 py-3 sm:py-6">
         {/* ---　　タイトルエリア --- */}
         <div className="flex flex-col items-start gap-2 w-full sm:w-[50%] lg:w-[60%]">
           {/* 空き状況ステータス */}
@@ -301,7 +302,7 @@ const PropertyDetail = ({ property }: { property: PropertyDetailData }) => {
       <div className="block sm:hidden">
         <ContactPopUpSP />
       </div>
-    </div>
+    </DetailPageFrame>
   );
 };
 

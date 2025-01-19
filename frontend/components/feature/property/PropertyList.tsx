@@ -1,10 +1,14 @@
 import { FilterDialog } from "@/components/feature/property/FilterDialog";
-import PropertyCards from "@/components/feature/property/PropertyCards";
-import { NotionProperty } from "@/types/notionTypes";
-import SortSelect from "@/components/feature/property/SortSelect";
-import { FC } from "react";
-import PaginationList from "@/components/feature/property/PaginationList";
-import SearchBar from "@/components/feature/property/SearchBar";
+import { NotionProperty, PropertyCardData } from "@/types/notionTypes";
+import PaginationList from "@/components/common/PaginationList";
+import {
+  formatPropertyCardData,
+  getMoveInDateByStatus,
+} from "@/utlis/getPropertyValue";
+
+import CardFrame from "@/components/common/frame/CardFrame";
+import ListPageFrame from "@/components/common/frame/ListPageFrame";
+import PropertySort from "./PropertySort";
 
 interface PropertyListProps {
   paginatedProperties: NotionProperty[];
@@ -14,13 +18,22 @@ interface PropertyListProps {
   itemsPerPage: number;
 }
 
-const PropertyList: FC<PropertyListProps> = ({
+/**
+ * 物件一覧ページ
+ * ＠params paginatedProperties
+ * ＠params filteredPropertiesNumber
+ * ＠params currentPage {number}
+ * ＠params totalPage {number}
+ * ＠params itemsPerPage　{number}
+ *
+ */
+export default function PropertyList({
   filteredPropertiesNumber,
   paginatedProperties,
   currentPage,
   totalPage,
   itemsPerPage,
-}) => {
+}: PropertyListProps) {
   const startItem = currentPage * itemsPerPage - itemsPerPage + 1;
   const endItem = Math.min(
     currentPage * itemsPerPage,
@@ -28,49 +41,76 @@ const PropertyList: FC<PropertyListProps> = ({
   );
 
   return (
-    <>
-      <div className="sm:hidden flex items-center gap-2 pt-2">
-        <SearchBar />
+    <ListPageFrame
+      filterArea={
         <FilterDialog filteredPropertiesNumbers={filteredPropertiesNumber} />
-      </div>
-      <div className="flex flex-col my-2">
-        <div className="flex justify-between items-center w-full">
-          {/* 表示件数 */}
-          <p className="flex flex-col items-start sm:flex-row sm:gap-1 text-sm sm:text-base">
-            <span>合計{filteredPropertiesNumber} 件</span>
-            <span>
-              ({endItem === 0 ? 0 : `${startItem}〜${endItem}`} 件表示)
-            </span>
-          </p>
-          <div className="flex gap-4">
-            <div className="hidden sm:block">
-              {/* フィルター */}
-              <FilterDialog
-                filteredPropertiesNumbers={filteredPropertiesNumber}
-              />
-            </div>
-            {/* 並び替え */}
-            <SortSelect />
-          </div>
-        </div>
-      </div>
+      }
+      sortArea={<PropertySort />}
+      paginationArea={
+        <PaginationList currentPage={currentPage} totalPage={totalPage} />
+      }
+      total={filteredPropertiesNumber}
+      endItem={endItem}
+      startItem={startItem}
+    >
+      {paginatedProperties.map((p: NotionProperty) => {
+        const property: PropertyCardData | null = formatPropertyCardData(p);
 
+        if (property !== null) {
+          return <PropertyCard key={property.id} property={property} />;
+        }
+      })}
+    </ListPageFrame>
+  );
+}
+
+/**
+ * 物件一覧ページのカード
+ * ＠params peoperty {PropertyCardData}
+ */
+const PropertyCard = ({ property }: { property: PropertyCardData }) => {
+  /* 入居可能日 */
+  const moveIndate = getMoveInDateByStatus(
+    property.moveInDate,
+    property.moveOutDate,
+    property.status
+  );
+
+  /* 募集中の物件のみ「入居者募集中」 or 「即入居可能」のラベル */
+  const labelMessage =
+    property.status === "入居者募集中" || property.status === "即入居可能"
+      ? property.status
+      : "";
+
+  /* ラベルの色 */
+  const labelColor =
+    property.status === "入居者募集中"
+      ? "bg-white"
+      : "bg-themeColor text-white";
+
+  return (
+    <CardFrame
+      href={`/${property.id}`}
+      imageSrc={property.thumbnail}
+      imageAlt={property.title ?? "物件画像"}
+      labelMessage={labelMessage}
+      labelColor={labelColor}
+    >
       <>
-        {filteredPropertiesNumber <= 0 ? (
-          <div className="h-[70vh] p-2 flex flex-col justify-center items-center text-center text-gray-500 text-xl">
-            条件に一致する物件が見つかりませんでした。
-          </div>
-        ) : (
-          <>
-            <PropertyCards paginatedProperties={paginatedProperties} />
-            <div className="py-5">
-              <PaginationList currentPage={currentPage} totalPage={totalPage} />
-            </div>
-          </>
-        )}
+        <div className="text-sm sm:text-base">
+          {property.title ? property.title : property.roomName}
+        </div>
+        <div className="text-xs sm:text-sm text-gray-500">{moveIndate}</div>
+        <div className="text-xs sm:text-sm text-gray-500">
+          【{property.zone}】 {property.area}エリア
+        </div>
+        <div className="text-xs sm:text-sm text-gray-500">
+          {property.closestStation}駅まで徒歩{property.timeToStation}
+        </div>
+        <div className="font-semibold text-base tracking-wider">
+          ${property.rent} <span className="text-xs">/MONTH</span>
+        </div>
       </>
-    </>
+    </CardFrame>
   );
 };
-
-export default PropertyList;

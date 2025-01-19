@@ -14,8 +14,8 @@ import {
   SelectItem,
   SelectTrigger,
 } from "../ui/select";
-import SearchBar from "../feature/property/SearchBar";
 import { usePathname, useRouter } from "next/navigation";
+import SearchBar from "./SearchBar";
 
 /**
  * ヘッダーコンポーネント

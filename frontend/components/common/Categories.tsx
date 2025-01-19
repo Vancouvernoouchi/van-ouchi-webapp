@@ -99,7 +99,7 @@ export const Categories = () => {
   const pathname = usePathname();
 
   return (
-    <div className="relative base-px py-2">
+    <div className="relative py-2">
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex">
           {categories.map((item) => (

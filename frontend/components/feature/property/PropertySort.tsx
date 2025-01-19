@@ -21,7 +21,7 @@ export const sortOptions: optionType[] = [
 /**
  * 表示順選択コンポーネント
  */
-const SortSelect = () => {
+const PropertySort = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -97,4 +97,4 @@ const SortSelect = () => {
   );
 };
 
-export default SortSelect;
+export default PropertySort;

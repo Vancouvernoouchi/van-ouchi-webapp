@@ -1,4 +1,4 @@
-import DevelopingPage from "@/components/common/DevelopingPage";
+import DevelopingPage from "@/components/common/page/DevelopingPage";
 import React from "react";
 
 const TenantPage = () => {

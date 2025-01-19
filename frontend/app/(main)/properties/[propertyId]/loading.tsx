@@ -1,12 +1,8 @@
-import PropertyDetailSkeleton from "@/components/feature/property/PropertyDetailSkeleton";
+import DetailPageSkeleton from "@/components/common/loading/DetailPageSkeleton";
 import React from "react";
 
 const PropertyDetailLoading = () => {
-  return (
-    <div>
-      <PropertyDetailSkeleton />
-    </div>
-  );
+  return <DetailPageSkeleton />;
 };
 
 export default PropertyDetailLoading;

@@ -1,6 +1,8 @@
 import { Skeleton } from "@/components/ui/skeleton";
-
-const PropertyDetailSkeleton = () => {
+/**
+ * 詳細ページのローディング　共通コンポーネント
+ */
+const DetailPageSkeleton = () => {
   return (
     <div>
       <Skeleton className="w-full h-64" />
@@ -27,4 +29,4 @@ const PropertyDetailSkeleton = () => {
   );
 };
 
-export default PropertyDetailSkeleton;
+export default DetailPageSkeleton;

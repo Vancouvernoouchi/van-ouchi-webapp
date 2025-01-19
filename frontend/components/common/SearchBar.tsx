@@ -46,7 +46,7 @@ const SearchBar = () => {
     <div className="relative w-full">
       <Input
         type="search"
-        placeholder="物件名やエリアなど"
+        placeholder="キーワード検索"
         className="w-full pr-14 pl-5 text-xs rounded-full shadow-sm" // 右側にアイコン分の余白を確保
         value={keyword}
         onChange={(e) => handleKeywordChange(e)}
