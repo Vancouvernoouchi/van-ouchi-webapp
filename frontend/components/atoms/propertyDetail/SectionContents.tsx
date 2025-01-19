@@ -1,5 +1,5 @@
-import { ReadMore } from "@/components/atoms/common/ReadMore";
-import { Tab } from "@/components/atoms/common/Tab";
+import { ReadMore } from "@/components/common/ReadMore";
+import { Tab } from "@/components/common/Tab";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { AmenitiesProps } from "@/types/notionTypes";
 import {
@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import { ReactNode, useEffect, useState } from "react";
 import GoogleMapMarker from "@/components/template/propertyDetail/_components/GoogleMapMarker";
-import { MapNotFound } from "../common/MapNotFound";
+import { MapNotFound } from "@/components/common/MapNotFound";
 import { MESSAGES } from "@/constants/messages";
 
 /**

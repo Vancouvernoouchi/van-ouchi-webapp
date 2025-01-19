@@ -6,7 +6,7 @@ import {
 } from "@/config/headerOptions";
 import { Suspense, useEffect, useState } from "react";
 import { Globe, Menu } from "lucide-react";
-import OuchiLogo from "../atoms/common/OuchiLogo";
+import OuchiLogo from "../common/OuchiLogo";
 import {
   Select,
   SelectContent,

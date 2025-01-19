@@ -4,7 +4,7 @@ import { AxiosResponse } from "axios";
 import { apiClient } from "@/config/apiClient";
 import { getPropertyValue } from "@/utlis/getPropertyValue";
 import type { Metadata, ResolvingMetadata } from "next";
-import ErrorPage from "@/components/atoms/common/ErrorPage";
+import ErrorPage from "@/components/common/ErrorPage";
 import { MESSAGES } from "@/constants/messages";
 import PropertyDetail from "@/components/template/propertyDetail/PropertyDetail";
 

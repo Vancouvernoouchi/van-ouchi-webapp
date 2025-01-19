@@ -5,7 +5,7 @@ import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { MESSAGES } from "@/constants/messages";
-import { MapNotFound } from "@/components/atoms/common/MapNotFound";
+import { MapNotFound } from "@/components/common/MapNotFound";
 
 type Coordinates = {
   geoPosition: string;

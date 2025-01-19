@@ -1,4 +1,4 @@
-import DevelopingPage from "@/components/atoms/common/DevelopingPage";
+import DevelopingPage from "@/components/common/DevelopingPage";
 import React from "react";
 
 const CompanyPage = () => {
