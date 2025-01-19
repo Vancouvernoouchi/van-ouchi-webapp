@@ -5,7 +5,7 @@ import { Prisma } from "@prisma/client";
 import { handlePrismaError } from "../lib/errorHandler";
 
 /**TODO
- * 1. Done: ルームを全て取得する
+ * 1. ルームを全て取得する
  * 2. ページネーション、フィルタリング、ソートを実装する
  */
 export const getAllRooms = async (req: Request, res: Response) => {
@@ -90,23 +90,23 @@ export const getAllRooms = async (req: Request, res: Response) => {
     }
 
     if (zone || areaId || minStationTime || maxStationTime || stationId) {
-      where.property = {}; // where.property を空オブジェクトで初期化
+      where.property = { ...(where.property || {}) };
       if (zone) {
         where.property.zone = Number(zone);
       }
       if (areaId) {
         where.property.areaId = Number(areaId);
       }
-      if (minStationTime) {
-        where.property.closestStationDuration = {
-          gte: Number(minStationTime),
-        };
+      if (minStationTime || maxStationTime) {
+        where.property.closestStationDuration = {};
+        if (minStationTime) {
+          where.property.closestStationDuration.gte = Number(minStationTime);
+        }
+        if (maxStationTime) {
+          where.property.closestStationDuration.lte = Number(maxStationTime);
+        }
       }
-      if (maxStationTime) {
-        where.property.closestStationDuration = {
-          lte: Number(maxStationTime),
-        };
-      }
+
       if (stationId) {
         where.property.closestStationId = Number(stationId);
       }
@@ -193,6 +193,7 @@ export const getAllRooms = async (req: Request, res: Response) => {
      * 1. 各値から空白を削除。
      * 2. キーワードから空白を削除し、小文字に変換。
      * 3. いずれかのフィールドの値（小文字）がキーワード（小文字）を含むかどうかを判定。
+     * 4. mode:Insensitive で大文字小文字を区別しないを念のため指定
      */
 
     if (keyword && typeof keyword === "string") {
@@ -202,32 +203,50 @@ export const getAllRooms = async (req: Request, res: Response) => {
         .replace(/\s+/g, ""); // 空白を除去し、小文字に変換
 
       where.OR = [
-        { roomName: { contains: keywordWithoutSpaces } },
-        { property: { title: { contains: keywordWithoutSpaces } } },
-        { property: { area: { name: { contains: keywordWithoutSpaces } } } },
+        { roomName: { contains: keywordWithoutSpaces, mode: "insensitive" } },
         {
           property: {
-            closestStation: { name: { contains: keywordWithoutSpaces } },
+            title: { contains: keywordWithoutSpaces, mode: "insensitive" },
           },
         },
-        { status: { name: { contains: keywordWithoutSpaces } } },
+        {
+          property: {
+            area: {
+              name: { contains: keywordWithoutSpaces, mode: "insensitive" },
+            },
+          },
+        },
+        {
+          property: {
+            closestStation: {
+              name: { contains: keywordWithoutSpaces, mode: "insensitive" },
+            },
+          },
+        },
+        {
+          status: {
+            name: { contains: keywordWithoutSpaces, mode: "insensitive" },
+          },
+        },
       ];
     }
 
-    // ページネーション
+    /**
+     * ページネーション
+     */
+    const skip = (Number(page) - 1) * Number(itemsPerPage);
 
     // roomsテーブルから全てのプロパティを取得
     const allProperties = await prisma.room.findMany({
       where,
       orderBy,
+      skip,
       take: Number(itemsPerPage),
       include: { property: true },
     });
-    if (allProperties.length === 0) {
-      res.status(404).json({ message: ERROR_MESSAGE.API.INVALID });
-      return;
-    }
-    res.json(allProperties);
+
+    // 検索結果が0件の場合は空配列を返す
+    res.status(200).json(allProperties);
   } catch (error) {
     handlePrismaError(error, res);
   }
