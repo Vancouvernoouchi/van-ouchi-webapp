@@ -1,10 +1,10 @@
-import { FilterDialog } from "@/components/organisms/propertyList/FilterDialog";
-import PropertyCards from "@/components/organisms/propertyList/PropertyCards";
+import { FilterDialog } from "@/components/feature/property/FilterDialog";
+import PropertyCards from "@/components/feature/property/PropertyCards";
 import { NotionProperty } from "@/types/notionTypes";
-import SortSelect from "@/components/organisms/propertyList/SortSelect";
+import SortSelect from "@/components/feature/property/SortSelect";
 import { FC } from "react";
-import PaginationList from "@/components/organisms/propertyList/PaginationList";
-import SearchBar from "@/components/molecules/propertyList/SearchBar";
+import PaginationList from "@/components/feature/property/PaginationList";
+import SearchBar from "@/components/feature/property/SearchBar";
 
 interface PropertyListProps {
   paginatedProperties: NotionProperty[];

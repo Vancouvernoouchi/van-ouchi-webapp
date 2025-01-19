@@ -1,4 +1,4 @@
-import PropertyDetailSkeleton from "@/components/molecules/propertyDetail/PropertyDetailSkeleton";
+import PropertyDetailSkeleton from "@/components/feature/property/PropertyDetailSkeleton";
 import React from "react";
 
 const PropertyDetailLoading = () => {

@@ -1,4 +1,4 @@
-import { SkeletonPropertyCard } from "@/components/molecules/propertyList/SkeletonCard";
+import { SkeletonPropertyCard } from "@/components/feature/property/SkeletonCard";
 import React from "react";
 
 const PropertyListLoading = () => {

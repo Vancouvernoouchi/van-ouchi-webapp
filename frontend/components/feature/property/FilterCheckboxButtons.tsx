@@ -1,4 +1,4 @@
-import FilterCheckBoxButton from "@/components/atoms/propertyList/FilterCheckboxButton";
+import FilterCheckBoxButton from "@/components/feature/property/FilterCheckboxButton";
 import { checkboxOptionType } from "@/config/commonOptions";
 import React, { FC } from "react";
 

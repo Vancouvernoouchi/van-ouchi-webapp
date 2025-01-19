@@ -14,7 +14,7 @@ import {
   SelectItem,
   SelectTrigger,
 } from "../ui/select";
-import SearchBar from "../molecules/propertyList/SearchBar";
+import SearchBar from "../feature/property/SearchBar";
 import { usePathname, useRouter } from "next/navigation";
 
 /**

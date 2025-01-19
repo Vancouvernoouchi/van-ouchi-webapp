@@ -1,9 +1,9 @@
 "use client";
 
-import FilterCheckboxButtons from "@/components/molecules/propertyList/FilterCheckboxButtons";
-import { FilterRangeInput } from "@/components/molecules/propertyList/FilterInput";
-import { FilterRadioBoxes } from "@/components/molecules/propertyList/FilterRadioBoxes";
-import FilterSelectButtons from "@/components/molecules/propertyList/FilterSelectButtons";
+import FilterCheckboxButtons from "@/components/feature/property/FilterCheckboxButtons";
+import { FilterRangeInput } from "@/components/feature/property/FilterInput";
+import { FilterRadioBoxes } from "@/components/feature/property/FilterRadioBoxes";
+import FilterSelectButtons from "@/components/feature/property/FilterSelectButtons";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {

@@ -1,5 +1,5 @@
 "use client";
-import PropertyImage from "@/components/atoms/propertyDetail/PropertyImage";
+import PropertyImage from "@/components/feature/property/PropertyImage";
 import React, { ReactNode, useEffect, useState } from "react";
 import { AmenitiesProps, PropertyDetailData } from "@/types/notionTypes";
 import {
@@ -33,13 +33,13 @@ import {
   Neighbors,
   SectionWrapper,
   StaffComment,
-} from "@/components/atoms/propertyDetail/SectionContents";
+} from "@/components/feature/property/SectionContents";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { getMoveInDateByStatus } from "@/utlis/getPropertyValue";
-import { PropertyDetailHeader } from "@/components/organisms/propertyDetail/PropertyDetailHeader";
+import { PropertyDetailHeader } from "@/components/feature/property/PropertyDetailHeader";
 
 /**
  * 物件詳細ページのコンポーネント

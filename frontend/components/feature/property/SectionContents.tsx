@@ -11,7 +11,6 @@ import {
   TrainFront,
 } from "lucide-react";
 import { ReactNode, useEffect, useState } from "react";
-import GoogleMapMarker from "@/components/template/propertyDetail/_components/GoogleMapMarker";
 import { MapNotFound } from "@/components/common/MapNotFound";
 import { MESSAGES } from "@/constants/messages";
 

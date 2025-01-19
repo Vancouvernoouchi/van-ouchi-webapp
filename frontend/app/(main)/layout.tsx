@@ -1,7 +1,7 @@
-import Header from "@/components/organisms/Header";
+import Header from "@/components/common/Header";
 import { Suspense } from "react";
 import { Analytics } from "@vercel/analytics/react";
-import { Categories } from "@/components/organisms/Categories";
+import { Categories } from "@/components/common/Categories";
 
 const MainLayout = ({
   children,
