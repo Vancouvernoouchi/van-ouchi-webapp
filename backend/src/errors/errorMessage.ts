@@ -7,8 +7,9 @@ export const ERROR_MESSAGE = {
     TIMEOUT: "リクエストがタイムアウトしました。もう一度お試しください。",
   },
   VALIDATION: {
-    REQUIRED: (fieldName: string) => `${fieldName}は必須項目です。`,
-    INVALID: (fieldName: string) => `${fieldName}の値が無効です。`,
+    REQUIRED: "必須項目が入力されていません。",
+    INDIVIDUAL_REQUIRED: (fieldName: string) => `${fieldName}は必須項目です。`,
+    INDIVIDUAL_INVALID: (fieldName: string) => `${fieldName}の値が無効です。`,
   },
   AUTH: {
     UNAUTHORIZED: "認証に失敗しました。再度ログインしてください。",
@@ -25,5 +26,7 @@ export const ERROR_MESSAGE = {
     UNKNOWN_ERROR: "不明なAPIエラーが発生しました。",
     DUPLICATE: "そのデータは既に存在しています。",
     NOT_FOUND: "データが見つかりません。",
+    INDIVIDUAL_NOT_FOUND: (fieldName: string) =>
+      `${fieldName}が見つかりません。`,
   },
 };

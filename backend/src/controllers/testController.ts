@@ -278,3 +278,162 @@ export const getRoomById = async (req: Request, res: Response) => {
     handlePrismaError(error, res);
   }
 };
+
+/**
+ * 新規のRoomを登録するController
+ *
+ * 必須:
+ * - propertyId (number)
+ * - statusId (number)
+ * - countryId (number)
+ * - roomName (string)
+ * - rent (number)
+ * - deposit (number)
+ * - isApproved (boolean)
+ * - updatedAt (Date) ※ createdAt はデフォルトでCURRENT_TIMESTAMPとなるため不要
+ *
+ * その他、任意のフィールドもリクエストボディから受け付けます。
+ */
+export const registerRoom = async (req: Request, res: Response) => {
+  try {
+    // リクエストボディから必要なフィールドを抽出
+    const {
+      propertyId,
+      statusId,
+      countryId,
+      roomName,
+      rent,
+      deposit,
+      isApproved,
+      // 任意項目
+      moveOutDate,
+      moveInDate,
+      thumbnailUrl,
+      googlePhotoUrl,
+      minStay,
+      isFemaleOnly,
+      isMaleOnly,
+      hasGym,
+      hasPool,
+      hasSauna,
+      isCouple,
+      utilitiesIncluded,
+      hasLaundry,
+      hasWifi,
+      hasLock,
+      housemateShareCount,
+      bathroomShareCount,
+      kitchenShareCount,
+      staffComment,
+      areaDescription,
+      restaurantDescription,
+      groceryDescription,
+      otherDescription,
+    } = req.body;
+
+    // 必須項目のチェック
+    if (
+      propertyId === undefined ||
+      statusId === undefined ||
+      countryId === undefined ||
+      !roomName ||
+      rent === undefined ||
+      deposit === undefined ||
+      isApproved === undefined
+    ) {
+      return res
+        .status(400)
+        .json({ message: ERROR_MESSAGE.VALIDATION.REQUIRED });
+    }
+
+    // FKのidの存在チェック
+    const [property, status, country] = await Promise.all([
+      prisma.property.findUnique({
+        where: { id: Number(propertyId) },
+      }),
+      prisma.status.findUnique({
+        where: { id: Number(statusId) },
+      }),
+      prisma.country.findUnique({
+        where: { id: Number(countryId) },
+      }),
+    ]);
+
+    if (!property) {
+      res
+        .status(404)
+        .json({ message: ERROR_MESSAGE.API.INDIVIDUAL_NOT_FOUND("物件のID") });
+      return;
+    }
+    if (!status) {
+      res.status(404).json({
+        message: ERROR_MESSAGE.API.INDIVIDUAL_NOT_FOUND("ステータスのID"),
+      });
+      return;
+    }
+    if (!country) {
+      res
+        .status(404)
+        .json({ message: ERROR_MESSAGE.API.INDIVIDUAL_NOT_FOUND("国のID") });
+      return;
+    }
+
+    // 新規Room登録のためのデータを作成
+    const roomData = {
+      propertyId: Number(propertyId),
+      statusId: Number(statusId),
+      countryId: Number(countryId),
+      roomName,
+      rent: Number(rent),
+      deposit: Number(deposit),
+      isApproved: Boolean(isApproved),
+      updatedAt: new Date(), // 現在時刻を設定
+
+      // 任意項目は値が存在する場合にのみ設定する
+      moveOutDate: moveOutDate ? new Date(moveOutDate) : undefined,
+      moveInDate: moveInDate ? new Date(moveInDate) : undefined,
+      thumbnailUrl: thumbnailUrl || undefined,
+      googlePhotoUrl: googlePhotoUrl || undefined,
+      minStay: minStay !== undefined ? Number(minStay) : undefined,
+      isFemaleOnly:
+        isFemaleOnly !== undefined ? Boolean(isFemaleOnly) : undefined,
+      isMaleOnly: isMaleOnly !== undefined ? Boolean(isMaleOnly) : undefined,
+      hasGym: hasGym !== undefined ? Boolean(hasGym) : undefined,
+      hasPool: hasPool !== undefined ? Boolean(hasPool) : undefined,
+      hasSauna: hasSauna !== undefined ? Boolean(hasSauna) : undefined,
+      isCouple: isCouple !== undefined ? Boolean(isCouple) : undefined,
+      utilitiesIncluded:
+        utilitiesIncluded !== undefined
+          ? Boolean(utilitiesIncluded)
+          : undefined,
+      hasLaundry: hasLaundry !== undefined ? Boolean(hasLaundry) : undefined,
+      hasWifi: hasWifi !== undefined ? Boolean(hasWifi) : undefined,
+      hasLock: hasLock !== undefined ? Boolean(hasLock) : undefined,
+      housemateShareCount:
+        housemateShareCount !== undefined
+          ? Number(housemateShareCount)
+          : undefined,
+      bathroomShareCount:
+        bathroomShareCount !== undefined
+          ? Number(bathroomShareCount)
+          : undefined,
+      kitchenShareCount:
+        kitchenShareCount !== undefined ? Number(kitchenShareCount) : undefined,
+      staffComment: staffComment || undefined,
+      areaDescription: areaDescription || undefined,
+      restaurantDescription: restaurantDescription || undefined,
+      groceryDescription: groceryDescription || undefined,
+      otherDescription: otherDescription || undefined,
+    };
+
+    // Prismaを使ってroomsテーブルへレコードを作成
+    const newRoom = await prisma.room.create({
+      data: roomData,
+    });
+
+    return res.status(201).json(newRoom);
+  } catch (error) {
+    // エラーハンドリング
+    return handlePrismaError(error, res);
+  }
+};
