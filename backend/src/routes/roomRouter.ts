@@ -3,7 +3,7 @@ import {
   getAllRooms,
   getRoomById,
   registerRoom,
-} from "../controllers/testController";
+} from "../controllers/roomController";
 
 export const router = Router();
 
