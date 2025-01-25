@@ -38,7 +38,7 @@ import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { getMoveInDateByStatus } from "@/utlis/getPropertyValue";
+import { formatDateToJapanese } from "@/utlis/getPropertyValue";
 import { DetailPageFrame } from "@/components/common";
 import { DetailPageHeader, DetailPageHeaderOption } from "@/components/common";
 
@@ -60,16 +60,10 @@ const propertyDetailHeaderList: DetailPageHeaderOption[] = [
  * @param property　 {PropertyDetailData}
  */
 const PropertyDetail = ({ property }: { property: PropertyDetailData }) => {
-  const moveInDateByStatus = getMoveInDateByStatus(
-    property.moveInDate,
-    property.moveOutDate,
-    property.status
-  );
+  /* 入居可能日 */
+  const moveInDate = formatDateToJapanese(property.moveInDate);
 
-  const moveInDate = moveInDateByStatus
-    .replace("から入居可能", "")
-    .replace("退去予定", "");
-
+  /* 対象の性別 */
   const targetGender = () => {
     if (property.forFemale) {
       return "女性";
@@ -79,6 +73,7 @@ const PropertyDetail = ({ property }: { property: PropertyDetailData }) => {
       return "性別を問わない";
     }
   };
+
   // 入居条件表示用
   const conditions: { name: string; value: string }[] = [
     { name: "対象者", value: targetGender() },
