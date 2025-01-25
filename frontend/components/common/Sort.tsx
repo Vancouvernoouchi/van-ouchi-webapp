@@ -12,16 +12,11 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
-export const sortOptions: optionType[] = [
-  { label: "金額：高い順", value: "price-asc" },
-  { label: "金額：低い順", value: "price-dec" },
-  { label: "新着順", value: "latest" },
-];
-
 /**
- * 表示順選択コンポーネント
+ * 表示順選択 共通コンポーネント
+ * sortOptions　{optionType[]}
  */
-const PropertySort = () => {
+const Sort = ({ sortOptions }: { sortOptions: optionType[] }) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -75,19 +70,15 @@ const PropertySort = () => {
         <span className="text-sm">表示: {selectedLabel}</span>
         {isOpen ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
       </SelectTrigger>
-      <SelectContent
-        className="w-[150px]"
-        ref={(ref) => {
-          if (!ref) return;
-          ref.ontouchstart = (e) => {
-            e.preventDefault();
-          };
-        }}
-        style={{ left: "auto" }}
-      >
+      <SelectContent className="w-[150px] z-50">
         <SelectGroup>
           {sortOptions.map((item, index) => (
-            <SelectItem value={item.value} key={index}>
+            <SelectItem
+              value={item.value}
+              key={index}
+              onTouchStart={() => console.log("Touched", item.label)}
+              onClick={() => console.log("Clicked", item.label)}
+            >
               {item.label}
             </SelectItem>
           ))}
@@ -97,4 +88,4 @@ const PropertySort = () => {
   );
 };
 
-export default PropertySort;
+export default Sort;
