@@ -5,7 +5,7 @@ import Image from "next/image";
 /**
  * バンクーバーのお家のロゴ・名前が一体化したコンポーネント
  */
-const OuchiLogo = () => {
+function OuchiLogo() {
   return (
     <Link
       href="/properties"
@@ -30,6 +30,6 @@ const OuchiLogo = () => {
       </div>
     </Link>
   );
-};
+}
 
-export default OuchiLogo;
+export { OuchiLogo };

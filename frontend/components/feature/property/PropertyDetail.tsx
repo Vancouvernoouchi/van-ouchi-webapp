@@ -39,8 +39,21 @@ import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { getMoveInDateByStatus } from "@/utlis/getPropertyValue";
-import { PropertyDetailHeader } from "@/components/feature/property/PropertyDetailHeader";
-import DetailPageFrame from "@/components/common/frame/DetailPageFrame";
+import { DetailPageFrame } from "@/components/common";
+import { DetailPageHeader, DetailPageHeaderOption } from "@/components/common";
+
+// 物件詳細ページでヘッダーに表示するセクション一覧
+const propertyDetailHeaderList: DetailPageHeaderOption[] = [
+  { id: "images", title: "画像" },
+  { id: "basic-info", title: "基本情報" },
+  { id: "conditions", title: "入居条件" },
+  { id: "facilities", title: "設備" },
+  { id: "comment", title: "スタッフからのコメント" },
+  { id: "map", title: "アクセスマップ" },
+  { id: "neighbors", title: "周辺情報" },
+  { id: "contact", title: "お問い合わせ" },
+  { id: "about-us", title: "バンクーバーのお家について" },
+];
 
 /**
  * 物件詳細ページのコンポーネント
@@ -212,7 +225,7 @@ const PropertyDetail = ({ property }: { property: PropertyDetailData }) => {
 
   return (
     <DetailPageFrame>
-      <PropertyDetailHeader />
+      <DetailPageHeader headerOptions={propertyDetailHeaderList} />
       {/* --- 左上エリア：　パンクズリスト　--- 　*/}
       <div className="pt-5 text-sm">
         <Breadcrumb>

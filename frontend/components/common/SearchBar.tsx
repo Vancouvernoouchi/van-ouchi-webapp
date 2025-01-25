@@ -12,7 +12,7 @@ import { toast } from "sonner";
 /**
  * 検索バー 共通コンポーネント
  */
-const SearchBar = () => {
+function SearchBar() {
   const [keyword, setKeyword] = useState<string>("");
   const handleKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
@@ -64,6 +64,6 @@ const SearchBar = () => {
       </Button>
     </div>
   );
-};
+}
 
-export default SearchBar;
+export { SearchBar };

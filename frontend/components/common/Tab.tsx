@@ -12,7 +12,7 @@ type TabProps = {
  * @param tabLabels {TabLabels[]}
  * @param contents {ReactNode[]}
  */
-export const Tab: FC<TabProps> = ({ tablLabels, contents }) => {
+function Tab({ tablLabels, contents }: TabProps) {
   return (
     <Tabs defaultValue="0" className="w-full">
       <TabsList
@@ -36,4 +36,6 @@ export const Tab: FC<TabProps> = ({ tablLabels, contents }) => {
       ))}
     </Tabs>
   );
-};
+}
+
+export { Tab };

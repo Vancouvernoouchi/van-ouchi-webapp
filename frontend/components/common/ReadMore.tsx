@@ -8,7 +8,7 @@ import { useState } from "react";
  *
  * @param text {string}
  */
-export const ReadMore = ({ text }: { text: string }) => {
+function ReadMore({ text }: { text: string }) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   // テキストを改行ごとに分割し、最初の6行までを表示
@@ -48,4 +48,6 @@ export const ReadMore = ({ text }: { text: string }) => {
       )}
     </div>
   );
-};
+}
+
+export { ReadMore };

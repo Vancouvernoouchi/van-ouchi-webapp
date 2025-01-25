@@ -1,13 +1,13 @@
 "use client";
 import { useRouter } from "next/navigation";
 
-const ErrorPage = ({
+function ErrorPage({
   responseCode,
   errorMessage,
 }: {
   responseCode?: number;
   errorMessage: string;
-}) => {
+}) {
   const router = useRouter();
 
   const goBack = () => {
@@ -35,6 +35,6 @@ const ErrorPage = ({
       </div>
     </div>
   );
-};
+}
 
-export default ErrorPage;
+export { ErrorPage };

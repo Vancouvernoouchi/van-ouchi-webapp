@@ -6,16 +6,16 @@ import {
 } from "@/config/headerOptions";
 import { Suspense, useEffect, useState } from "react";
 import { Globe, Menu } from "lucide-react";
-import OuchiLogo from "../common/OuchiLogo";
+import { usePathname, useRouter } from "next/navigation";
+
 import {
   Select,
   SelectContent,
   SelectGroup,
   SelectItem,
   SelectTrigger,
-} from "../ui/select";
-import { usePathname, useRouter } from "next/navigation";
-import SearchBar from "./SearchBar";
+} from "@/components/ui/select";
+import { OuchiLogo, SearchBar } from "../index";
 
 /**
  * ヘッダーコンポーネント
@@ -169,4 +169,4 @@ const LanguageSelectPC = ({
   );
 };
 
-export default Header;
+export { Header };

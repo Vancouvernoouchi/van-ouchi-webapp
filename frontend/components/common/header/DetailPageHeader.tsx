@@ -1,25 +1,20 @@
+"use client";
 import { useState, useEffect, useCallback, useRef } from "react";
 
-// 物件詳細ページでヘッダーに表示するセクション一覧
-const propertyInfoList: {
+interface DetailPageHeaderOption {
   id: string;
   title: string;
-}[] = [
-  { id: "images", title: "画像" },
-  { id: "basic-info", title: "基本情報" },
-  { id: "conditions", title: "入居条件" },
-  { id: "facilities", title: "設備" },
-  { id: "comment", title: "スタッフからのコメント" },
-  { id: "map", title: "アクセスマップ" },
-  { id: "neighbors", title: "周辺情報" },
-  { id: "contact", title: "お問い合わせ" },
-  { id: "about-us", title: "バンクーバーのお家について" },
-];
+}
 
 /**
  * 物件詳細ページ専用のヘッダーコンポーネント
+ * @param headerOptions {DetailPageHeaderOption}
  */
-export function PropertyDetailHeader() {
+function DetailPageHeader({
+  headerOptions,
+}: {
+  headerOptions: DetailPageHeaderOption[];
+}) {
   // ヘッダーが画面に表示されるかどうかを管理
   const [isVisible, setIsVisible] = useState<boolean>(false);
   // 現在アクティブなセクション（スクロール位置が一致しているセクション）のIDを管理
@@ -36,7 +31,7 @@ export function PropertyDetailHeader() {
     // ヘッダーの高さを考慮したスクロール位置
     const scrollPosition = window.scrollY + 56; // h-14 = height-[56px]
 
-    for (const item of propertyInfoList) {
+    for (const item of headerOptions) {
       // セクションのDOM要素
       const element = document.getElementById(item.id);
       if (
@@ -162,7 +157,7 @@ export function PropertyDetailHeader() {
             ref={headerRef}
             className="flex space-x-4 overflow-x-auto whitespace-nowrap items-center justify-start h-14"
           >
-            {propertyInfoList.map((item) => (
+            {headerOptions.map((item) => (
               <li key={item.id} className="inline-block">
                 <ScrollToSection
                   targetId={item.id}
@@ -187,7 +182,7 @@ export function PropertyDetailHeader() {
  * @params isActive {boolean} - 現在アクティブなセクションかどうか
  * @params dataSectionAttr {string} - カスタム属性として使用するセクションID
  */
-export function ScrollToSection({
+function ScrollToSection({
   targetId,
   title,
   isActive,
@@ -233,3 +228,6 @@ export function ScrollToSection({
     </button>
   );
 }
+
+export { DetailPageHeader };
+export type { DetailPageHeaderOption };

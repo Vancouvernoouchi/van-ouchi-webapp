@@ -4,7 +4,7 @@ import { Skeleton } from "../../ui/skeleton";
 /**
  * 一覧ページのローディング　共通コンポーネント
  */
-export const ListPageSkeleton = () => {
+function ListPageSkeleton() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2">
       {[...Array(30)].map((_, i) => (
@@ -38,4 +38,6 @@ export const ListPageSkeleton = () => {
       ))}
     </div>
   );
-};
+}
+
+export { ListPageSkeleton };

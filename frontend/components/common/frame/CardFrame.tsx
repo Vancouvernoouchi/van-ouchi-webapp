@@ -21,7 +21,7 @@ interface CardFrameProps {
  * ＠params labelColor {string}　- 画像左上に表示するメッセージの色指定
  * ＠params children {ReactNode}　- カードの画像下に来るコンテンツ
  */
-export default function CardFrame({
+function CardFrame({
   href,
   imageSrc,
   imageAlt,
@@ -64,3 +64,5 @@ export default function CardFrame({
     </Link>
   );
 }
+
+export { CardFrame };

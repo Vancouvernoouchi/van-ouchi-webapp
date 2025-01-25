@@ -1,9 +1,4 @@
 "use client";
-type PaginationListType = {
-  currentPage: number;
-  totalPage: number;
-};
-
 import {
   Pagination,
   PaginationContent,
@@ -16,8 +11,18 @@ import {
 import { createQueryString } from "@/utlis/queryStringHelper";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-import { FC } from "react";
-const PaginationList: FC<PaginationListType> = ({ currentPage, totalPage }) => {
+interface PaginationListProps {
+  currentPage: number;
+  totalPage: number;
+}
+
+/**
+ * ページネーションコンポーネント
+ * @param currentPage {number}
+ * @param totalPage {number}
+ *
+ */
+function PaginationList({ currentPage, totalPage }: PaginationListProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -113,6 +118,6 @@ const PaginationList: FC<PaginationListType> = ({ currentPage, totalPage }) => {
       </PaginationContent>
     </Pagination>
   );
-};
+}
 
 export default PaginationList;

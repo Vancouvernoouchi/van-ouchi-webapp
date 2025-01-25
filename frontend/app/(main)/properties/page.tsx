@@ -1,4 +1,4 @@
-import ErrorPage from "@/components/common/page/ErrorPage";
+import { ErrorPage } from "@/components/common";
 import PropertyList from "@/components/feature/property/PropertyList";
 import { MESSAGES } from "@/constants/messages";
 import {

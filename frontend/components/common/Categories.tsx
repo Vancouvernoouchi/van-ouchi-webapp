@@ -17,7 +17,14 @@ import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 
-export const categories = [
+interface CategoryList {
+  label: string;
+  icon: LucideIcon;
+  path: string;
+}
+
+// カテゴリーリスト
+const categoryList: CategoryList[] = [
   {
     label: "お家",
     icon: House,
@@ -65,7 +72,10 @@ export const categories = [
   },
 ];
 
-export const Categories = () => {
+/**
+ * カテゴリーコンポーネント
+ */
+function Categories() {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
     containScroll: "trimSnaps",
@@ -102,7 +112,7 @@ export const Categories = () => {
     <div className="relative py-2">
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex">
-          {categories.map((item) => (
+          {categoryList.map((item) => (
             <CategoryBox
               key={item.label}
               icon={item.icon}
@@ -131,9 +141,9 @@ export const Categories = () => {
       )}
     </div>
   );
-};
+}
 
-const CategoryBox = ({
+function CategoryBox({
   icon: Icon,
   label,
   path,
@@ -143,7 +153,7 @@ const CategoryBox = ({
   label: string;
   path: string;
   selected: boolean;
-}) => {
+}) {
   const router = useRouter();
 
   const handleClick = useCallback(() => {
@@ -167,4 +177,6 @@ const CategoryBox = ({
       </div>
     </div>
   );
-};
+}
+
+export { Categories };

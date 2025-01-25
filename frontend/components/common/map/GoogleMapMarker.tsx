@@ -21,10 +21,7 @@ const NEXT_PUBLIC_GOOGLE_MAPS_API_KEY =
  * @param geoPosition {string}　- 緯度・経度の座標（例: "34.6873,135.5259"）
  * @param className {string}
  */
-export default function GoogleMapMarker({
-  geoPosition,
-  className,
-}: Coordinates) {
+function GoogleMapMarker({ geoPosition, className }: Coordinates) {
   let lat: number | null = null;
   let lng: number | null = null;
   let error: string | null = null;
@@ -85,3 +82,5 @@ export default function GoogleMapMarker({
     </GoogleMap>
   );
 }
+
+export { GoogleMapMarker };

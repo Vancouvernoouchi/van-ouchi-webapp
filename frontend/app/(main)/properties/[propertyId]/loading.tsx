@@ -1,5 +1,4 @@
-import DetailPageSkeleton from "@/components/common/loading/DetailPageSkeleton";
-import React from "react";
+import { DetailPageSkeleton } from "@/components/common";
 
 const PropertyDetailLoading = () => {
   return <DetailPageSkeleton />;

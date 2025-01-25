@@ -7,13 +7,13 @@ import Image from "next/image";
  * @param message {string}
  * @param className {string}
  */
-export const MapNotFound = ({
+function MapNotFound({
   message,
   className,
 }: {
   message: string;
   className?: string;
-}) => {
+}) {
   return (
     <div className="relative flex items-center justify-center w-full h-full">
       {/* 地図画像 */}
@@ -33,4 +33,6 @@ export const MapNotFound = ({
       </div>
     </div>
   );
-};
+}
+
+export { MapNotFound };

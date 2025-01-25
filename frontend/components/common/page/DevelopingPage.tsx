@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import React from "react";
 
-const DevelopingPage = () => {
+function DevelopingPage() {
   const router = useRouter();
 
   const goBack = () => {
@@ -30,6 +30,6 @@ const DevelopingPage = () => {
       </div>
     </div>
   );
-};
+}
 
-export default DevelopingPage;
+export { DevelopingPage };

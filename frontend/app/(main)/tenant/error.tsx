@@ -1,6 +1,6 @@
 "use client";
 
-import ErrorPage from "@/components/common/page/ErrorPage";
+import { ErrorPage } from "@/components/common";
 
 const TenantPageError = () => {
   return <ErrorPage errorMessage="予期せぬエラーが発生しました。" />;

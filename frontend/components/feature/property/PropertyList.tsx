@@ -5,11 +5,8 @@ import {
   formatPropertyCardData,
   getMoveInDateByStatus,
 } from "@/utlis/getPropertyValue";
-
-import CardFrame from "@/components/common/frame/CardFrame";
-import ListPageFrame from "@/components/common/frame/ListPageFrame";
-import Sort from "@/components/common/Sort";
 import { optionType } from "@/config/commonOptions";
+import { CardFrame, ListPageFrame, Sort } from "@/components/common";
 
 interface PropertyListProps {
   paginatedProperties: NotionProperty[];

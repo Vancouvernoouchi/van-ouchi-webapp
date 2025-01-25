@@ -16,7 +16,7 @@ import React, { useEffect, useState } from "react";
  * 表示順選択 共通コンポーネント
  * sortOptions　{optionType[]}
  */
-const Sort = ({ sortOptions }: { sortOptions: optionType[] }) => {
+function Sort({ sortOptions }: { sortOptions: optionType[] }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -86,6 +86,6 @@ const Sort = ({ sortOptions }: { sortOptions: optionType[] }) => {
       </SelectContent>
     </Select>
   );
-};
+}
 
-export default Sort;
+export { Sort };

@@ -2,7 +2,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 /**
  * 詳細ページのローディング　共通コンポーネント
  */
-const DetailPageSkeleton = () => {
+function DetailPageSkeleton() {
   return (
     <div>
       <Skeleton className="w-full h-64" />
@@ -27,6 +27,6 @@ const DetailPageSkeleton = () => {
       </div>
     </div>
   );
-};
+}
 
-export default DetailPageSkeleton;
+export { DetailPageSkeleton };

@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
-import SearchBar from "../SearchBar";
 import { Categories } from "../Categories";
+import { SearchBar } from "../index";
 
 /**
  * 全ての一覧ページの共通フレームコンポーネント
@@ -14,7 +14,7 @@ import { Categories } from "../Categories";
  * ＠children {ReactNode}
  *
  */
-export default function ListPageFrame({
+function ListPageFrame({
   filterArea,
   sortArea,
   paginationArea,
@@ -76,3 +76,5 @@ export default function ListPageFrame({
     </>
   );
 }
+
+export { ListPageFrame };
