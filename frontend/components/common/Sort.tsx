@@ -40,7 +40,7 @@ function Sort({ sortOptions }: { sortOptions: optionType[] }) {
       // クエリがない場合はデフォルトに設定
       setSelectedLabel("新着順");
     }
-  }, [searchParams]);
+  }, [searchParams, sortOptions]);
 
   /**
    * 表示順選択切り替え

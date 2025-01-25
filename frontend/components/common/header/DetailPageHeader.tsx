@@ -45,7 +45,7 @@ function DetailPageHeader({
         break;
       }
     }
-  }, []);
+  }, [headerOptions]);
 
   /**
    * ヘッダーがスクロール可能かをチェック
