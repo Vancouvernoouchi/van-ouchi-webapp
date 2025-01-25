@@ -9,6 +9,9 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { createQueryString } from "@/utlis/queryStringHelper";
 import { toast } from "sonner";
 
+/**
+ * 検索バー 共通コンポーネント
+ */
 const SearchBar = () => {
   const [keyword, setKeyword] = useState<string>("");
   const handleKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {

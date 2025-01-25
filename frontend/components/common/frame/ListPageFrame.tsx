@@ -3,7 +3,7 @@ import SearchBar from "../SearchBar";
 import { Categories } from "../Categories";
 
 /**
- * 一覧ページの共通コンポーネント
+ * 全ての一覧ページの共通フレームコンポーネント
  *
  * ＠params filterArea {ReactNode}
  * ＠params sortArea {ReactNode}
