@@ -44,7 +44,7 @@ function CardFrame({
             unoptimized={true}
           />
         ) : (
-          <div className="flex items-center justify-center h-full text-gray-500 rounded-lg">
+          <div className="flex items-center justify-center h-full bg-gray-200 rounded-lg border">
             画像がありません
           </div>
         )}
