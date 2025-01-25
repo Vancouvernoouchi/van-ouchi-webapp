@@ -8,7 +8,8 @@ import {
 
 import CardFrame from "@/components/common/frame/CardFrame";
 import ListPageFrame from "@/components/common/frame/ListPageFrame";
-import PropertySort from "./PropertySort";
+import Sort from "@/components/common/Sort";
+import { optionType } from "@/config/commonOptions";
 
 interface PropertyListProps {
   paginatedProperties: NotionProperty[];
@@ -17,6 +18,12 @@ interface PropertyListProps {
   totalPage: number;
   itemsPerPage: number;
 }
+
+export const sortOptions: optionType[] = [
+  { label: "金額：高い順", value: "price-asc" },
+  { label: "金額：低い順", value: "price-dec" },
+  { label: "新着順", value: "latest" },
+];
 
 /**
  * 物件一覧ページ
@@ -45,7 +52,7 @@ export default function PropertyList({
       filterArea={
         <FilterDialog filteredPropertiesNumbers={filteredPropertiesNumber} />
       }
-      sortArea={<PropertySort />}
+      sortArea={<Sort sortOptions={sortOptions} />}
       paginationArea={
         <PaginationList currentPage={currentPage} totalPage={totalPage} />
       }
