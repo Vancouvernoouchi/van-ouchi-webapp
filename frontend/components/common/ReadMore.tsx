@@ -1,53 +1,76 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import { ChevronDown, ChevronUp } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+
+interface ReadMoreProps {
+  text: string;
+  maxHeight?: number;
+}
 
 /**
  * 続きを読むコンポーネント
  *
  * @param text {string}
+ * @param maxHeight {number} - (px)
  */
-function ReadMore({ text }: { text: string }) {
+export function ReadMore({ text, maxHeight = 150 }: ReadMoreProps) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [showButton, setShowButton] = useState(false);
+  const contentRef = useRef<HTMLParagraphElement>(null);
+  const fullHeight = useRef<number>(0);
 
-  // テキストを改行ごとに分割し、最初の6行までを表示
-  const lines = text ? text.split("\n") : [];
-  const previewText = lines.slice(0, 6).join("\n");
-
-  // テキストが6行以下ならグラデーションとボタンを表示しない
-  const showButtonAndGradient = lines.length > 6;
+  useEffect(() => {
+    if (contentRef.current) {
+      const scrollHeight = contentRef.current.scrollHeight;
+      fullHeight.current = scrollHeight;
+      setShowButton(scrollHeight > maxHeight);
+    }
+  }, [maxHeight]);
 
   return (
-    <div className="relative pb-20">
-      {/* 本文 */}
-      <p
-        className={`whitespace-pre-line text-sm ${
-          isExpanded ? "" : "line-clamp-6"
-        }`}
+    <div className="relative">
+      <div
+        className="overflow-hidden transition-all duration-300 ease-in-out"
+        style={{
+          maxHeight: isExpanded ? `${fullHeight.current}px` : `${maxHeight}px`,
+        }}
       >
-        {isExpanded ? text : previewText}
-      </p>
+        <p ref={contentRef} className="whitespace-pre-line text-sm">
+          {text}
+        </p>
+      </div>
 
-      {/* 下方向のグラデーション */}
-      {!isExpanded && showButtonAndGradient && (
-        <div className="absolute bottom-12 left-0 w-full h-20 bg-gradient-to-t from-white via-white/70 to-transparent pointer-events-none" />
+      {!isExpanded && showButton && (
+        <div
+          className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-white via-white to-transparent pointer-events-none"
+          style={{ height: "100px" }}
+        />
       )}
 
-      {/* 展開/閉じるボタン */}
-      {showButtonAndGradient && (
-        <button
-          className="absolute bottom-0 left-1/2 transform -translate-x-1/2 mt-10 px-5 sm:px-10 py-2 z-10 rounded-full flex items-center justify-center gap-2 text-sm bg-grayThemeColor text-themeColor"
-          onClick={() => setIsExpanded(!isExpanded)}
-        >
-          {isExpanded ? <ChevronUp /> : <ChevronDown />}
-          <span className="text-xs">
-            {isExpanded ? "閉じる" : "続きを読む"}
-          </span>
-        </button>
+      {showButton && (
+        <div className="relative mt-2 flex justify-center">
+          <Button
+            variant="outline"
+            size="sm"
+            className="px-5 sm:px-10 py-2 rounded-full flex items-center justify-center gap-2 text-sm bg-grayThemeColor text-themeColor border border-grayThemeColor z-10"
+            onClick={() => setIsExpanded(!isExpanded)}
+          >
+            {isExpanded ? (
+              <>
+                <ChevronUp className="h-4 w-4" />
+                閉じる
+              </>
+            ) : (
+              <>
+                <ChevronDown className="h-4 w-4" />
+                続きを読む
+              </>
+            )}
+          </Button>
+        </div>
       )}
     </div>
   );
 }
-
-export { ReadMore };
