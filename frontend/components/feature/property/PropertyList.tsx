@@ -2,7 +2,7 @@ import { FilterDialog } from "@/components/feature/property/FilterDialog";
 import { NotionProperty, PropertyCardData } from "@/types/notionTypes";
 import PaginationList from "@/components/common/PaginationList";
 import {
-  formatDateToJapanese,
+  formatMoveInDate,
   formatPropertyCardData,
 } from "@/utlis/getPropertyValue";
 import { optionType } from "@/config/commonOptions";
@@ -74,7 +74,7 @@ export default function PropertyList({
  */
 const PropertyCard = ({ property }: { property: PropertyCardData }) => {
   /* 入居可能日 */
-  const moveIndate = formatDateToJapanese(property.moveInDate);
+  const moveIndate = formatMoveInDate(property.moveInDate);
 
   /* 募集中の物件のみ「入居者募集中」 or 「即入居可能」のラベル */
   const labelMessage =
@@ -101,7 +101,7 @@ const PropertyCard = ({ property }: { property: PropertyCardData }) => {
           {property.title ? property.title : property.roomName}
         </div>
         <div className="text-xs sm:text-sm text-gray-500">
-          {moveIndate}から入居可能
+          入居可能日: {moveIndate}
         </div>
         <div className="text-xs sm:text-sm text-gray-500">
           【{property.zone}】 {property.area}エリア
