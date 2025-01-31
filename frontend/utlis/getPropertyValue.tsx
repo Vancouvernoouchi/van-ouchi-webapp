@@ -284,7 +284,7 @@ export const formatDateToJapanese = (dateString: string): string => {
 };
 
 /**
- * 入居可能日を取得する
+ * 入居可能日の表示を整える関数
  *
  * @param moveInDate {string} - 例：　２０２５−０１−０１
  * @param moveOutDate {string} - 例：　２０２５−０１−０１
@@ -292,27 +292,12 @@ export const formatDateToJapanese = (dateString: string): string => {
  *
  * @return {string} - statusに応じた入居可能日の表示
  */
-export const getMoveInDateByStatus = (
-  moveInDate: string,
-  moveOutDate: string,
-  status: string
-): string => {
-  // すでに入居者がいる場合、退去予定日を返す
-  if (status === "入居中" || status === "成約済み") {
-    return moveOutDate
-      ? `${formatDateToJapanese(moveOutDate)}退去予定`
-      : "退去日未定";
-
-    // ステータスが即入居可能 or 入居可能日が今日より過去の場合、「即入居可能」を返す
-  } else if (status === "即入居可能" || isTodayOrPast(moveInDate)) {
-    return "即入居可能";
-
-    // 入居者募集中の場合、入居可能日を返す
-  } else if (status === "入居者募集中") {
-    return `${formatDateToJapanese(moveInDate)}から入居可能`;
-
-    // 例外。「確認中」を返す
-  } else {
-    return "入居日程確認中";
+export const formatMoveInDate = (moveInDate: string): string => {
+  // 入居日がnullのとき、「確認中」を表示
+  if (!moveInDate) {
+    return "確認中";
   }
+
+  // 日本語表記にして表示
+  return formatDateToJapanese(moveInDate);
 };

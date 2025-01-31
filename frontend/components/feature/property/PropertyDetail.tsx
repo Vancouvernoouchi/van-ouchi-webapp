@@ -38,7 +38,7 @@ import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { formatDateToJapanese } from "@/utlis/getPropertyValue";
+import { formatMoveInDate } from "@/utlis/getPropertyValue";
 import { DetailPageFrame } from "@/components/common";
 import { DetailPageHeader, DetailPageHeaderOption } from "@/components/common";
 
@@ -61,7 +61,7 @@ const propertyDetailHeaderList: DetailPageHeaderOption[] = [
  */
 const PropertyDetail = ({ property }: { property: PropertyDetailData }) => {
   /* 入居可能日 */
-  const moveInDate = formatDateToJapanese(property.moveInDate);
+  const moveInDate = formatMoveInDate(property.moveInDate);
 
   /* 対象の性別 */
   const targetGender = () => {
@@ -268,9 +268,7 @@ const PropertyDetail = ({ property }: { property: PropertyDetailData }) => {
           </div>
           <div className="flex flex-col items-center">
             <div className="text-gray-400 text-sm">MOVE IN</div>
-            <div className="text-sm sm:text-base">
-              {moveInDate.replace("から入居可能", "").replace("退去予定", "")}
-            </div>
+            <div className="text-sm sm:text-base">{moveInDate}</div>
           </div>
         </div>
       </div>
