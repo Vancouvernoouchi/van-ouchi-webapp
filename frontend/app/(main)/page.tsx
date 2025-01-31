@@ -1,5 +1,4 @@
-import DevelopingPage from "@/components/atoms/common/DevelopingPage";
-import React from "react";
+import { DevelopingPage } from "@/components/common";
 
 const Home = () => {
   return (

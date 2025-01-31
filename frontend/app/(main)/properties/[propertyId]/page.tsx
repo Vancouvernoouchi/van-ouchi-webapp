@@ -4,9 +4,9 @@ import { AxiosResponse } from "axios";
 import { apiClient } from "@/config/apiClient";
 import { getPropertyValue } from "@/utlis/getPropertyValue";
 import type { Metadata, ResolvingMetadata } from "next";
-import ErrorPage from "@/components/atoms/common/ErrorPage";
 import { MESSAGES } from "@/constants/messages";
-import PropertyDetail from "@/components/template/propertyDetail/PropertyDetail";
+import PropertyDetail from "@/components/feature/property/PropertyDetail";
+import { ErrorPage } from "@/components/common";
 
 type Props = {
   params: Promise<{ propertyId: string }>;
@@ -71,7 +71,7 @@ const PropertyDetailPage = async ({
     } else {
       return (
         <ErrorPage
-          responseCode="404"
+          responseCode={404}
           errorMessage={MESSAGES.ERROR_NOT_FOUND("物件情報")}
         />
       );

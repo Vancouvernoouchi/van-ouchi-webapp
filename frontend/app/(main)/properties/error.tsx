@@ -1,5 +1,5 @@
 "use client";
-import ErrorPage from "@/components/atoms/common/ErrorPage";
+import { ErrorPage } from "@/components/common";
 import { MESSAGES } from "@/constants/messages";
 
 const PropertyListError = () => {

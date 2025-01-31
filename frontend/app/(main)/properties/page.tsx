@@ -1,11 +1,10 @@
-import ErrorPage from "@/components/atoms/common/ErrorPage";
-import PropertyList from "@/components/template/propertyList/PropertyList"; // 修正ポイント
+import { ErrorPage } from "@/components/common";
+import PropertyList from "@/components/feature/property/PropertyList";
 import { MESSAGES } from "@/constants/messages";
 import {
   fetchAndFilterProperties,
   SearchParams,
 } from "@/utlis/filterSort/propertyService";
-
 
 const PropertyListPage = async ({
   searchParams,
