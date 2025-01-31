@@ -33,7 +33,7 @@ function ListPageFrame({
 }) {
   return (
     <>
-      <Categories />
+      {/* <Categories /> */}
 
       {/* 検索バーとフィルター（スマホ） */}
       <div className="sm:hidden flex items-center gap-2 pt-2">
