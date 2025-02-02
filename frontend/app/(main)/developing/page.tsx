@@ -1,6 +1,6 @@
 import { DevelopingPage } from "@/components/common/page";
 
-const TenantPage = () => {
+const Developing = () => {
   return (
     <main>
       <DevelopingPage />
@@ -8,4 +8,4 @@ const TenantPage = () => {
   );
 };
 
-export default TenantPage;
+export default Developing;

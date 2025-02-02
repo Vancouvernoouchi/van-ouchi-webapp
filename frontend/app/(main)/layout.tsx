@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { Analytics } from "@vercel/analytics/react";
-import { Header } from "@/components/common";
+import { Header } from "@/components/common/header";
 
 const MainLayout = ({
   children,

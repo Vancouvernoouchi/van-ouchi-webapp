@@ -1,5 +1,5 @@
 "use client";
-import { ErrorPage } from "@/components/common";
+import { ErrorPage } from "@/components/common/page";
 import { MESSAGES } from "@/constants/messages";
 
 const PropertyDetailPageError = () => {

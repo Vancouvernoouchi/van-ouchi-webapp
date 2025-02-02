@@ -1,9 +1,9 @@
 "use client";
 
-import FilterCheckboxButtons from "@/components/feature/property/FilterCheckboxButtons";
-import { FilterRangeInput } from "@/components/feature/property/FilterInput";
-import { FilterRadioBoxes } from "@/components/feature/property/FilterRadioBoxes";
-import FilterSelectButtons from "@/components/feature/property/FilterSelectButtons";
+import FilterCheckboxButtons from "@/components/features/property/FilterCheckboxButtons";
+import { FilterRangeInput } from "@/components/features/property/FilterInput";
+import { FilterRadioBoxes } from "@/components/features/property/FilterRadioBoxes";
+import FilterSelectButtons from "@/components/features/property/FilterSelectButtons";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
