@@ -1,6 +1,7 @@
 "use client";
 import {
   Apple,
+  Building,
   ChevronLeft,
   ChevronRight,
   Coffee,
@@ -30,16 +31,21 @@ const categoryList: CategoryList[] = [
     icon: House,
     path: "/properties",
   },
-  // {
-  //   label: "レストラン",
-  //   icon: Utensils,
-  //   path: "/restaurants",
-  // },
-  // {
-  //   label: "カフェ",
-  //   icon: Coffee,
-  //   path: "/cafes",
-  // },
+  {
+    label: "留学エージェント",
+    icon: Building,
+    path: "/developing", // agencies
+  },
+  {
+    label: "お役立ちブログ",
+    icon: Laptop,
+    path: "/developing", // blogs
+  },
+  {
+    label: "イベント",
+    icon: Coffee,
+    path: "/developing", // events
+  },
   // {
   //   label: "小売店",
   //   icon: Store,
@@ -65,11 +71,6 @@ const categoryList: CategoryList[] = [
   //   icon: Dumbbell,
   //   path: "/gyms",
   // },
-  {
-    label: "お役立ちブログ",
-    icon: Laptop,
-    path: "blogs",
-  },
 ];
 
 /**
@@ -172,8 +173,8 @@ function CategoryBox({
         }
         `}
       >
-        <Icon size={22} />
-        <div className="text-[10px] whitespace-nowrap">{label}</div>{" "}
+        <Icon size={22} strokeWidth={1} />
+        <div className="text-[10px] whitespace-nowrap">{label}</div>
       </div>
     </div>
   );
