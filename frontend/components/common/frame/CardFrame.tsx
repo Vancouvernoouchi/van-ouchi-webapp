@@ -8,7 +8,7 @@ interface CardFrameProps {
   imageAlt?: string;
   labelMessage?: string;
   labelColor?: string;
-  children: ReactNode;
+  cardContent: ReactNode;
 }
 
 /**
@@ -27,7 +27,7 @@ function CardFrame({
   imageAlt,
   labelMessage,
   labelColor = "bg-white",
-  children,
+  cardContent,
 }: CardFrameProps) {
   return (
     <Link href={`/properties/${href}`} className="relative">
@@ -60,7 +60,7 @@ function CardFrame({
       )}
 
       {/* カードコンテンツ */}
-      <div className="flex flex-col w-full gap-1 pt-2 pb-6">{children}</div>
+      <div className="flex flex-col w-full gap-1 pt-2 pb-6">{cardContent}</div>
     </Link>
   );
 }
