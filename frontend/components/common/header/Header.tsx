@@ -1,9 +1,5 @@
 "use client";
-import {
-  headerOptions,
-  Language,
-  LanguageOptions,
-} from "@/config/headerOptions";
+
 import { Suspense, useEffect, useState } from "react";
 import { Globe, Menu } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
@@ -16,6 +12,71 @@ import {
   SelectTrigger,
 } from "@/components/ui/select";
 import { OuchiLogo, SearchBar } from "../index";
+import { LINKS } from "@/constants/links";
+import { JP, CA, CN, FlagComponent } from "country-flag-icons/react/3x2";
+
+interface HeaderOptions {
+  name: string;
+  href: string;
+  isExternalLink: boolean; // 外部リンクかどうか
+}
+
+export const headerOptions: HeaderOptions[] = [
+  // {
+  //   name: "ホーム",
+  //   href: "/",
+  //   isExternalLink: false,
+  // },
+  {
+    name: "シェアハウスを探す",
+    href: "/properties",
+    isExternalLink: false,
+  },
+  {
+    name: "生活ガイド",
+    href: LINKS.GUIDE,
+    isExternalLink: true,
+  },
+  // {
+  //   name: "英語レッスン",
+  //   href: LINKS.THREADS,
+  //   isExternalLink: true,
+  // },
+  // {
+  //   name: "会社情報",
+  //   href: "/company",
+  //   isExternalLink: false,
+  // },
+  {
+    name: "お問い合わせ",
+    href: LINKS.INSTAGRAM,
+    isExternalLink: true,
+  },
+  {
+    name: "家を探されている方",
+    href: LINKS.SERVICE_TENANT,
+    isExternalLink: true,
+  },
+  {
+    name: "物件掲載希望の方",
+    href: LINKS.SERVICE_LANDLORD,
+    isExternalLink: true,
+  },
+];
+
+export type Language = "japanese" | "english" | "chinese";
+
+interface LanguageOption {
+  code: Language;
+  name: string;
+  Flag: FlagComponent;
+}
+
+export const LanguageOptions: LanguageOption[] = [
+  { code: "japanese", name: "日本語", Flag: JP },
+  { code: "english", name: "English", Flag: CA },
+  { code: "chinese", name: "中文", Flag: CN },
+];
 
 /**
  * ヘッダーコンポーネント
@@ -87,7 +148,22 @@ const NavMenu = () => {
   const router = useRouter();
 
   return (
-    <Select>
+    <Select
+      onValueChange={(value) => {
+        const selectedHeader = headerOptions.find(
+          (header) => header.href === value
+        );
+        if (selectedHeader) {
+          if (selectedHeader.isExternalLink) {
+            // 別タブで開く場合
+            window.open(selectedHeader.href, "_blank", "noopener,noreferrer");
+          } else {
+            // 通常の遷移
+            router.push(selectedHeader.href);
+          }
+        }
+      }}
+    >
       <SelectTrigger className="w-12 h-12 cursor-pointer flex items-center justify-end border-none p-0 hover:text-gray-500">
         <Menu size={22} />
       </SelectTrigger>
@@ -101,24 +177,13 @@ const NavMenu = () => {
                 : pathname === header.href ||
                   pathname.startsWith(`${header.href}/`);
 
-            const handleClick = () => {
-              if (header.isExternalLink) {
-                // 別タブで開く場合
-                window.open(header.href, "_blank", "noopener,noreferrer");
-              } else {
-                // 通常の遷移
-                router.push(header.href);
-              }
-            };
-
             return (
               <SelectItem
                 key={header.href}
-                value={header.name}
+                value={header.href}
                 className={`${
                   isActive ? "text-black" : "text-gray-500"
                 } px-8 py-2`}
-                onClick={handleClick}
                 showCheckIcon={false}
               >
                 {header.name}
