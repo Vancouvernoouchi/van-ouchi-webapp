@@ -1,4 +1,4 @@
-import { DevelopingPage } from "@/components/common";
+import { DevelopingPage } from "@/components/common/page";
 
 const TenantPage = () => {
   return (

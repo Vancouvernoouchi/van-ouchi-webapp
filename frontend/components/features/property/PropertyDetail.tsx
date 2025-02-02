@@ -39,8 +39,11 @@ import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { formatMoveInDate } from "@/utlis/getPropertyValue";
-import { DetailPageFrame } from "@/components/common";
-import { DetailPageHeader, DetailPageHeaderOption } from "@/components/common";
+import {
+  DetailPageHeader,
+  DetailPageHeaderOption,
+} from "@/components/common/header";
+import { DetailPageFrame } from "@/components/common/frame";
 
 // 物件詳細ページでヘッダーに表示するセクション一覧
 const propertyDetailHeaderList: DetailPageHeaderOption[] = [

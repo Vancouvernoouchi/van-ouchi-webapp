@@ -1,5 +1,5 @@
-import { ReadMore } from "@/components/common/ReadMore";
-import { Tab } from "@/components/common/Tab";
+import { ReadMore } from "@/components/common";
+import { Tab } from "@/components/common";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { AmenitiesProps } from "@/types/notionTypes";
 import {
@@ -11,7 +11,7 @@ import {
   TrainFront,
 } from "lucide-react";
 import { ReactNode, useEffect, useState } from "react";
-import { MapNotFound } from "@/components/common/map/MapNotFound";
+import { MapNotFound } from "@/components/common/map";
 import { MESSAGES } from "@/constants/messages";
 import Image from "next/image";
 

@@ -6,7 +6,7 @@ import { getPropertyValue } from "@/utlis/getPropertyValue";
 import type { Metadata, ResolvingMetadata } from "next";
 import { MESSAGES } from "@/constants/messages";
 import PropertyDetail from "@/components/features/property/PropertyDetail";
-import { ErrorPage } from "@/components/common";
+import { ErrorPage } from "@/components/common/page";
 
 type Props = {
   params: Promise<{ propertyId: string }>;
