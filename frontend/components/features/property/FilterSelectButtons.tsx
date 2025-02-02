@@ -1,4 +1,4 @@
-import FilterSelectButton from "@/components/feature/property/FilterSelectButton";
+import FilterSelectButton from "@/components/features/property/FilterSelectButton";
 import { optionType } from "@/config/commonOptions";
 import React, { FC } from "react";
 

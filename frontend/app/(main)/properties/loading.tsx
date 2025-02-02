@@ -1,4 +1,4 @@
-import { ListPageSkeleton } from "@/components/common/loading/ListPageSkeleton";
+import { ListPageSkeleton } from "@/components/common/loading";
 import React from "react";
 
 const PropertyListLoading = () => {

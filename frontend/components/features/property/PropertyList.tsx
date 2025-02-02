@@ -1,4 +1,4 @@
-import { FilterDialog } from "@/components/feature/property/FilterDialog";
+import { FilterDialog } from "@/components/features/property/FilterDialog";
 import { NotionProperty, PropertyCardData } from "@/types/notionTypes";
 import PaginationList from "@/components/common/PaginationList";
 import {
@@ -6,7 +6,8 @@ import {
   formatPropertyCardData,
 } from "@/utlis/getPropertyValue";
 import { optionType } from "@/config/commonOptions";
-import { CardFrame, ListPageFrame, Sort } from "@/components/common";
+import { CardFrame, ListPageFrame } from "@/components/common/frame";
+import { Sort } from "@/components/common";
 
 interface PropertyListProps {
   paginatedProperties: NotionProperty[];
@@ -56,26 +57,34 @@ export default function PropertyList({
       total={filteredPropertiesNumber}
       endItem={endItem}
       startItem={startItem}
-    >
-      {paginatedProperties.map((p: NotionProperty) => {
+      cardArea={<CardArea properties={paginatedProperties} />}
+    />
+  );
+}
+
+/**
+ * 物件一覧ページのカードを一覧で表示するエリア
+ * ＠params data {PropertyCardData}
+ */
+const CardArea = ({ properties }: { properties: NotionProperty[] }) => {
+  return (
+    <>
+      {properties.map((p: NotionProperty) => {
         const property: PropertyCardData | null = formatPropertyCardData(p);
 
         if (property !== null) {
           return <PropertyCard key={property.id} property={property} />;
         }
       })}
-    </ListPageFrame>
+    </>
   );
-}
+};
 
 /**
  * 物件一覧ページのカード
  * ＠params peoperty {PropertyCardData}
  */
 const PropertyCard = ({ property }: { property: PropertyCardData }) => {
-  /* 入居可能日 */
-  const moveIndate = formatMoveInDate(property.moveInDate);
-
   /* 募集中の物件のみ「入居者募集中」 or 「即入居可能」のラベル */
   const labelMessage =
     property.status === "入居者募集中" || property.status === "即入居可能"
@@ -95,24 +104,35 @@ const PropertyCard = ({ property }: { property: PropertyCardData }) => {
       imageAlt={property.title ?? "物件画像"}
       labelMessage={labelMessage}
       labelColor={labelColor}
-    >
-      <>
-        <div className="text-sm sm:text-base">
-          {property.title ? property.title : property.roomName}
-        </div>
-        <div className="text-xs sm:text-sm text-gray-500">
-          入居可能日: {moveIndate}
-        </div>
-        <div className="text-xs sm:text-sm text-gray-500">
-          【{property.zone}】 {property.area}エリア
-        </div>
-        <div className="text-xs sm:text-sm text-gray-500">
-          {property.closestStation}駅まで徒歩{property.timeToStation}
-        </div>
-        <div className="font-semibold text-base tracking-wider">
-          ${property.rent} <span className="text-xs">/MONTH</span>
-        </div>
-      </>
-    </CardFrame>
+      cardContent={<CardContent property={property} />}
+    />
+  );
+};
+
+/**
+ * カードの画像以下の部分
+ * ＠params peoperty {PropertyCardData}
+ */
+const CardContent = ({ property }: { property: PropertyCardData }) => {
+  /* 入居可能日 */
+  const moveIndate = formatMoveInDate(property.moveInDate);
+  return (
+    <>
+      <div className="text-sm sm:text-base">
+        {property.title ? property.title : property.roomName}
+      </div>
+      <div className="text-xs sm:text-sm text-gray-500">
+        入居可能日: {moveIndate}
+      </div>
+      <div className="text-xs sm:text-sm text-gray-500">
+        【{property.zone}】 {property.area}エリア
+      </div>
+      <div className="text-xs sm:text-sm text-gray-500">
+        {property.closestStation}駅まで徒歩{property.timeToStation}
+      </div>
+      <div className="font-semibold text-base tracking-wider">
+        ${property.rent} <span className="text-xs">/MONTH</span>
+      </div>
+    </>
   );
 };

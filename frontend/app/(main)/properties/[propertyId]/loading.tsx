@@ -1,4 +1,4 @@
-import { DetailPageSkeleton } from "@/components/common";
+import { DetailPageSkeleton } from "@/components/common/loading";
 
 const PropertyDetailLoading = () => {
   return <DetailPageSkeleton />;
