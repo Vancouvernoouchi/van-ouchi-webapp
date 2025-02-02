@@ -11,7 +11,7 @@ import { SearchBar } from "../index";
  * ＠params total {number}
  * ＠params startItem {number}
  * ＠params endItem {number}
- * ＠children {ReactNode}
+ * ＠cardArea {ReactNode}
  *
  */
 function ListPageFrame({
@@ -21,19 +21,19 @@ function ListPageFrame({
   total,
   startItem,
   endItem,
-  children,
+  cardArea,
 }: {
-  filterArea: ReactNode;
-  sortArea: ReactNode;
+  filterArea?: ReactNode;
+  sortArea?: ReactNode;
   paginationArea: ReactNode;
   total: number;
   startItem: number;
   endItem: number;
-  children: ReactNode;
+  cardArea: ReactNode;
 }) {
   return (
     <>
-      {/* <Categories /> */}
+      <Categories />
 
       {/* 検索バーとフィルター（スマホ） */}
       <div className="sm:hidden flex items-center gap-2 pt-2">
@@ -68,7 +68,7 @@ function ListPageFrame({
       ) : (
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4 lg:gap-6">
-            {children}
+            {cardArea}
           </div>
           <div className="py-5">{paginationArea}</div>
         </>
