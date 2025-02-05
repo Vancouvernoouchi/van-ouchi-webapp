@@ -4,7 +4,8 @@ import cors from "cors";
 import { router as indexRouter } from "./routes/indexRouter";
 import { router as propertyRouter } from "./routes/propertyRouter";
 import { router as authRouter } from "./routes/authRouter";
-import { router as testRouter } from "./routes/testRouter";
+import { router as roomRouter } from "./routes/roomRouter";
+import { router as testPropertyRouter } from "./routes/testPropertyRouter";
 import compression from "compression";
 import { setUpCronJobs } from "./cron/cron";
 import helmet from "helmet";
@@ -32,7 +33,8 @@ const routers = [
   { route: "/", controller: indexRouter },
   { route: "/properties", controller: propertyRouter },
   { route: "/auth", controller: authRouter },
-  { route: "/test", controller: testRouter },
+  { route: "/rooms", controller: roomRouter },
+  { route: "/testProperties", controller: testPropertyRouter },
 ];
 routers.forEach((r) => {
   app.use(`/api/v1${r.route}`, r.controller);
