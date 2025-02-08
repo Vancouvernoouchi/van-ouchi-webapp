@@ -9,6 +9,7 @@ import {
   House,
   Laptop,
   LucideIcon,
+  PartyPopper,
   Scissors,
   Shirt,
   Store,
@@ -34,17 +35,17 @@ const categoryList: CategoryList[] = [
   {
     label: "留学エージェント",
     icon: Building,
-    path: "/developing", // agencies
+    path: "/agencies", // agencies
   },
   {
     label: "お役立ちブログ",
     icon: Laptop,
-    path: "/developing", // blogs
+    path: "/blogs", // blogs
   },
   {
     label: "イベント",
-    icon: Coffee,
-    path: "/developing", // events
+    icon: PartyPopper,
+    path: "/events", // events
   },
   // {
   //   label: "小売店",
