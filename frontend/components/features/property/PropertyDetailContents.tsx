@@ -139,33 +139,37 @@ export const PropertyImage = ({
   googlePhotoUrl: string;
 }) => {
   return (
-    <div
-      id="images"
-      className="propertyPageImage mt-2 flex flex-col rounded-lg"
-    >
-      {imgUrl ? (
-        <div>
-          <Image
-            src={imgUrl}
-            alt={title ?? "物件画像"}
-            className="rounded-t-lg object-cover"
-            fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
-            unoptimized={true}
-          />
+    <div id="images">
+      <div className="propertyPageImage mt-2 flex flex-col rounded-lg">
+        {imgUrl ? (
+          <div>
+            <Image
+              src={imgUrl}
+              alt={title ?? "物件画像"}
+              className="rounded-t-lg object-cover"
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
+              unoptimized={true}
+            />
 
-          <a
-            href={googlePhotoUrl}
-            target="_blank"
-            className="inline-block p-2 shadow-lg text-white absolute bottom-0 left-0 w-full bg-themeColor hover:bg-black bg-opacity-70 hover:bg-opacity-70 text-center"
-          >
-            もっと見る
-          </a>
-        </div>
-      ) : (
-        <div className="flex items-center justify-center h-full text-gray-500">
-          画像がありません
-        </div>
+            <a
+              href={googlePhotoUrl}
+              target="_blank"
+              className="inline-block p-2 shadow-lg text-white absolute bottom-0 left-0 w-full bg-themeColor hover:bg-black bg-opacity-70 hover:bg-opacity-70 text-center"
+            >
+              もっと見る
+            </a>
+          </div>
+        ) : (
+          <div className="flex items-center justify-center h-full text-gray-500">
+            画像がありません
+          </div>
+        )}
+      </div>
+      {imgUrl && (
+        <p className="flex items-center justify-end gap-1 pt-1 text-xs text-gray-500">
+          ※ 写真は撮影時のものです。現状を優先いたします。
+        </p>
       )}
     </div>
   );
