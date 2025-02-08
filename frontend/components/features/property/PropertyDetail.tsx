@@ -267,7 +267,7 @@ const PropertyDetail = ({ property }: { property: PropertyDetailData }) => {
         <div className="flex gap-7 tracking-widest font-semibold">
           <div className="flex flex-col items-center">
             <div className="text-gray-400 text-sm">MONTHLY RENT</div>
-            <div className="text-sm sm:text-base">${property.rent}</div>
+            <div className="text-sm sm:text-base">CA${property.rent}</div>
           </div>
           <div className="flex flex-col items-center">
             <div className="text-gray-400 text-sm">MOVE IN</div>

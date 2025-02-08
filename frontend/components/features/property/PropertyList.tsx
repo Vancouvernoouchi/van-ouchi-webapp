@@ -131,7 +131,7 @@ const CardContent = ({ property }: { property: PropertyCardData }) => {
         {property.closestStation}駅まで徒歩{property.timeToStation}
       </div>
       <div className="font-semibold text-base tracking-wider">
-        ${property.rent} <span className="text-xs">/MONTH</span>
+        CA${property.rent} <span className="text-xs">/MONTH</span>
       </div>
     </>
   );

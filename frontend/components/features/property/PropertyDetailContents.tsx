@@ -137,12 +137,12 @@ export const BasicInfo = ({
       <PropertyConditionCard
         icon={CircleDollarSign}
         label="家賃"
-        value={`$${rent}`}
+        value={`CA$${rent}`}
       />
       <PropertyConditionCard
         icon={HandCoins}
         label="デポジット"
-        value={`$${deposit}`}
+        value={`CA$${deposit}`}
       />
       <PropertyConditionCard
         icon={CalendarCheck}
