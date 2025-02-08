@@ -238,7 +238,7 @@ export const Amenities = ({ amenities }: { amenities: AmenitiesProps[] }) => {
 };
 
 /**
- * スタッフからのコメントコンポーネント
+ * おすすめポイントコンポーネント
  *
  * @param comment {string}
  */

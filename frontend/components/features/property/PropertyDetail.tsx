@@ -51,7 +51,7 @@ const propertyDetailHeaderList: DetailPageHeaderOption[] = [
   { id: "basic-info", title: "基本情報" },
   { id: "conditions", title: "入居条件" },
   { id: "facilities", title: "設備" },
-  { id: "comment", title: "スタッフからのコメント" },
+  { id: "comment", title: "おすすめポイント" },
   { id: "map", title: "アクセスマップ" },
   { id: "neighbors", title: "周辺情報" },
   { id: "contact", title: "お問い合わせ" },
@@ -181,7 +181,7 @@ const PropertyDetail = ({ property }: { property: PropertyDetailData }) => {
     },
     {
       id: "comment",
-      title: "スタッフからのコメント",
+      title: "おすすめポイント",
       body: <StaffComment comment={property.staffComment} />,
     },
     {
