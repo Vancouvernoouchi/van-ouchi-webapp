@@ -1,19 +1,21 @@
 "use client";
 import {
-  Apple,
+  BriefcaseBusiness,
   Building,
   ChevronLeft,
   ChevronRight,
-  Coffee,
-  Dumbbell,
+  HeartHandshake,
   House,
   Laptop,
+  Laugh,
   LucideIcon,
+  MapPinned,
   PartyPopper,
-  Scissors,
-  Shirt,
+  Recycle,
+  Smartphone,
+  Stethoscope,
   Store,
-  Utensils,
+  TreePalm,
 } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
@@ -28,50 +30,70 @@ interface CategoryList {
 // カテゴリーリスト
 const categoryList: CategoryList[] = [
   {
-    label: "お家",
+    label: "バンクーバーのお家",
     icon: House,
     path: "/properties",
   },
   {
+    label: "仕事探し",
+    icon: BriefcaseBusiness,
+    path: "/jobs",
+  },
+  {
+    label: "ミートアップ・イベント",
+    icon: PartyPopper,
+    path: "/events",
+  },
+  {
+    label: "マーケットプレイス",
+    icon: Recycle,
+    path: "/marketplace",
+  },
+  {
+    label: "おすすめの観光地",
+    icon: TreePalm,
+    path: "/tourist-spots",
+  },
+  {
+    label: "スキルマーケット",
+    icon: Laugh,
+    path: "/skill-market",
+  },
+  {
+    label: "個人経営のお店",
+    icon: Store,
+    path: "/local-shops",
+  },
+  {
+    label: "病院・クリニック",
+    icon: Stethoscope,
+    path: "/clinics",
+  },
+  {
     label: "留学エージェント",
     icon: Building,
-    path: "/agencies", // agencies
+    path: "/agencies",
+  },
+  {
+    label: "携帯会社",
+    icon: Smartphone,
+    path: "/mobile-carriers",
+  },
+  {
+    label: "保険会社",
+    icon: HeartHandshake,
+    path: "/insurance",
   },
   {
     label: "お役立ちブログ",
     icon: Laptop,
-    path: "/blogs", // blogs
+    path: "/blogs",
   },
   {
-    label: "イベント",
-    icon: PartyPopper,
-    path: "/events", // events
+    label: "トイレマップ",
+    icon: MapPinned,
+    path: "/washrooms",
   },
-  // {
-  //   label: "小売店",
-  //   icon: Store,
-  //   path: "/retail",
-  // },
-  // {
-  //   label: "フリマ",
-  //   icon: Shirt,
-  //   path: "/market",
-  // },
-  // {
-  //   label: "スーパー",
-  //   icon: Apple,
-  //   path: "/groceries",
-  // },
-  // {
-  //   label: "美容院",
-  //   icon: Scissors,
-  //   path: "/cafe",
-  // },
-  // {
-  //   label: "ジム",
-  //   icon: Dumbbell,
-  //   path: "/gyms",
-  // },
 ];
 
 /**
@@ -127,7 +149,7 @@ function Categories() {
       </div>
       {prevBtnEnabled && (
         <button
-          className="absolute left-4 md:left-10 xl:left-20 top-1/2 transform -translate-y-1/2 border bg-white p-1 rounded-full shadow-md z-10"
+          className="absolute left-4 top-1/2 transform -translate-y-1/2 border bg-white p-1 rounded-full shadow-md z-10"
           onClick={scrollPrev}
         >
           <ChevronLeft size={18} />
@@ -135,7 +157,7 @@ function Categories() {
       )}
       {nextBtnEnabled && (
         <button
-          className="absolute right-4 md:right-10 xl:right-20 top-1/2 transform -translate-y-1/2 border bg-white p-1 rounded-full shadow-md z-10"
+          className="absolute right-4 top-1/2 transform -translate-y-1/2 border bg-white p-1 rounded-full shadow-md z-10"
           onClick={scrollNext}
         >
           <ChevronRight size={18} />
