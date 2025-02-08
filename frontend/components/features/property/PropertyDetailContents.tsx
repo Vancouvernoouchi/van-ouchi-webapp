@@ -3,9 +3,13 @@ import { Tab } from "@/components/common";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { AmenitiesProps } from "@/types/notionTypes";
 import {
+  ArrowRight,
   CalendarCheck,
+  Check,
   CircleDollarSign,
+  Copy,
   HandCoins,
+  Instagram,
   LandPlot,
   Map,
   TrainFront,
@@ -14,6 +18,18 @@ import { ReactNode, useEffect, useState } from "react";
 import { MapNotFound } from "@/components/common/map";
 import { MESSAGES } from "@/constants/messages";
 import Image from "next/image";
+import Link from "next/link";
+import { toast } from "sonner";
+import { Input } from "@/components/ui/input";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import { useRouter } from "next/navigation";
 
 /**
  * 各セクションのラッパーコンポーネント
@@ -23,14 +39,86 @@ import Image from "next/image";
  * @param children {ReactNode}
  */
 export const SectionWrapper = ({
+  id,
   className,
   children,
 }: {
+  id: string;
   className?: string;
   children: ReactNode;
 }) => {
   return (
-    <div className={`pt-3 pb-8 sm:pt-5 sm:pb-10 ${className}`}>{children}</div>
+    <div id={id} className={`pt-3 pb-8 sm:pt-5 sm:pb-10 border-b ${className}`}>
+      {children}
+    </div>
+  );
+};
+
+/**
+ * 項目のタイトルコンポーネント
+ *
+ * @param title {string}
+ */
+export const SectionTitle = ({
+  title,
+  className,
+}: {
+  title: string;
+  className?: string;
+}) => {
+  return (
+    <h5
+      className={`text-base sm:text-xl font-semibold tracking-widest py-4 ${className}`}
+    >
+      {title}
+    </h5>
+  );
+};
+
+/**
+ * パンクズリストコンポーネント
+ *
+ * @param currentPageName {string}　- 現在のページの名前
+ */
+export const BreadcrumbArea = ({ label }: { label: string }) => {
+  const router = useRouter();
+
+  /**
+   * パンクズリスト物件一覧に戻る
+   * @param e {React.MouseEvent<HTMLAnchorElement>}
+   */
+  const handleBack = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault(); // リンクのデフォルト動作を無効化
+
+    // 履歴がある場合は戻る
+    if (window.history.length > 2) {
+      router.back();
+    } else {
+      // 外部ページから遷移した場合等、履歴がない場合は特定のURLに遷移
+      router.push("/properties");
+    }
+  };
+  return (
+    <Breadcrumb>
+      <BreadcrumbList>
+        {/* TODO: ルートにホームページを作ったらこれ使う */}
+        {/* <BreadcrumbItem>
+        <BreadcrumbLink>
+          <Link href="/">Home</Link>
+        </BreadcrumbLink>
+      </BreadcrumbItem>
+      <BreadcrumbSeparator /> */}
+        <BreadcrumbItem>
+          <BreadcrumbLink onClick={handleBack} className="cursor-pointer">
+            物件一覧
+          </BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+          <BreadcrumbPage className="text-gray-500">{label}</BreadcrumbPage>
+        </BreadcrumbItem>
+      </BreadcrumbList>
+    </Breadcrumb>
   );
 };
 
@@ -51,7 +139,10 @@ export const PropertyImage = ({
   googlePhotoUrl: string;
 }) => {
   return (
-    <div className="propertyPageImage mt-2 flex flex-col rounded-lg">
+    <div
+      id="images"
+      className="propertyPageImage mt-2 flex flex-col rounded-lg"
+    >
       {imgUrl ? (
         <div>
           <Image
@@ -133,29 +224,32 @@ export const BasicInfo = ({
   closestStation: string;
 }) => {
   return (
-    <SectionWrapper className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
-      <PropertyConditionCard
-        icon={CircleDollarSign}
-        label="家賃"
-        value={`CA$${rent}`}
-      />
-      <PropertyConditionCard
-        icon={HandCoins}
-        label="デポジット"
-        value={`CA$${deposit}`}
-      />
-      <PropertyConditionCard
-        icon={CalendarCheck}
-        label="入居可能日"
-        value={moveInDate}
-      />
-      <PropertyConditionCard icon={Map} label="エリア" value={area} />
-      <PropertyConditionCard icon={LandPlot} label="ゾーン" value={zone} />
-      <PropertyConditionCard
-        icon={TrainFront}
-        label="最寄駅"
-        value={closestStation}
-      />
+    <SectionWrapper id="basic-info">
+      <SectionTitle title="基本情報" />
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
+        <PropertyConditionCard
+          icon={CircleDollarSign}
+          label="家賃"
+          value={`CA$${rent}`}
+        />
+        <PropertyConditionCard
+          icon={HandCoins}
+          label="デポジット"
+          value={`CA$${deposit}`}
+        />
+        <PropertyConditionCard
+          icon={CalendarCheck}
+          label="入居可能日"
+          value={moveInDate}
+        />
+        <PropertyConditionCard icon={Map} label="エリア" value={area} />
+        <PropertyConditionCard icon={LandPlot} label="ゾーン" value={zone} />
+        <PropertyConditionCard
+          icon={TrainFront}
+          label="最寄駅"
+          value={closestStation}
+        />
+      </div>
     </SectionWrapper>
   );
 };
@@ -177,7 +271,8 @@ export const Conditions = ({
   conditions: { name: string; value: string }[];
 }) => {
   return (
-    <SectionWrapper>
+    <SectionWrapper id="conditions">
+      <SectionTitle title="入居条件" />
       <Table className="border border-themeColor tracking-wider">
         <TableBody>
           {conditions.map((condition) => (
@@ -207,32 +302,35 @@ export const Conditions = ({
  */
 export const Amenities = ({ amenities }: { amenities: AmenitiesProps[] }) => {
   return (
-    <SectionWrapper className="grid grid-cols-3 sm:grid-cols-5 gap-3">
-      {amenities.map((amenity) => {
-        const Icon = amenity.icon;
+    <SectionWrapper id="facilities">
+      <SectionTitle title="設備" />
+      <div className="grid grid-cols-3 sm:grid-cols-5 gap-3">
+        {amenities.map((amenity) => {
+          const Icon = amenity.icon;
 
-        return (
-          <div
-            key={amenity.message}
-            className="flex flex-col items-center gap-2"
-          >
-            <Icon
-              className={`w-20 h-20 p-5 rounded-md bg-grayThemeColor font-thin ${
-                amenity.value
-                  ? "bg-grayThemeColor text-themeColor"
-                  : "bg-gray-200 text-gray-300"
-              }`}
-            />
+          return (
             <div
-              className={`${
-                amenity.value ? "text-themeColor" : "text-gray-400"
-              }`}
+              key={amenity.message}
+              className="flex flex-col items-center gap-2"
             >
-              {amenity.message}
+              <Icon
+                className={`w-20 h-20 p-5 rounded-md bg-grayThemeColor font-thin ${
+                  amenity.value
+                    ? "bg-grayThemeColor text-themeColor"
+                    : "bg-gray-200 text-gray-300"
+                }`}
+              />
+              <div
+                className={`${
+                  amenity.value ? "text-themeColor" : "text-gray-400"
+                }`}
+              >
+                {amenity.message}
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </SectionWrapper>
   );
 };
@@ -240,26 +338,27 @@ export const Amenities = ({ amenities }: { amenities: AmenitiesProps[] }) => {
 /**
  * おすすめポイントコンポーネント
  *
- * @param comment {string}
+ * @param text {string}
  */
-export const StaffComment = ({ comment }: { comment: string }) => {
+export const RecommendPoint = ({ text }: { text: string }) => {
   return (
-    <>
-      {comment ? (
-        <SectionWrapper>
+    <SectionWrapper id="point">
+      <SectionTitle title="おすすめポイント" />
+      {text ? (
+        <>
           {/* 文章の表示エリア */}
           <div className="hidden sm:block">
-            <div className="whitespace-pre-line text-sm ">{comment}</div>
+            <div className="whitespace-pre-line text-sm ">{text}</div>
           </div>
 
           <div className="block sm:hidden">
-            <ReadMore text={comment} />
+            <ReadMore text={text} />
           </div>
-        </SectionWrapper>
+        </>
       ) : (
         <div className="py-10">現在更新中</div>
       )}
-    </>
+    </SectionWrapper>
   );
 };
 
@@ -280,12 +379,13 @@ export const AccessMap = ({
   timeToStation: string;
 }) => {
   return (
-    <SectionWrapper>
+    <SectionWrapper id="map">
       {/* TODO: 郵便番号でエリア表示させるように修正するまで一旦非表示 */}
       {/* <GoogleMapMarker
         geoPosition={geoPosition}
         className=" w-full h-[400px]"
       /> */}
+      <SectionTitle title="アクセスマップ" />
       <MapNotFound message={MESSAGES.ERROR_PREPAIRING("この物件のマップ")} />
 
       <div className="pt-5 py-2 font-semibold">最寄駅 / バス停</div>
@@ -309,7 +409,8 @@ export const Neighbors = () => {
   ];
 
   return (
-    <SectionWrapper>
+    <SectionWrapper id="neighbors">
+      <SectionTitle title="周辺情報" />
       <Tab tablLabels={tabLabels} contents={contents} />
     </SectionWrapper>
   );
@@ -324,6 +425,101 @@ export const Neighbors = () => {
 // const AvailableProperties = () => {
 //   return <div className="py-10">準備中</div>;
 // };
+
+/**
+ * お問い合わせコンポーネント
+ *
+ */
+export const ContactCard = () => {
+  const [url, setUrl] = useState("");
+  const [isCopied, setIsCopied] = useState<boolean>(false);
+
+  // クライアントサイドでwindowにアクセスする方法
+  useEffect(() => {
+    setUrl(window.location.href);
+  }, []);
+
+  const copyUrl = async () => {
+    try {
+      await navigator.clipboard.writeText(url);
+      setIsCopied(true);
+    } catch (error) {
+      console.error(error);
+      toast.error("URLのコピーに失敗しました。", { position: "top-right" });
+    }
+  };
+
+  useEffect(() => {
+    if (isCopied) {
+      const timer = setTimeout(() => {
+        setIsCopied(false);
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isCopied]);
+
+  return (
+    <SectionWrapper id="contact" className="lg:pt-0">
+      <SectionTitle title="お問い合わせ" className="lg:pt-0" />
+      <div className="rounded-lg px-4 py-8 sm:px-8 sm:py-12 shadow-xl border-[1px] border-gray-300">
+        <div className="w-full flex justify-center items-center">
+          <Image
+            src="/vancouver_no_ouchi_logo2.png"
+            alt="バンクーバーのお家ロゴ"
+            className="pr-4"
+            loading="lazy"
+            unoptimized={true}
+            width={90}
+            height={80}
+            style={{ objectFit: "cover" }}
+          />
+          <div className="flex flex-col items-center justify-center gap-1">
+            <p className="text-sm">シェアハウス探しは</p>
+            <p className="font-bold">バンクーバーのお家</p>
+            <p className="text-sm">にお任せください</p>
+          </div>
+        </div>
+        <div className="text-sm py-2 text-center text-themeColor font-semibold">
+          \ お問い合わせはこちらから /
+        </div>
+        <div className="flex flex-col gap-4">
+          <div>
+            <div className="pb-2 text-sm">①この物件のリンクをコピー</div>
+            <div className="relative">
+              <Input
+                value={url}
+                onChange={() => {}} // これがないとWarningが出る
+                className="pr-14 text-gray-500 border border-themeColor"
+              />
+              <div className="absolute right-3 top-3 flex items-center gap-1 text-sm text-themeColor">
+                {isCopied ? (
+                  <Check size={20} />
+                ) : (
+                  <Copy
+                    size={20}
+                    className="cursor-pointer"
+                    onClick={copyUrl}
+                  />
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div className="pb-2 text-sm">②リンクをインスタのDMに送信</div>
+            <Link href="https://www.instagram.com/vancouver.no.ouchi">
+              <div className="flex items-center justify-center gap-3 w-full  bg-grayThemeColor text-themeColor border border-themeColor py-3 rounded-lg cursor-pointer hover:opacity-70">
+                <Instagram />
+                <div className="">DMで相談・内見予約</div>
+              </div>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </SectionWrapper>
+  );
+};
 
 /**
  * 広告エリア
@@ -343,7 +539,8 @@ export const InstagramAds = () => {
   }, []);
 
   return (
-    <SectionWrapper>
+    <SectionWrapper id="about-us">
+      <SectionTitle title="バンクーバーのお家について" />
       <blockquote
         className="instagram-media"
         data-instgrm-permalink="https://www.instagram.com/p/DE4IZAURGFU/?utm_source=ig_embed&amp;utm_campaign=loading"
@@ -596,5 +793,40 @@ export const InstagramAds = () => {
         </div>
       </blockquote>
     </SectionWrapper>
+  );
+};
+
+/**
+ * 右下、『まずは無料相談』コンポーネント（スマホ）
+ *
+ */
+export const ContactPopUpSP = () => {
+  return (
+    <Link
+      className="fixed bottom-0 right-0 bg-red-600 text-white flex items-center gap-1 tracking-widest p-3 rounded-tl-lg z-50"
+      href="https://www.instagram.com/vancouver.no.ouchi/"
+      target="_blank"
+    >
+      <div className="font-semibold">まずは無料相談</div>
+      <ArrowRight />
+    </Link>
+  );
+};
+
+/**
+ * 右下、『まずは無料相談』コンポーネント（パソコン）
+ *
+ */
+export const ContactPopUpPC = () => {
+  return (
+    <Link
+      className="fixed sm:bottom-10 sm:right-10 h-32 w-32 rounded-full bg-red-600 text-white flex flex-col items-center justify-center gap-1 tracking-widest hover:scale-105 z-50"
+      href="https://www.instagram.com/vancouver.no.ouchi/"
+      target="_blank"
+    >
+      <div>まずは</div>
+      <div className="font-semibold">無料相談</div>
+      <ArrowRight />
+    </Link>
   );
 };
