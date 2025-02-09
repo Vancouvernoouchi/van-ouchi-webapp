@@ -14,6 +14,8 @@ import {
 import { OuchiLogo, SearchBar } from "../index";
 import { LINKS } from "@/constants/links";
 import { JP, CA, CN, FlagComponent } from "country-flag-icons/react/3x2";
+import Image from "next/image";
+import Link from "next/link";
 
 interface HeaderOptions {
   name: string;
@@ -122,7 +124,18 @@ const Header = () => {
     <header className="flex h-16 lg:h-20 justify-center bg-white border-b">
       <div className="base-px relative z-50 w-screen flex items-center justify-between gap-4">
         {/* バンクーバーのお家ロゴ */}
-        <OuchiLogo />
+        <Link
+          href="/properties"
+          className="flex items-center gap-2 whitespace-nowrap cursor-pointer"
+        >
+          <Image
+            src="/bloomLogo/bloom.png"
+            width={200}
+            height={70}
+            alt="Bloom"
+            unoptimized={true}
+          />
+        </Link>
 
         {/* 検索バー スマホサイズでは非表示 */}
         {pathname === "/properties" && (
@@ -164,7 +177,7 @@ const NavMenu = () => {
         }
       }}
     >
-      <SelectTrigger className="w-12 h-12 cursor-pointer flex items-center justify-end border-none p-0 hover:text-gray-500">
+      <SelectTrigger className="w-12 h-12 cursor-pointer flex items-center justify-end border-none p-0 hover:text-bloom-gray">
         <Menu size={22} />
       </SelectTrigger>
       <SelectContent position={undefined}>
@@ -182,7 +195,7 @@ const NavMenu = () => {
                 key={header.href}
                 value={header.href}
                 className={`${
-                  isActive ? "text-black" : "text-gray-500"
+                  isActive ? "text-black" : "text-bloom-gray"
                 } px-8 py-2`}
                 showCheckIcon={false}
               >

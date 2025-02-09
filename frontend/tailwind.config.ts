@@ -19,23 +19,26 @@ const config = {
     },
     extend: {
       colors: {
-        themeColor: "#00540a", // green
-        lightThemeColor: "#008710", // green
-        grayThemeColor: "#E6EBE6", // gray-green
-        // themeColor: "#364D7A",  // blue
-        // lightThemeColor: "#E6F0FF", //blue
-        border: "hsl(var(--border))",
+        // bloom　カラーパレット
+        "bloom-blue": "#2E83C6",
+        "bloom-grayishBlue": "#E3F2FA",
+        "bloom-red": "#FA2C37",
+        "bloom-white": "#FFFFFF",
+        "bloom-balck": "#000000",
+        "bloom-gray": "#61738E",
+
+        border: "#E2E8F1",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
+          DEFAULT: "#2E83C6",
+          foreground: "#FFFFFF",
         },
         secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
+          DEFAULT: "#FA2C37",
+          foreground: "#FFFFFF",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",

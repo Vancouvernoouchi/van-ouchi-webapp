@@ -16,13 +16,13 @@ function Tab({ tablLabels, contents }: TabProps) {
   return (
     <Tabs defaultValue="0" className="w-full">
       <TabsList
-        className={`grid w-full grid-cols-${tablLabels.length} bg-grayThemeColor rounded-full`}
+        className={`grid w-full grid-cols-${tablLabels.length} bg-bloom-grayishBlue rounded-full`}
       >
         {tablLabels.map((label, index) => (
           <TabsTrigger
             key={index}
             value={index.toString()}
-            className="data-[state=active]:bg-white data-[state=active]:text-themeColor data-[state=active]:font-semibold text-xs sm:text-sm rounded-full"
+            className="data-[state=active]:bg-white data-[state=active]:text-bloom-blue data-[state=active]:font-semibold text-xs sm:text-sm rounded-full"
           >
             {label}
           </TabsTrigger>

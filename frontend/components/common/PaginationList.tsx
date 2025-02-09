@@ -74,7 +74,7 @@ function PaginationList({ currentPage, totalPage }: PaginationListProps) {
         {/* current page */}
         <PaginationItem>
           <PaginationLink
-            className="bg-grayThemeColor text-themeColor border border-themeColor"
+            className="bg-bloom-grayishBlue text-bloom-blue border border-bloom-blue"
             isActive
           >
             {currentPage}

@@ -115,7 +115,7 @@ export const BreadcrumbArea = ({ label }: { label: string }) => {
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbPage className="text-gray-500">{label}</BreadcrumbPage>
+          <BreadcrumbPage className="text-bloom-gray">{label}</BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>
@@ -155,19 +155,19 @@ export const PropertyImage = ({
             <a
               href={googlePhotoUrl}
               target="_blank"
-              className="inline-block p-2 shadow-lg text-white absolute bottom-0 left-0 w-full bg-themeColor hover:bg-black bg-opacity-70 hover:bg-opacity-70 text-center"
+              className="inline-block p-2 shadow-lg text-white absolute bottom-0 left-0 w-full bg-bloom-blue bg-opacity-70 hover:bg-opacity-100 text-center"
             >
               もっと見る
             </a>
           </div>
         ) : (
-          <div className="flex items-center justify-center h-full text-gray-500">
+          <div className="flex items-center justify-center h-full text-bloom-gray">
             画像がありません
           </div>
         )}
       </div>
       {imgUrl && (
-        <p className="flex items-center justify-end gap-1 pt-1 text-xs text-gray-500">
+        <p className="flex items-center justify-end gap-1 pt-1 text-xs text-bloom-gray">
           ※ 写真は撮影時のものです。現状を優先いたします。
         </p>
       )}
@@ -192,10 +192,10 @@ const PropertyConditionCard = ({
   value: string;
 }) => {
   return (
-    <div className="flex justify-center items-center gap-1 px-2 sm:px-6 py-2 min-h-24 border border-themeColor rounded-md shadow-md">
-      <Icon className="flex items-center justify-center text-themeColor w-8 h-8" />
+    <div className="flex justify-center items-center gap-1 px-2 sm:px-6 py-2 min-h-24 border border-bloom-blue rounded-md shadow-md">
+      <Icon className="flex items-center justify-center text-bloom-blue w-8 h-8" />
       <div className="flex flex-col items-center justify-center w-full text-sm sm:text-base">
-        <p className="font-bold text-themeColor">{label}</p>
+        <p className="font-bold text-bloom-blue">{label}</p>
         <p>{value}</p>
       </div>
     </div>
@@ -277,14 +277,14 @@ export const Conditions = ({
   return (
     <SectionWrapper id="conditions">
       <SectionTitle title="入居条件" />
-      <Table className="border border-themeColor tracking-wider">
+      <Table className="border border-bloom-blue tracking-wider">
         <TableBody>
           {conditions.map((condition) => (
             <TableRow key={condition.name}>
-              <TableCell className="font-semibold border bg-grayThemeColor text-themeColor border-themeColor">
+              <TableCell className="font-semibold border bg-bloom-grayishBlue text-bloom-blue border-bloom-blue">
                 {condition.name}
               </TableCell>
-              <TableCell className="border border-themeColor">
+              <TableCell className="border border-bloom-blue">
                 {condition.value}
               </TableCell>
             </TableRow>
@@ -318,15 +318,15 @@ export const Amenities = ({ amenities }: { amenities: AmenitiesProps[] }) => {
               className="flex flex-col items-center gap-2"
             >
               <Icon
-                className={`w-20 h-20 p-5 rounded-md bg-grayThemeColor font-thin ${
+                className={`w-20 h-20 p-5 rounded-md bg-bloom-grayishBlue font-thin ${
                   amenity.value
-                    ? "bg-grayThemeColor text-themeColor"
+                    ? "bg-bloom-grayishBlue text-bloom-blue"
                     : "bg-gray-200 text-gray-300"
                 }`}
               />
               <div
                 className={`${
-                  amenity.value ? "text-themeColor" : "text-gray-400"
+                  amenity.value ? "text-bloom-blue" : "text-bloom-gray"
                 }`}
               >
                 {amenity.message}
@@ -484,7 +484,7 @@ export const ContactCard = () => {
             <p className="text-sm">にお任せください</p>
           </div>
         </div>
-        <div className="text-sm py-2 text-center text-themeColor font-semibold">
+        <div className="text-sm py-2 text-center text-bloom-blue font-semibold">
           \ お問い合わせはこちらから /
         </div>
         <div className="flex flex-col gap-4">
@@ -494,9 +494,9 @@ export const ContactCard = () => {
               <Input
                 value={url}
                 onChange={() => {}} // これがないとWarningが出る
-                className="pr-14 text-gray-500 border border-themeColor"
+                className="pr-14 text-bloom-gray border border-bloom-blue"
               />
-              <div className="absolute right-3 top-3 flex items-center gap-1 text-sm text-themeColor">
+              <div className="absolute right-3 top-3 flex items-center gap-1 text-sm text-bloom-blue">
                 {isCopied ? (
                   <Check size={20} />
                 ) : (
@@ -513,7 +513,7 @@ export const ContactCard = () => {
           <div>
             <div className="pb-2 text-sm">②リンクをインスタのDMに送信</div>
             <Link href="https://www.instagram.com/vancouver.no.ouchi">
-              <div className="flex items-center justify-center gap-3 w-full  bg-grayThemeColor text-themeColor border border-themeColor py-3 rounded-lg cursor-pointer hover:opacity-70">
+              <div className="flex items-center justify-center gap-3 w-full  bg-bloom-grayishBlue text-bloom-blue border border-bloom-blue py-3 rounded-lg cursor-pointer hover:opacity-70">
                 <Instagram />
                 <div className="">DMで相談・内見予約</div>
               </div>
@@ -807,7 +807,7 @@ export const InstagramAds = () => {
 export const ContactPopUpSP = () => {
   return (
     <Link
-      className="fixed bottom-0 right-0 bg-red-600 text-white flex items-center gap-1 tracking-widest p-3 rounded-tl-lg z-50"
+      className="fixed bottom-0 right-0 bg-bloom-red text-white flex items-center gap-1 tracking-widest p-3 rounded-tl-lg z-50"
       href="https://www.instagram.com/vancouver.no.ouchi/"
       target="_blank"
     >
@@ -824,7 +824,7 @@ export const ContactPopUpSP = () => {
 export const ContactPopUpPC = () => {
   return (
     <Link
-      className="fixed sm:bottom-10 sm:right-10 h-32 w-32 rounded-full bg-red-600 text-white flex flex-col items-center justify-center gap-1 tracking-widest hover:scale-105 z-50"
+      className="fixed sm:bottom-10 sm:right-10 h-32 w-32 rounded-full bg-bloom-red text-white flex flex-col items-center justify-center gap-1 tracking-widest hover:scale-105 z-50"
       href="https://www.instagram.com/vancouver.no.ouchi/"
       target="_blank"
     >
