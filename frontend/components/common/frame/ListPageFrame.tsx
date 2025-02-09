@@ -59,7 +59,7 @@ function ListPageFrame({
       </div>
 
       {total <= 0 ? (
-        <div className="h-[70vh] p-2 flex flex-col justify-center items-center text-center text-gray-500 text-xl">
+        <div className="h-[70vh] p-2 flex flex-col justify-center items-center text-center text-bloom-gray text-xl">
           条件に一致する物件が見つかりませんでした。
         </div>
       ) : (

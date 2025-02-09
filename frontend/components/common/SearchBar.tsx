@@ -57,7 +57,7 @@ function SearchBar() {
       <Button
         type="button"
         variant="outline"
-        className="absolute right-1.5 top-1/2 transform -translate-y-1/2 bg-themeColor flex items-center justify-center rounded-full w-8 h-8 p-0"
+        className="absolute right-1.5 top-1/2 transform -translate-y-1/2 bg-bloom-blue flex items-center justify-center rounded-full w-8 h-8 p-0 border-0"
         onClick={handleSearch}
       >
         <Search className="text-white" />

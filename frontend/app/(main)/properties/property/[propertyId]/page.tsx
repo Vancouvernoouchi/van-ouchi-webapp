@@ -33,7 +33,7 @@ const PreviousPropertyDetailPage = ({
       </div>
 
       <Link
-        className="text-themeColor border-b border-themeColor cursor-pointer hover:opacity-60"
+        className="text-bloom-blue border-b border-bloom-blue cursor-pointer hover:opacity-60"
         href={newPath}
       >
         新しいURLへ移動
