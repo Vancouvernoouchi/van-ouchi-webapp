@@ -221,7 +221,7 @@ function ScrollToSection({
       onClick={handleClick}
       data-section={dataSectionAttr}
       className={`text-sm tracking-wider lg:text-base focus:outline-none whitespace-nowrap px-2 py-1 transition-colors duration-200 ${
-        isActive ? "text-themeColor font-bold" : "text-gray-400"
+        isActive ? "text-bloom-blue font-bold" : "text-bloom-gray"
       }`}
     >
       {title}

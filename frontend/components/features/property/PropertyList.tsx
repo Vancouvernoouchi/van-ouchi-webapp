@@ -95,7 +95,7 @@ const PropertyCard = ({ property }: { property: PropertyCardData }) => {
   const labelColor =
     property.status === "入居者募集中"
       ? "bg-white"
-      : "bg-themeColor text-white";
+      : "bg-bloom-blue text-white";
 
   return (
     <CardFrame
@@ -121,13 +121,13 @@ const CardContent = ({ property }: { property: PropertyCardData }) => {
       <div className="text-sm sm:text-base">
         {property.title ? property.title : property.roomName}
       </div>
-      <div className="text-xs sm:text-sm text-gray-500">
+      <div className="text-xs sm:text-sm text-bloom-gray">
         入居可能日: {moveIndate}
       </div>
-      <div className="text-xs sm:text-sm text-gray-500">
+      <div className="text-xs sm:text-sm text-bloom-gray">
         【{property.zone}】 {property.area}エリア
       </div>
-      <div className="text-xs sm:text-sm text-gray-500">
+      <div className="text-xs sm:text-sm text-bloom-gray">
         {property.closestStation}駅まで徒歩{property.timeToStation}
       </div>
       <div className="font-semibold text-base tracking-wider">

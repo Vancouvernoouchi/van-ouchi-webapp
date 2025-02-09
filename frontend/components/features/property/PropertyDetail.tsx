@@ -139,7 +139,7 @@ const PropertyDetail = ({ property }: { property: PropertyDetailData }) => {
       <div className="flex flex-col sm:flex-row sm:justify-between items-center gap-3 py-3 sm:py-6">
         <div className="flex flex-col items-start gap-2 w-full sm:w-[50%] lg:w-[60%]">
           {/* 空き状況ステータス */}
-          <div className="py-1.5 px-4 bg-white rounded-full z-40 top-3 left-3 shadow-lg opacity-85 text-xs sm:text-sm border border-themeColor text-themeColor">
+          <div className="py-1.5 px-4 bg-white rounded-full z-40 top-3 left-3 shadow-lg opacity-85 text-xs sm:text-sm border border-bloom-blue text-bloom-blue">
             {property.status}
           </div>
           {/* タイトル */}
@@ -151,12 +151,12 @@ const PropertyDetail = ({ property }: { property: PropertyDetailData }) => {
         <div className="flex gap-7 tracking-widest font-semibold">
           {/* 家賃 */}
           <div className="flex flex-col items-center">
-            <div className="text-gray-400 text-sm">MONTHLY RENT</div>
+            <div className="text-slate-400 text-sm">MONTHLY RENT</div>
             <div className="text-sm sm:text-base">CA${property.rent}</div>
           </div>
           {/* 入居可能日 */}
           <div className="flex flex-col items-center">
-            <div className="text-gray-400 text-sm">MOVE IN</div>
+            <div className="text-slate-400 text-sm">MOVE IN</div>
             <div className="text-sm sm:text-base">{moveInDate}</div>
           </div>
         </div>

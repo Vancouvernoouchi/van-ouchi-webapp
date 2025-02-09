@@ -20,10 +20,11 @@ import {
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
+import Image from "next/image";
 
 export interface Category {
   name: string;
-  icon: LucideIcon;
+  icon: LucideIcon | null;
   pathname: string;
 }
 
@@ -31,7 +32,7 @@ export interface Category {
 export const CATEGORY_LIST: Category[] = [
   {
     name: "バンクーバーのお家",
-    icon: House,
+    icon: null,
     pathname: "/properties",
   },
   {
@@ -214,8 +215,36 @@ function Categories() {
     }
   }, [pathname, emblaApi]);
 
+  const [isFixed, setIsFixed] = useState(false);
+
+  /**
+   * 固定するかどうかスクロールの高さで判断する
+   */
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsFixed(window.scrollY > 100); // 100px 以上スクロールで固定
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // カテゴリ一覧のpathnameに完全一致するかチェック
+  const isExactMatch = CATEGORY_LIST.some(
+    (category) => category.pathname === pathname
+  );
+
+  // 一致しない場合は表示しない
+  if (!isExactMatch) return null;
+
   return (
-    <div className="relative py-2">
+    // TODO: 全ページのフィルターが完成したらヘッダーを固定する。下のdivのコメントを解除すると固定される。
+    // <div
+    //   className={`w-full z-50 transition-all duration-300 ${
+    //     isFixed ? "fixed top-0 left-0 bg-white shadow-md" : ""
+    //   }`}
+    // >
+    <div className="relative base-px pt-2 pb-1">
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex">
           {CATEGORY_LIST.map((item) => (
@@ -256,6 +285,7 @@ function Categories() {
         )}
       </div>
     </div>
+    // </div>
   );
 }
 
@@ -265,7 +295,7 @@ function CategoryBox({
   pathname,
   selected,
 }: {
-  icon: LucideIcon;
+  icon: LucideIcon | null;
   name: string;
   pathname: string;
   selected: boolean;
@@ -284,11 +314,25 @@ function CategoryBox({
         ${
           selected
             ? "border-b-gray-800 font-normal"
-            : "border-transparent text-gray-500"
+            : "border-transparent text-bloom-gray"
         }
         `}
       >
-        <Icon size={22} strokeWidth={1.5} />
+        {Icon ? (
+          <Icon className="h-6" strokeWidth={1} />
+        ) : (
+          <Image
+            src={`/ouchiLogo/ouchi_category_${
+              selected ? "active" : "disable"
+            }.png`}
+            alt="バンクーバーのお家"
+            className="w-10 h-6"
+            width={25}
+            height={15}
+            unoptimized={true}
+          />
+        )}
+
         <div className="text-[10px] whitespace-nowrap rounded-md">{name}</div>
       </div>
     </div>
