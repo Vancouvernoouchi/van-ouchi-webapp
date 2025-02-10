@@ -43,7 +43,7 @@ export const CATEGORY_LIST: Category[] = [
   {
     name: "インターン・ボランティア",
     icon: Handshake,
-    pathname: "/jobs",
+    pathname: "/internship",
   },
   {
     name: "ミートアップ・イベント",
