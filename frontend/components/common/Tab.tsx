@@ -22,7 +22,7 @@ function Tab({ tablLabels, contents }: TabProps) {
           <TabsTrigger
             key={index}
             value={index.toString()}
-            className="data-[state=active]:bg-white data-[state=active]:text-bloom-blue data-[state=active]:font-semibold text-xs sm:text-sm rounded-full"
+            className="data-[state=active]:bg-white data-[state=active]:text-bloom-blue data-[state=active]:font-semibold rounded-full"
           >
             {label}
           </TabsTrigger>
