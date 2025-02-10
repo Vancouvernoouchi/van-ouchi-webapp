@@ -25,10 +25,7 @@ import {
   BreadcrumbArea,
 } from "@/components/features/property/PropertyDetailContents";
 import { formatMoveInDate } from "@/utlis/getPropertyValue";
-import {
-  DetailPageHeader,
-  DetailPageHeaderOption,
-} from "@/components/common/header";
+import { DetailPageHeaderOption } from "@/components/common/header";
 import { DetailPageFrame } from "@/components/common/frame";
 
 // 物件詳細ページでヘッダーに表示するセクション一覧
@@ -129,8 +126,7 @@ const PropertyDetail = ({ property }: { property: PropertyDetailData }) => {
   ];
 
   return (
-    <DetailPageFrame>
-      <DetailPageHeader headerOptions={propertyDetailHeaderList} />
+    <DetailPageFrame detailHeaderList={propertyDetailHeaderList}>
       {/* --- 左上エリア：　パンクズリスト　--- 　*/}
       <div className="pt-5 text-sm">
         <BreadcrumbArea label={property.roomName} />
@@ -139,7 +135,7 @@ const PropertyDetail = ({ property }: { property: PropertyDetailData }) => {
       <div className="flex flex-col sm:flex-row sm:justify-between items-center gap-3 py-3 sm:py-6">
         <div className="flex flex-col items-start gap-2 w-full sm:w-[50%] lg:w-[60%]">
           {/* 空き状況ステータス */}
-          <div className="py-1.5 px-4 bg-white rounded-full z-40 top-3 left-3 shadow-lg opacity-85 text-xs sm:text-sm border border-bloom-blue text-bloom-blue">
+          <div className="py-1.5 px-4 bg-white rounded-full z-40 top-3 left-3 opacity-85 text-xs sm:text-sm border border-bloom-blue text-bloom-blue">
             {property.status}
           </div>
           {/* タイトル */}
