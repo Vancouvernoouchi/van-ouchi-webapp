@@ -281,7 +281,7 @@ export const Conditions = ({
         <TableBody>
           {conditions.map((condition) => (
             <TableRow key={condition.name}>
-              <TableCell className="font-semibold border bg-bloom-grayishBlue text-bloom-blue border-bloom-blue">
+              <TableCell className="font-semibold border bg-bloom-lightBlue text-bloom-blue border-bloom-blue">
                 {condition.name}
               </TableCell>
               <TableCell className="border border-bloom-blue">
@@ -318,9 +318,9 @@ export const Amenities = ({ amenities }: { amenities: AmenitiesProps[] }) => {
               className="flex flex-col items-center gap-2"
             >
               <Icon
-                className={`w-20 h-20 p-5 rounded-md bg-bloom-grayishBlue font-thin ${
+                className={`w-20 h-20 p-5 rounded-md font-thin ${
                   amenity.value
-                    ? "bg-bloom-grayishBlue text-bloom-blue"
+                    ? "bg-bloom-lightBlue text-bloom-blue"
                     : "bg-gray-200 text-gray-300"
                 }`}
               />
@@ -513,7 +513,7 @@ export const ContactCard = () => {
           <div>
             <div className="pb-2 text-sm">②リンクをインスタのDMに送信</div>
             <Link href="https://www.instagram.com/vancouver.no.ouchi">
-              <div className="flex items-center justify-center gap-3 w-full  bg-bloom-grayishBlue text-bloom-blue border border-bloom-blue py-3 rounded-lg cursor-pointer hover:opacity-70">
+              <div className="flex items-center justify-center gap-3 w-full  bg-bloom-lightBlue text-bloom-blue border border-bloom-blue py-3 rounded-lg cursor-pointer hover:opacity-70">
                 <Instagram />
                 <div className="">DMで相談・内見予約</div>
               </div>

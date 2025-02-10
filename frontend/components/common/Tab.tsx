@@ -16,7 +16,7 @@ function Tab({ tablLabels, contents }: TabProps) {
   return (
     <Tabs defaultValue="0" className="w-full">
       <TabsList
-        className={`grid w-full grid-cols-${tablLabels.length} bg-bloom-grayishBlue rounded-full`}
+        className={`grid w-full grid-cols-${tablLabels.length} bg-bloom-lightBlue rounded-full`}
       >
         {tablLabels.map((label, index) => (
           <TabsTrigger
