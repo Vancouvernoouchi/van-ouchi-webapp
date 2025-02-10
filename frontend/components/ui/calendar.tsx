@@ -46,7 +46,7 @@ function Calendar({
         day_selected:
           "bg-bloom-blue text-white hover:bg-primary hover:text-primary-foreground focus:bg-bloom-blue focus:text-white",
         day_today:
-          "bg-bloom-blue/50 hover:bg-bloom-grayishBlue text-white text-accent-foreground",
+          "bg-bloom-blue/50 hover:bg-bloom-lightBlue text-white text-accent-foreground",
         day_outside:
           "day-outside text-muted-foreground opacity-50 aria-selected:bg-accent/50 aria-selected:text-muted-foreground aria-selected:opacity-30",
         day_disabled: "text-muted-foreground opacity-50",

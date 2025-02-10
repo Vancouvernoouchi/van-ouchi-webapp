@@ -21,7 +21,7 @@ const config = {
       colors: {
         // bloom　カラーパレット
         "bloom-blue": "#2E83C6",
-        "bloom-grayishBlue": "#E3F2FA",
+        "bloom-lightBlue": "#E3F2FA",
         "bloom-red": "#FA2C37",
         "bloom-white": "#FFFFFF",
         "bloom-balck": "#000000",
