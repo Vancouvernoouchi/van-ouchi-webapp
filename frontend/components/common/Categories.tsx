@@ -4,8 +4,8 @@ import {
   Building,
   ChevronLeft,
   ChevronRight,
+  Handshake,
   HeartHandshake,
-  House,
   Laptop,
   Laugh,
   LucideIcon,
@@ -38,6 +38,11 @@ export const CATEGORY_LIST: Category[] = [
   {
     name: "仕事探し",
     icon: BriefcaseBusiness,
+    pathname: "/jobs",
+  },
+  {
+    name: "インターン・ボランティア",
+    icon: Handshake,
     pathname: "/jobs",
   },
   {
@@ -269,7 +274,7 @@ function Categories() {
       <div className="hidden lg:block">
         {prevBtnEnabled && (
           <button
-            className="absolute left-4 top-1/2 transform -translate-y-1/2 border bg-white p-1 rounded-full shadow-md z-10"
+            className="absolute left-4 md:left-10 lg:left-20 top-1/2 transform -translate-y-1/2 border bg-white p-1 rounded-full shadow-md z-10"
             onClick={scrollPrev}
           >
             <ChevronLeft size={18} />
@@ -277,7 +282,7 @@ function Categories() {
         )}
         {nextBtnEnabled && (
           <button
-            className="absolute right-4 top-1/2 transform -translate-y-1/2 border bg-white p-1 rounded-full shadow-md z-10"
+            className="absolute right-4 md:right-10 lg:right-20 top-1/2 transform -translate-y-1/2 border bg-white p-1 rounded-full shadow-md z-10"
             onClick={scrollNext}
           >
             <ChevronRight size={18} />
