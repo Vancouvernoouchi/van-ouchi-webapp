@@ -123,10 +123,10 @@ const Header = () => {
   return (
     <header className="flex h-16 lg:h-20 justify-center bg-white border-b">
       <div className="base-px relative z-50 w-screen flex items-center justify-between gap-4">
-        {/* バンクーバーのお家ロゴ */}
+        {/* Bloomロゴ */}
         <Link
           href="/properties"
-          className="flex items-center gap-2 whitespace-nowrap cursor-pointer"
+          className="flex items-center gap-2 whitespace-nowrap cursor-pointer w-36 md:w-48"
         >
           <Image
             src="/bloomLogo/bloom.png"
