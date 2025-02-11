@@ -4,6 +4,7 @@ import {
   Building,
   ChevronLeft,
   ChevronRight,
+  Earth,
   Handshake,
   HeartHandshake,
   Laptop,
@@ -79,6 +80,11 @@ export const CATEGORY_LIST: Category[] = [
     name: "留学エージェント",
     icon: Building,
     pathname: "/agencies",
+  },
+  {
+    name: "留学体験談",
+    icon: Earth,
+    pathname: "/experience",
   },
   {
     name: "携帯会社",
