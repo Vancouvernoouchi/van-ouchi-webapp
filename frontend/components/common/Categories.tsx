@@ -224,7 +224,7 @@ function Categories() {
         emblaApi.scrollTo(index);
       }
     }
-  }, [pathname, emblaApi]);
+  }, [pathname, emblaApi, isCategoryFullyInView]);
 
   const [isFixed, setIsFixed] = useState(false);
 
