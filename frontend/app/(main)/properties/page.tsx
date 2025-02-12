@@ -1,6 +1,6 @@
 import { ErrorPage } from "@/components/common/page";
 import PropertyList from "@/components/features/property/PropertyList";
-import { MESSAGES } from "@/constants/messages";
+import { MESSAGES } from "@/constants/common/messages";
 import {
   fetchAndFilterProperties,
   SearchParams,
