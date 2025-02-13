@@ -191,7 +191,7 @@ const PropertyDetail = ({ property }: { property: PropertyDetailData }) => {
             timeToBusStop={property.timeToBusStop}
           />
           {/* 周辺情報 */}
-          <Neighbors />
+          <Neighbors area={property.area} />
         </div>
 
         <div className="w-full lg:w-[40%] xl:pl-14">

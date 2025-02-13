@@ -30,7 +30,7 @@ function Tab({ tablLabels, contents }: TabProps) {
       </TabsList>
 
       {contents.map((content, index) => (
-        <TabsContent key={index} value={index.toString()} className="pt-5">
+        <TabsContent key={index} value={index.toString()} className="pt-2">
           {content}
         </TabsContent>
       ))}

@@ -1,5 +1,7 @@
 import { formatDateToYMD } from "@/components/features/property/FilterDialog";
+import { AREA_DESCRIPTION } from "@/constants/common";
 import {
+  Area,
   DateProperty,
   NotionProperty,
   PropertyCardData,
@@ -216,6 +218,31 @@ export const formatPropertyCardData = (
       data.properties["メインタイトル"]?.rich_text?.[0]?.text?.content || null,
     roomName: data.properties["タイトル"]?.title?.[0]?.text?.content || null,
   };
+};
+
+export const getAreaDiscription = (area: Area) => {
+  // nullのエラー回避
+  if (!area) {
+    return "";
+  }
+
+  if (area === "ダウンタウン") {
+    return AREA_DESCRIPTION.DOWNTOWN;
+  } else if (area === "イーストバンクーバー") {
+    return AREA_DESCRIPTION.EAST_VANCOUVER;
+  } else if (area === "ウェストバンクーバー") {
+    return AREA_DESCRIPTION.WEST_VANCOUVER;
+  } else if (area === "サウスバンクーバー") {
+    return AREA_DESCRIPTION.SOUTH_VANCOUVER;
+  } else if (area === "ノースバンクーバー") {
+    return AREA_DESCRIPTION.NORTH_VANCOUVER;
+  } else if (area === "バーナビー") {
+    return AREA_DESCRIPTION.BURNABY;
+  } else if (area === "リッチモンド") {
+    return AREA_DESCRIPTION.RICHMOND;
+  } else {
+    return "更新中";
+  }
 };
 
 /**

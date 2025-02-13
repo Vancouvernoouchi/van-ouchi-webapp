@@ -170,7 +170,7 @@ export interface PropertyDetailData {
   geoPosition: string;
   roommatesGender: string;
   hasKey: boolean;
-  area: string;
+  area: Area;
   forMale: boolean;
   staffComment: string;
   hasPool: boolean;
@@ -191,7 +191,16 @@ export interface PropertyDetailData {
   timeToBusStop: string;
 }
 
-type PropertyStatus =
+export type Area =
+  | "ダウンタウン"
+  | "イーストバンクーバー"
+  | "ウェストバンクーバー"
+  | "ノースバンクーバー"
+  | "サウスバンクーバー"
+  | "リッチモンド"
+  | "バーナビー";
+
+export type PropertyStatus =
   | "即入居可能"
   | "入居者募集中"
   | "入居中"

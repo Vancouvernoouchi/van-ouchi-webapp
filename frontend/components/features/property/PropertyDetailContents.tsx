@@ -1,7 +1,7 @@
 import { ReadMore } from "@/components/common";
 import { Tab } from "@/components/common";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
-import { AmenitiesProps } from "@/types/notionTypes";
+import { AmenitiesProps, Area } from "@/types/notionTypes";
 import {
   ArrowRight,
   CalendarCheck,
@@ -30,6 +30,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { useRouter } from "next/navigation";
+import { getAreaDiscription } from "@/utlis/getPropertyValue";
 
 /**
  * 各セクションのラッパーコンポーネント
@@ -414,13 +415,18 @@ export const AccessMap = ({
 /**
  * 周辺情報コンポーネント
  */
-export const Neighbors = () => {
+export const Neighbors = ({ area }: { area: Area }) => {
   const tabLabels: string[] = ["エリア紹介", "飲食店", "その他"];
 
+  const areaDiscription = getAreaDiscription(area);
+
   const contents: ReactNode[] = [
-    <div key="0">準備中</div>,
-    <div key="1">準備中</div>,
-    <div key="2">準備中</div>,
+    <div key="0">
+      {area && <p className="font-semibold pb-1">{area}ってどんなとこ？</p>}
+      <p className="text-sm">{areaDiscription}</p>
+    </div>,
+    <div key="1">飲食店調査中！</div>,
+    <div key="2">その他周辺情報調査中！</div>,
   ];
 
   return (
