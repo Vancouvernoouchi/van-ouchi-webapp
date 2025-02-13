@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import { ReactNode, useEffect, useState } from "react";
 import { MapNotFound } from "@/components/common/map";
-import { MESSAGES } from "@/constants/messages";
+import { MESSAGES } from "@/constants/common/messages";
 import Image from "next/image";
 import Link from "next/link";
 import { toast } from "sonner";
