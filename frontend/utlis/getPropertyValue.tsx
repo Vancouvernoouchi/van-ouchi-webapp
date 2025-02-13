@@ -5,7 +5,7 @@ import {
   PropertyCardData,
   PropertyDetailData,
 } from "@/types/notionTypes";
-import { BadgeCheck, Ban, Circle, X } from "lucide-react";
+import { Circle, X } from "lucide-react";
 export const getPropertyValue = (
   property: any, // ex) p.properties.エリア
   type: string,
@@ -179,6 +179,10 @@ export const formatPropertyDetailData = (
     title:
       data.properties["メインタイトル"]?.rich_text?.[0]?.text?.content || null,
     roomName: data.properties["タイトル"]?.title?.[0]?.text?.content || null,
+    closestBusStop:
+      data.properties["最寄りバス路線"]?.rich_text?.[0]?.text?.content || null,
+    timeToBusStop:
+      data.properties["最寄りバス停まで"]?.multi_select[0].name || null,
   };
 };
 

@@ -162,7 +162,7 @@ export interface PropertyDetailData {
   minimumStay: string;
   bathroomShareCount: string;
   rent: number;
-  status: "即入居可能" | "入居者募集中" | "入居中" | "成約済み" | "休止中";
+  status: PropertyStatus;
   forCouple: boolean;
   deposit: number;
   inquiryForm: string;
@@ -187,7 +187,16 @@ export interface PropertyDetailData {
   houseShareCount: string;
   title: string;
   roomName: string;
+  closestBusStop: string;
+  timeToBusStop: string;
 }
+
+type PropertyStatus =
+  | "即入居可能"
+  | "入居者募集中"
+  | "入居中"
+  | "成約済み"
+  | "休止中";
 
 export interface PropertyCardData {
   id: string;

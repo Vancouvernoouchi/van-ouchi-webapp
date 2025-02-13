@@ -187,6 +187,8 @@ const PropertyDetail = ({ property }: { property: PropertyDetailData }) => {
             geoPosition={property.geoPosition}
             closestStation={property.closestStation}
             timeToStation={property.timeToStation}
+            closestBusStop={property.closestBusStop}
+            timeToBusStop={property.timeToBusStop}
           />
           {/* 周辺情報 */}
           <Neighbors />

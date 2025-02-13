@@ -377,10 +377,14 @@ export const AccessMap = ({
   geoPosition,
   closestStation,
   timeToStation,
+  closestBusStop,
+  timeToBusStop,
 }: {
   geoPosition: string;
   closestStation: string;
   timeToStation: string;
+  closestBusStop: string;
+  timeToBusStop: string;
 }) => {
   return (
     <SectionWrapper id="map">
@@ -393,9 +397,16 @@ export const AccessMap = ({
       <MapNotFound message={MESSAGES.ERROR_PREPAIRING("この物件のマップ")} />
 
       <div className="pt-5 py-2 font-semibold">最寄駅 / バス停</div>
-      <div className="text-sm">
-        {closestStation}: 徒歩{timeToStation}
-      </div>
+      {closestStation && timeToStation && (
+        <div className="text-sm">
+          {closestStation}: 徒歩{timeToStation}
+        </div>
+      )}
+      {closestBusStop && timeToBusStop && (
+        <div className="text-sm">
+          {closestBusStop}: 徒歩{timeToBusStop}
+        </div>
+      )}
     </SectionWrapper>
   );
 };
