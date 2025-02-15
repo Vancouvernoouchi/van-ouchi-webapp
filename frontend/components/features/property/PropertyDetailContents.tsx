@@ -49,7 +49,10 @@ export const SectionWrapper = ({
   children: ReactNode;
 }) => {
   return (
-    <div id={id} className={`pt-3 pb-8 sm:pt-5 sm:pb-10 border-b ${className}`}>
+    <div
+      id={id}
+      className={`pt-3 pb-8 sm:pt-5 sm:pb-10 border-b last:border-b-0 ${className}`}
+    >
       {children}
     </div>
   );
