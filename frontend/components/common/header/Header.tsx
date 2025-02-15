@@ -126,7 +126,7 @@ const Header = () => {
         {/* Bloomロゴ */}
         <Link
           href="/properties"
-          className="flex items-center gap-2 whitespace-nowrap cursor-pointer w-36 md:w-48"
+          className="flex items-center gap-2 whitespace-nowrap cursor-pointer w-36 lg:w-48"
         >
           <Image
             src="/bloomLogo/bloom.png"
