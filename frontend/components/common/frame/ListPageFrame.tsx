@@ -31,7 +31,7 @@ function ListPageFrame({
   cardArea: ReactNode;
 }) {
   return (
-    <>
+    <div className="base-px">
       {/* 検索バーとフィルター（スマホ） */}
       <div className="sm:hidden flex items-center gap-2 pt-2">
         <SearchBar />
@@ -59,8 +59,8 @@ function ListPageFrame({
       </div>
 
       {total <= 0 ? (
-        <div className="h-[70vh] p-2 flex flex-col justify-center items-center text-center text-bloom-gray text-xl">
-          条件に一致する物件が見つかりませんでした。
+        <div className="pt-10 flex flex-col justify-center items-center text-center">
+          <p>条件に一致する物件が見つかりませんでした。</p>
         </div>
       ) : (
         <>
@@ -70,7 +70,7 @@ function ListPageFrame({
           <div className="py-5">{paginationArea}</div>
         </>
       )}
-    </>
+    </div>
   );
 }
 
