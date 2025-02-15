@@ -825,9 +825,28 @@ export const InstagramAds = () => {
  *
  */
 export const ContactPopUpSP = () => {
+  const [isHidden, setIsHidden] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const footerHeight = 70; // フッターの高さ
+      const windowHeight = window.innerHeight;
+      const scrollY = window.scrollY;
+      const documentHeight = document.documentElement.scrollHeight;
+
+      // フッターと被る位置になったら hidden
+      setIsHidden(scrollY + windowHeight >= documentHeight - footerHeight);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <Link
-      className="fixed bottom-0 right-0 bg-bloom-red text-white flex items-center gap-1 tracking-widest p-3 rounded-tl-lg z-50"
+      className={`fixed bottom-0 right-0 bg-bloom-red text-white flex items-center gap-1 tracking-widest p-3 rounded-tl-lg z-50 ${
+        isHidden ? "hidden" : ""
+      }`}
       href="https://www.instagram.com/vancouver.no.ouchi/"
       target="_blank"
     >
