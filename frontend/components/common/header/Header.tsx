@@ -12,7 +12,7 @@ import {
   SelectTrigger,
 } from "@/components/ui/select";
 import { OuchiLogo, SearchBar } from "../index";
-import { LINKS } from "@/constants/links";
+import { LINKS } from "@/constants/common/links";
 import { JP, CA, CN, FlagComponent } from "country-flag-icons/react/3x2";
 import Image from "next/image";
 import Link from "next/link";
@@ -126,7 +126,7 @@ const Header = () => {
         {/* Bloomロゴ */}
         <Link
           href="/properties"
-          className="flex items-center gap-2 whitespace-nowrap cursor-pointer w-36 md:w-48"
+          className="flex items-center gap-2 whitespace-nowrap cursor-pointer w-36 lg:w-48"
         >
           <Image
             src="/bloomLogo/bloom.png"
