@@ -159,7 +159,7 @@ const PropertyDetail = ({ property }: { property: PropertyDetailData }) => {
       </div>
 
       {/* --- ヘッダーから遷移できる情報エリア --- */}
-      <div className="lg:h-[60lvh] flex flex-col lg:flex-row lg:justify-between mx-auto">
+      <div className="flex flex-col lg:flex-row lg:justify-between mx-auto">
         <div className="w-full lg:w-[60%] lg:pr-5">
           {/* 画像 */}
           <PropertyImage

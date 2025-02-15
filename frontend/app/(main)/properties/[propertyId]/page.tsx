@@ -62,13 +62,7 @@ const PropertyDetailPage = async ({
     const propertyData: PropertyDetailData | null =
       formatPropertyDetailData(data);
 
-    if (propertyData !== null) {
-      return (
-        <div>
-          <PropertyDetail property={propertyData} />
-        </div>
-      );
-    } else {
+    if (!propertyData) {
       return (
         <ErrorPage
           responseCode={404}
@@ -76,6 +70,8 @@ const PropertyDetailPage = async ({
         />
       );
     }
+
+    return <PropertyDetail property={propertyData} />;
   } catch (error: any) {
     return (
       <ErrorPage responseCode={error.status} errorMessage={MESSAGES.ERROR} />

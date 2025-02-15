@@ -2,6 +2,8 @@ import { Suspense } from "react";
 import { Analytics } from "@vercel/analytics/react";
 import { Header } from "@/components/common/header";
 import { Categories } from "@/components/common";
+import { Footer } from "@/components/common/footer";
+import { Loader } from "@/components/common/loading";
 
 const MainLayout = ({
   children,
@@ -9,15 +11,14 @@ const MainLayout = ({
   children: React.ReactNode;
 }>) => {
   return (
-    <div>
-      <div className="flex flex-col min-h-screen">
-        <Header />
+    <div className="min-w-screen">
+      <Header />
+      <main className="min-h-[calc(100vh-64px-64px)] lg:min-h-[calc(100vh-80px-68px)] z-0">
         <Categories />
-        <main className="base-px flex-1 z-0">
-          <Suspense>{children}</Suspense>
-          <Analytics />
-        </main>
-      </div>
+        <Suspense fallback={<Loader />}>{children}</Suspense>
+      </main>
+      <Analytics />
+      <Footer />
     </div>
   );
 };

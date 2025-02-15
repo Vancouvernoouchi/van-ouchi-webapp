@@ -167,18 +167,21 @@ function Categories() {
   /**
    * 要素が完全に画面内に収まっているかを判定
    */
-  const isCategoryFullyInView = (categoryPath: string) => {
-    const element = categoryRefs.current[categoryPath];
-    if (!element || !emblaApi) return false;
+  const isCategoryFullyInView = useCallback(
+    (categoryPath: string) => {
+      const element = categoryRefs.current[categoryPath];
+      if (!element || !emblaApi) return false;
 
-    const elementRect = element.getBoundingClientRect();
-    const emblaContainer = emblaApi.containerNode().getBoundingClientRect();
+      const elementRect = element.getBoundingClientRect();
+      const emblaContainer = emblaApi.containerNode().getBoundingClientRect();
 
-    return (
-      elementRect.left >= emblaContainer.left &&
-      elementRect.right <= emblaContainer.right
-    );
-  };
+      return (
+        elementRect.left >= emblaContainer.left &&
+        elementRect.right <= emblaContainer.right
+      );
+    },
+    [emblaApi]
+  );
 
   /**
    * カテゴリがクリックされたときのスクロール制御
