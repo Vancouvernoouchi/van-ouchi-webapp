@@ -9,4 +9,7 @@ export const NOTION_KEY = process.env.NOTION_KEY;
 export const NOTION_PAGE_ID = process.env.NOTION_PAGE_ID;
 export const NOTION_DATABASE_ID = process.env.NOTION_DATABASE_ID;
 export const API_PUBLIC_BASEURL = process.env.API_PUBLIC_BASEURL || "";
+export const SUPABASE_URL = process.env.SUPABASE_URL || "";
+export const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || "";
+export const SUPABASE_JWT_SECRET = process.env.SUPABASE_JWT_SECRET || "";
 export const PORT = process.env.PORT || 3000;

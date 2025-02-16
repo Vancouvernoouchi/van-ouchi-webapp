@@ -1,16 +1,19 @@
-import { Client } from "@notionhq/client";
-import { NOTION_KEY } from "../env";
+import { SUPABASE_JWT_SECRET } from "../env";
+import { supabase } from "../lib/supabase";
+import { Request, Response } from "express";
 
-export const notion = new Client({
-  auth: NOTION_KEY,
-});
-
-export const verifyNotionToken = async () => {
+export const verifyNotionToken = async (req: Request, res: Response) => {
   try {
-    const response = await notion.users.me({});
-    console.log("Notion Integration Key is valid.");
-    console.log("User Info:", response);
+    const supabaseSession = await supabase.auth.getSession();
+    const session = supabaseSession?.data.session;
+    const {
+      data: { user },
+    } = await supabase.auth.getUser(SUPABASE_JWT_SECRET);
+
+    console.log("⭐️", user);
+    res.json("asdf");
   } catch (error) {
     console.error("Invalid Notion Integration Key or other error:", error);
+    res.json();
   }
 };
