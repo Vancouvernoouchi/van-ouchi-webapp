@@ -29,6 +29,9 @@
         "videos",
         "audios"
       ]
+    },
+    "text": {
+      "type": "richtext"
     }
   }
 }
