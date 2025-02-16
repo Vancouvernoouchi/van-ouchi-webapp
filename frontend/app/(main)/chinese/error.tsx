@@ -1,6 +1,6 @@
 "use client";
 
-import ErrorPage from "@/components/atoms/common/ErrorPage";
+import { ErrorPage } from "@/components/common/page";
 
 const ChinesePageError = () => {
   return <ErrorPage errorMessage="予期せぬエラーが発生しました。" />;

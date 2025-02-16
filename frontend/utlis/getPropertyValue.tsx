@@ -1,11 +1,13 @@
-import { formatDateToYMD } from "@/components/organisms/propertyList/FilterDialog";
+import { formatDateToYMD } from "@/components/features/property/FilterDialog";
+import { AREA_DESCRIPTION } from "@/constants/common";
 import {
+  Area,
   DateProperty,
   NotionProperty,
   PropertyCardData,
   PropertyDetailData,
 } from "@/types/notionTypes";
-import { BadgeCheck, Ban, Circle, X } from "lucide-react";
+import { Circle, X } from "lucide-react";
 export const getPropertyValue = (
   property: any, // ex) p.properties.エリア
   type: string,
@@ -179,6 +181,10 @@ export const formatPropertyDetailData = (
     title:
       data.properties["メインタイトル"]?.rich_text?.[0]?.text?.content || null,
     roomName: data.properties["タイトル"]?.title?.[0]?.text?.content || null,
+    closestBusStop:
+      data.properties["最寄りバス路線"]?.rich_text?.[0]?.text?.content || null,
+    timeToBusStop:
+      data.properties["最寄りバス停まで"]?.multi_select[0].name || null,
   };
 };
 
@@ -212,6 +218,31 @@ export const formatPropertyCardData = (
       data.properties["メインタイトル"]?.rich_text?.[0]?.text?.content || null,
     roomName: data.properties["タイトル"]?.title?.[0]?.text?.content || null,
   };
+};
+
+export const getAreaDiscription = (area: Area) => {
+  // nullのエラー回避
+  if (!area) {
+    return "";
+  }
+
+  if (area === "ダウンタウン") {
+    return AREA_DESCRIPTION.DOWNTOWN;
+  } else if (area === "イーストバンクーバー") {
+    return AREA_DESCRIPTION.EAST_VANCOUVER;
+  } else if (area === "ウェストバンクーバー") {
+    return AREA_DESCRIPTION.WEST_VANCOUVER;
+  } else if (area === "サウスバンクーバー") {
+    return AREA_DESCRIPTION.SOUTH_VANCOUVER;
+  } else if (area === "ノースバンクーバー") {
+    return AREA_DESCRIPTION.NORTH_VANCOUVER;
+  } else if (area === "バーナビー") {
+    return AREA_DESCRIPTION.BURNABY;
+  } else if (area === "リッチモンド") {
+    return AREA_DESCRIPTION.RICHMOND;
+  } else {
+    return "更新中";
+  }
 };
 
 /**
@@ -284,7 +315,7 @@ export const formatDateToJapanese = (dateString: string): string => {
 };
 
 /**
- * 入居可能日を取得する
+ * 入居可能日の表示を整える関数
  *
  * @param moveInDate {string} - 例：　２０２５−０１−０１
  * @param moveOutDate {string} - 例：　２０２５−０１−０１
@@ -292,27 +323,12 @@ export const formatDateToJapanese = (dateString: string): string => {
  *
  * @return {string} - statusに応じた入居可能日の表示
  */
-export const getMoveInDateByStatus = (
-  moveInDate: string,
-  moveOutDate: string,
-  status: string
-): string => {
-  // すでに入居者がいる場合、退去予定日を返す
-  if (status === "入居中" || status === "成約済み") {
-    return moveOutDate
-      ? `${formatDateToJapanese(moveOutDate)}退去予定`
-      : "退去日未定";
-
-    // ステータスが即入居可能 or 入居可能日が今日より過去の場合、「即入居可能」を返す
-  } else if (status === "即入居可能" || isTodayOrPast(moveInDate)) {
-    return "即入居可能";
-
-    // 入居者募集中の場合、入居可能日を返す
-  } else if (status === "入居者募集中") {
-    return `${formatDateToJapanese(moveInDate)}から入居可能`;
-
-    // 例外。「確認中」を返す
-  } else {
-    return "入居日程確認中";
+export const formatMoveInDate = (moveInDate: string): string => {
+  // 入居日がnullのとき、「確認中」を表示
+  if (!moveInDate) {
+    return "確認中";
   }
+
+  // 日本語表記にして表示
+  return formatDateToJapanese(moveInDate);
 };

@@ -19,23 +19,26 @@ const config = {
     },
     extend: {
       colors: {
-        themeColor: "#00540a", // green
-        lightThemeColor: "#008710", // green
-        grayThemeColor: "#E6EBE6", // gray-green
-        // themeColor: "#364D7A",  // blue
-        // lightThemeColor: "#E6F0FF", //blue
-        border: "hsl(var(--border))",
+        // bloom　カラーパレット
+        "bloom-blue": "#2E83C6",
+        "bloom-lightBlue": "#E3F2FA",
+        "bloom-red": "#FA2C37",
+        "bloom-white": "#FFFFFF",
+        "bloom-balck": "#000000",
+        "bloom-gray": "#61738E",
+
+        border: "#E2E8F1",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
+          DEFAULT: "#2E83C6",
+          foreground: "#FFFFFF",
         },
         secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
+          DEFAULT: "#FA2C37",
+          foreground: "#FFFFFF",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
@@ -79,7 +82,21 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    // スクロールバーを表示するとデザインが崩れる時に使う
+    function ({ addUtilities }: { addUtilities: (utilities: object) => void }) {
+      addUtilities({
+        ".hide-scrollbar": {
+          "scrollbar-width": "none", // Firefox
+          "-ms-overflow-style": "none", // IE
+        },
+        ".hide-scrollbar::-webkit-scrollbar": {
+          display: "none", // Chrome, Safari, Edge
+        },
+      });
+    },
+  ],
 } satisfies Config;
 
 export default config;
