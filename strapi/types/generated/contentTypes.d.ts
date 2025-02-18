@@ -445,12 +445,13 @@ export interface ApiBlogCategoryBlogCategory
     draftAndPublish: true;
   };
   attributes: {
-    blog: Schema.Attribute.Relation<'oneToOne', 'api::blog.blog'>;
-    category: Schema.Attribute.Enumeration<
-      ['house', 'job', 'life', 'school', 'other']
-    > &
+    blogs: Schema.Attribute.Relation<'oneToMany', 'api::blog.blog'>;
+    categoryId: Schema.Attribute.String &
       Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'other'>;
+      Schema.Attribute.Unique;
+    categoryName: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -479,8 +480,8 @@ export interface ApiBlogBlog extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    blogCategory: Schema.Attribute.Relation<
-      'oneToOne',
+    category: Schema.Attribute.Relation<
+      'manyToOne',
       'api::blog-category.blog-category'
     >;
     content: Schema.Attribute.RichText & Schema.Attribute.Required;
@@ -492,6 +493,7 @@ export interface ApiBlogBlog extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::blog.blog'> &
       Schema.Attribute.Private;
+    metadata: Schema.Attribute.Component<'shared.seo', false>;
     publishedAt: Schema.Attribute.DateTime;
     title: Schema.Attribute.String &
       Schema.Attribute.Required &

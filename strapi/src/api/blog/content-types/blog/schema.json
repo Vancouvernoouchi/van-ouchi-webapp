@@ -29,14 +29,20 @@
         "images"
       ]
     },
-    "blogCategory": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::blog-category.blog-category"
-    },
     "content": {
       "type": "richtext",
       "required": true
+    },
+    "metadata": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
+    },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::blog-category.blog-category",
+      "inversedBy": "blogs"
     }
   }
 }

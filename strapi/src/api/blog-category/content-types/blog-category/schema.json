@@ -12,22 +12,21 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "category": {
-      "type": "enumeration",
-      "enum": [
-        "house",
-        "job",
-        "life",
-        "school",
-        "other"
-      ],
-      "default": "other",
+    "categoryName": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "categoryId": {
+      "type": "string",
+      "unique": true,
       "required": true
     },
-    "blog": {
+    "blogs": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::blog.blog"
+      "relation": "oneToMany",
+      "target": "api::blog.blog",
+      "mappedBy": "category"
     }
   }
 }
