@@ -1,5 +1,21 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface CommonLinkButton extends Struct.ComponentSchema {
+  collectionName: 'components_common_link_buttons';
+  info: {
+    displayName: 'Link Button';
+  };
+  attributes: {
+    link: Schema.Attribute.String & Schema.Attribute.Required;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 8;
+      }>;
+    type: Schema.Attribute.Enumeration<['primary', 'secondary']>;
+  };
+}
+
 export interface SharedMedia extends Struct.ComponentSchema {
   collectionName: 'components_shared_media';
   info: {
@@ -46,7 +62,6 @@ export interface SharedSeo extends Struct.ComponentSchema {
   attributes: {
     metaDescription: Schema.Attribute.Text & Schema.Attribute.Required;
     metaTitle: Schema.Attribute.String & Schema.Attribute.Required;
-    shareImage: Schema.Attribute.Media<'images'>;
   };
 }
 
@@ -65,6 +80,7 @@ export interface SharedSlider extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'common.link-button': CommonLinkButton;
       'shared.media': SharedMedia;
       'shared.quote': SharedQuote;
       'shared.rich-text': SharedRichText;

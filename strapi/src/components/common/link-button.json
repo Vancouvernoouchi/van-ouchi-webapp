@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_common_link_buttons",
+  "info": {
+    "displayName": "Link Button"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "maxLength": 8,
+      "required": true
+    },
+    "link": {
+      "type": "string",
+      "required": true
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "primary",
+        "secondary"
+      ]
+    }
+  }
+}
