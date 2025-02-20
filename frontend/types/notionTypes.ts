@@ -146,6 +146,7 @@ export type PropertyData = {
   ゾーン: SelectProperty;
   物件のシェア人数: SelectProperty;
   タイトル: TitleProperty;
+  メインタイトル: RichTextProperty;
 };
 
 export interface NotionProperty {
