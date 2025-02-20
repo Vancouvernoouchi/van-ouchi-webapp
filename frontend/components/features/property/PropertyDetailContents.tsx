@@ -265,7 +265,6 @@ export const BasicInfo = ({
 /**
  * 入居条件エリアコンポーネント
  *
- * @param roommatesGender {string}
  * @param forCouple {boolean}
  * @param minimumStay {string}
  * @param houseShareCount {string}
