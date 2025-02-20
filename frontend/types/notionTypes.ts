@@ -146,6 +146,7 @@ export type PropertyData = {
   ゾーン: SelectProperty;
   物件のシェア人数: SelectProperty;
   タイトル: TitleProperty;
+  メインタイトル: RichTextProperty;
 };
 
 export interface NotionProperty {
@@ -168,7 +169,6 @@ export interface PropertyDetailData {
   inquiryForm: string;
   closestStation: string;
   geoPosition: string;
-  roommatesGender: string;
   hasKey: boolean;
   area: Area;
   forMale: boolean;

@@ -198,7 +198,31 @@ export const ROUTES: Record<string, Route> = {
       ogImage: "",
     },
     priority: 10,
-  } as const,
+  },
+  PRIVACY_POLICY: {
+    name: "プライバシーポリシー",
+    pathname: "/privacy-policy",
+    metadata: {
+      title: "BLOOM プライバシーポリシー",
+      description:
+        "当サイトのプライバシーポリシーをご案内します。個人情報の取り扱いについて詳しく説明しています。",
+      canonical: "https://www.bloom-ryugaku.com/privacy-policy",
+      ogImage: "",
+    },
+    priority: 10,
+  },
+  TERMS_CONDITIONS: {
+    name: "利用規約",
+    pathname: "/terms-conditions",
+    metadata: {
+      title: "BLOOM 利用規約",
+      description:
+        "当サイトの利用規約をご案内します。個人情報の取り扱いについて詳しく説明しています。",
+      canonical: "https://www.bloom-ryugaku.com/terms-conditions",
+      ogImage: "",
+    },
+    priority: 10,
+  },
 } as const;
 
 export type PagePathname = (typeof ROUTES)[keyof typeof ROUTES]["pathname"];

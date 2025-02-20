@@ -1,16 +1,14 @@
-import { LINKS } from "@/constants/common";
+import { LINKS, ROUTES } from "@/constants/common";
 import Link from "next/link";
 
 function Footer() {
   return (
-    <footer className="flex flex-col items-center justify-center border-t text-sm text-bloom-gray h-16">
+    <footer className="flex flex-col items-center justify-center border-t text-xs lg:text-sm text-bloom-gray h-16">
       <div className="flex gap-4 pb-1">
-        <Link href={LINKS.PRIVACY_POLICY}>プライバシーポリシー</Link>
-        <Link href={LINKS.TERMS_CONDITIONS}>利用規約</Link>
+        <Link href={ROUTES.PRIVACY_POLICY.pathname}>プライバシーポリシー</Link>
+        <Link href={ROUTES.TERMS_CONDITIONS.pathname}>利用規約</Link>
       </div>
-      <p className="text-sm text-bloom-balck">
-        &copy; 2025 BLOOM CONSULTING Inc.
-      </p>
+      <p className="text-bloom-balck">&copy; 2025 BLOOM CONSULTING Inc.</p>
     </footer>
   );
 }

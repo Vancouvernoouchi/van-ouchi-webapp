@@ -58,13 +58,13 @@ export function isAfterMoveInDate(
 
 // 検索窓用
 export function matchKeyword(property: PropertyData, keyword: string) {
-  const title = getPropertyValue(property.タイトル, "title") || "";
-  const station = getPropertyValue(property.最寄り駅, "select") || "";
-  const zone = getPropertyValue(property.ゾーン, "select") || "";
-  const status = getPropertyValue(property.ステータス, "status") || "";
-  const area = getPropertyValue(property.エリア, "select") || "";
+  const title = getPropertyValue(property.メインタイトル, "rich_text") || "";
+  // const station = getPropertyValue(property.最寄り駅, "select") || "";
+  // const zone = getPropertyValue(property.ゾーン, "select") || "";
+  // const status = getPropertyValue(property.ステータス, "status") || "";
+  // const area = getPropertyValue(property.エリア, "select") || "";
 
-  let searchAry = [title, station, zone, status, area].map(
+  let searchAry = [title].map(
     (field) => field.replace(/\s+/g, "") // 文字の中間にある空白の削除
   );
 

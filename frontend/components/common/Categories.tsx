@@ -12,7 +12,7 @@ import {
   LucideIcon,
   MapPinned,
   PartyPopper,
-  Recycle,
+  ShoppingCart,
   Smartphone,
   Stethoscope,
   Store,
@@ -52,8 +52,8 @@ export const CATEGORY_LIST: Category[] = [
     pathname: "/events",
   },
   {
-    name: "マーケットプレイス",
-    icon: Recycle,
+    name: "フリマ",
+    icon: ShoppingCart,
     pathname: "/marketplace",
   },
   {
@@ -321,13 +321,13 @@ function CategoryBox({
   }, [pathname, router]);
 
   return (
-    <div className="flex-grow-0 flex-shrink-0 basis-1/12">
+    <div className="flex-grow-0 flex-shrink-0 basis-1/12 group">
       <div
         onClick={handleClick}
-        className={`flex flex-col items-center justify-between gap-1 p-2 border-b-2 hover:text-gray-800 transition cursor-pointer
+        className={`flex flex-col items-center justify-between gap-1 mx-4 py-2 border-b-2 group-hover:text-gray-800 transition cursor-pointer
         ${
           selected
-            ? "border-b-gray-800 font-normal"
+            ? "border-b-gray-800 font-semibold"
             : "border-transparent text-bloom-gray"
         }
         `}
