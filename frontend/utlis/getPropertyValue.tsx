@@ -219,12 +219,13 @@ export const formatPropertyCardData = (
   };
 };
 
+/**
+ * エリアに応じたメッセージを返す関数
+ *
+ * @param area {string} - エリア
+ * @return エリア説明文章
+ */
 export const getAreaDiscription = (area: Area) => {
-  // nullのエラー回避
-  if (!area) {
-    return "";
-  }
-
   if (area === "ダウンタウン") {
     return AREA_DESCRIPTION.DOWNTOWN;
   } else if (area === "イーストバンクーバー") {
