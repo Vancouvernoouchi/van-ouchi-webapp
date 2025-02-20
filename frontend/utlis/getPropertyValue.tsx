@@ -158,7 +158,6 @@ export const formatPropertyDetailData = (
     closestStation: data.properties["最寄り駅"]?.select?.name || null,
     geoPosition:
       data.properties["マップ表示用座標"]?.rich_text?.[0]?.plain_text || null,
-    roommatesGender: data.properties["住居人の性別"]?.select?.name || null,
     hasKey: data.properties["鍵付き"]?.checkbox || false,
     area: data.properties["エリア"]?.select?.name || null,
     forMale: data.properties["男性限定"]?.checkbox || false,

@@ -64,7 +64,6 @@ const PropertyDetail = ({ property }: { property: PropertyDetailData }) => {
   const conditions: { name: string; value: string }[] = [
     { name: "対象者", value: targetGender() },
     { name: "カップル入居", value: property.forCouple ? "可能" : "不可" },
-    { name: "ルームメイトの性別", value: property.roommatesGender || "確認中" },
     { name: "最低滞在期間", value: property.minimumStay + "〜" },
     {
       name: "お家シェア人数",

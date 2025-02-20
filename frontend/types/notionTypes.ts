@@ -168,7 +168,6 @@ export interface PropertyDetailData {
   inquiryForm: string;
   closestStation: string;
   geoPosition: string;
-  roommatesGender: string;
   hasKey: boolean;
   area: Area;
   forMale: boolean;
