@@ -2,8 +2,8 @@
 
 import { ErrorPage } from "@/components/common/page";
 
-const EventPageError = () => {
+const MeetupPageError = () => {
   return <ErrorPage errorMessage="予期せぬエラーが発生しました。" />;
 };
 
-export default EventPageError;
+export default MeetupPageError;

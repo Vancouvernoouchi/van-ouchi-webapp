@@ -174,7 +174,6 @@ export interface PropertyDetailData {
   forMale: boolean;
   staffComment: string;
   hasPool: boolean;
-  moveOutDate: string;
   forFemale: boolean;
   hasWifi: boolean;
   hasUtilities: boolean;
@@ -215,7 +214,6 @@ export interface PropertyCardData {
   status: string;
   closestStation: string;
   area: string;
-  moveOutDate: string;
   timeToStation: string;
   thumbnail: string;
   zone: string;

@@ -5,6 +5,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Earth,
+  GraduationCap,
   Handshake,
   HeartHandshake,
   Laptop,
@@ -16,7 +17,6 @@ import {
   Smartphone,
   Stethoscope,
   Store,
-  TreePalm,
 } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -32,39 +32,34 @@ export interface Category {
 // サイト全体のパス情報
 export const CATEGORY_LIST: Category[] = [
   {
-    name: "バンクーバーのお家",
+    name: "シェアハウス",
     icon: null,
     pathname: "/properties",
   },
   {
-    name: "仕事探し",
+    name: "お仕事探し",
     icon: BriefcaseBusiness,
     pathname: "/jobs",
   },
   {
-    name: "インターン・ボランティア",
+    name: "インターン",
     icon: Handshake,
-    pathname: "/internship",
+    pathname: "/internships",
   },
   {
-    name: "ミートアップ・イベント",
+    name: "ミートアップ",
     icon: PartyPopper,
-    pathname: "/events",
+    pathname: "/meetups",
   },
   {
-    name: "フリマ",
+    name: "フリーマーケット",
     icon: ShoppingCart,
-    pathname: "/marketplace",
-  },
-  {
-    name: "おすすめの観光地",
-    icon: TreePalm,
-    pathname: "/tourist-spots",
+    pathname: "/marketplaces",
   },
   {
     name: "スキルマーケット",
     icon: Laugh,
-    pathname: "/skill-market",
+    pathname: "/skill-markets",
   },
   {
     name: "個人経営のお店",
@@ -72,39 +67,44 @@ export const CATEGORY_LIST: Category[] = [
     pathname: "/local-shops",
   },
   {
-    name: "病院・クリニック",
-    icon: Stethoscope,
-    pathname: "/clinics",
-  },
-  {
     name: "留学エージェント",
     icon: Building,
     pathname: "/agencies",
   },
   {
-    name: "留学体験談",
-    icon: Earth,
-    pathname: "/experience",
+    name: "トイレマップ",
+    icon: MapPinned,
+    pathname: "/washrooms",
   },
   {
-    name: "携帯会社",
+    name: "留学校サーチ",
+    icon: GraduationCap,
+    pathname: "/schools",
+  },
+  {
+    name: "エピソードシェア",
+    icon: Earth,
+    pathname: "/experiences",
+  },
+  {
+    name: "携帯SIMカード",
     icon: Smartphone,
     pathname: "/mobile-carriers",
   },
   {
-    name: "保険会社",
+    name: "海外留学保険",
     icon: HeartHandshake,
     pathname: "/insurance",
   },
   {
-    name: "お役立ちブログ",
-    icon: Laptop,
-    pathname: "/blogs",
+    name: "クリニック",
+    icon: Stethoscope,
+    pathname: "/clinics",
   },
   {
-    name: "トイレマップ",
-    icon: MapPinned,
-    pathname: "/washrooms",
+    name: "おすすめブログ",
+    icon: Laptop,
+    pathname: "/blogs",
   },
 ] as const;
 /**
