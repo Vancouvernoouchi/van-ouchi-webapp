@@ -1,12 +1,13 @@
 -- CreateTable
 CREATE TABLE "owners" (
-    "id" SERIAL NOT NULL,
-    "auth_id" VARCHAR(255) NOT NULL,
+    "id" UUID NOT NULL,
     "name" VARCHAR(255) NOT NULL,
     "profile_image_url" VARCHAR(255),
     "email" VARCHAR(255) NOT NULL,
     "is_approved" BOOLEAN NOT NULL DEFAULT false,
     "memo" TEXT,
+    "created_at" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP NOT NULL,
 
     CONSTRAINT "owners_pkey" PRIMARY KEY ("id")
 );
@@ -14,10 +15,9 @@ CREATE TABLE "owners" (
 -- CreateTable
 CREATE TABLE "properties" (
     "id" SERIAL NOT NULL,
-    "owner_id" INTEGER NOT NULL,
+    "owner_id" UUID NOT NULL,
     "area_id" INTEGER NOT NULL,
     "closest_station_id" INTEGER NOT NULL,
-    "country_id" INTEGER NOT NULL,
     "rent_payment_method_id" INTEGER NOT NULL,
     "title" VARCHAR(255) NOT NULL,
     "street" VARCHAR(255) NOT NULL,
@@ -34,6 +34,7 @@ CREATE TABLE "properties" (
     "google_photo_url" VARCHAR(255),
     "house_rules" TEXT,
     "rent_payment_day" VARCHAR(255),
+    "countryId" INTEGER,
 
     CONSTRAINT "properties_pkey" PRIMARY KEY ("id")
 );
@@ -118,9 +119,6 @@ CREATE TABLE "rooms" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "owners_auth_id_key" ON "owners"("auth_id");
-
--- CreateIndex
 CREATE UNIQUE INDEX "owners_email_key" ON "owners"("email");
 
 -- CreateIndex
@@ -131,9 +129,6 @@ CREATE INDEX "area_id" ON "properties"("area_id");
 
 -- CreateIndex
 CREATE INDEX "closest_station_id" ON "properties"("closest_station_id");
-
--- CreateIndex
-CREATE INDEX "country_id" ON "properties"("country_id");
 
 -- CreateIndex
 CREATE INDEX "rent_payment_method_id" ON "properties"("rent_payment_method_id");
@@ -151,7 +146,7 @@ ALTER TABLE "properties" ADD CONSTRAINT "properties_area_id_fkey" FOREIGN KEY ("
 ALTER TABLE "properties" ADD CONSTRAINT "properties_closest_station_id_fkey" FOREIGN KEY ("closest_station_id") REFERENCES "closest_stations"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "properties" ADD CONSTRAINT "properties_country_id_fkey" FOREIGN KEY ("country_id") REFERENCES "countries"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "properties" ADD CONSTRAINT "properties_countryId_fkey" FOREIGN KEY ("countryId") REFERENCES "countries"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "rooms" ADD CONSTRAINT "rooms_property_id_fkey" FOREIGN KEY ("property_id") REFERENCES "properties"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

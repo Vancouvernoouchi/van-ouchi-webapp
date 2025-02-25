@@ -19,13 +19,14 @@ datasource db {
  * ===========================
  */
 model Owner {
-  id              Int     @id @default(autoincrement())
-  authId          String  @unique @map("auth_id") @db.VarChar(255) // Supabase AuthのユーザーID
-  name            String  @map("name") @db.VarChar(255)
-  profileImageUrl String? @map("profile_image_url") @db.VarChar(255)
-  email           String  @unique @map("email") @db.VarChar(255)
-  isApproved      Boolean @default(false) @map("is_approved")
-  memo            String? @map("memo") @db.Text
+  id              String   @id @default(uuid()) @db.Uuid
+  name            String   @map("name") @db.VarChar(255)
+  profileImageUrl String?  @map("profile_image_url") @db.VarChar(255)
+  email           String   @unique @map("email") @db.VarChar(255)
+  isApproved      Boolean  @default(false) @map("is_approved")
+  memo            String?  @map("memo") @db.Text
+  createdAt       DateTime @default(now()) @map("created_at") @db.Timestamp
+  updatedAt       DateTime @updatedAt @map("updated_at") @db.Timestamp
 
   // リレーション
   properties Property[]
@@ -41,10 +42,9 @@ model Owner {
  */
 model Property {
   id                          Int      @id @default(autoincrement())
-  ownerId                     Int      @map("owner_id")
+  ownerId                     String   @map("owner_id") @db.Uuid
   areaId                      Int      @map("area_id")
   closestStationId            Int      @map("closest_station_id")
-  countryId                   Int      @map("country_id")
   rentPaymentMethodId         Int      @map("rent_payment_method_id")
   title                       String   @map("title") @db.VarChar(255)
   street                      String   @map("street") @db.VarChar(255)
@@ -67,19 +67,19 @@ model Property {
   owner             Owner          @relation(fields: [ownerId], references: [id])
   area              Area           @relation(fields: [areaId], references: [id])
   closestStation    ClosestStation @relation(fields: [closestStationId], references: [id])
-  country           Country        @relation(fields: [countryId], references: [id])
   rooms             Room[]
 
   // チェック制約（データベース上でのカラム名を参照） *experimentの機能なためコメントアウト
   // @@check(query: "zone BETWEEN 0 AND 4")
   // @@check(query: "closest_station_duration BETWEEN 5 AND 60")
   // @@check(query: "other_transportation_duration BETWEEN 5 AND 60")
+  Country   Country? @relation(fields: [countryId], references: [id])
+  countryId Int?
 
   // インデックス
   @@index([ownerId], name: "owner_id")
   @@index([areaId], name: "area_id")
   @@index([closestStationId], name: "closest_station_id")
-  @@index([countryId], name: "country_id")
   @@index([rentPaymentMethodId], name: "rent_payment_method_id")
   // DB上のテーブル名
   @@map("properties")
