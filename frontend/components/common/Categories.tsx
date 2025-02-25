@@ -261,13 +261,16 @@ function Categories() {
     <div className="relative base-px pt-2 pb-1">
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex">
-          {CATEGORY_LIST.map((item) => (
+          {CATEGORY_LIST.map((item, index) => (
             <div
               key={item.name}
               ref={(el) => {
                 categoryRefs.current[item.pathname] = el;
               }}
               onClick={() => handleCategoryClick(item.pathname)}
+              className={`${index === 0 ? "ml-0" : "ml-2 lg:ml-3"} ${
+                index === CATEGORY_LIST.length - 1 ? "mr-0" : "mr-2 lg:mr-3"
+              }`}
             >
               <CategoryBox
                 icon={item.icon}
@@ -283,7 +286,7 @@ function Categories() {
       <div className="hidden lg:block">
         {prevBtnEnabled && (
           <button
-            className="absolute left-4 md:left-10 lg:left-20 top-1/2 transform -translate-y-1/2 border bg-white p-1 rounded-full shadow-md z-10"
+            className="absolute left-10 xl:left-20 top-1/2 transform -translate-y-1/2 border bg-white p-1 rounded-full shadow-md z-10"
             onClick={scrollPrev}
           >
             <ChevronLeft size={18} />
@@ -291,7 +294,7 @@ function Categories() {
         )}
         {nextBtnEnabled && (
           <button
-            className="absolute right-4 md:right-10 lg:right-20 top-1/2 transform -translate-y-1/2 border bg-white p-1 rounded-full shadow-md z-10"
+            className="absolute right-10 xl:right-20 top-1/2 transform -translate-y-1/2 border bg-white p-1 rounded-full shadow-md z-10"
             onClick={scrollNext}
           >
             <ChevronRight size={18} />
@@ -324,7 +327,7 @@ function CategoryBox({
     <div className="flex-grow-0 flex-shrink-0 basis-1/12 group">
       <div
         onClick={handleClick}
-        className={`flex flex-col items-center justify-between gap-1 mx-3 py-2 border-b-2 group-hover:text-gray-800 transition cursor-pointer
+        className={`flex flex-col items-center justify-between gap-1 py-2 border-b-2 group-hover:text-gray-800 transition cursor-pointer
         ${
           selected
             ? "border-b-gray-800 font-semibold"
