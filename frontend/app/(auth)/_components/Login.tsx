@@ -1,31 +1,32 @@
 "use client";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-
-import { z } from "zod";
+import React from "react";
 import { useForm } from "react-hook-form";
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+} from "@/components/ui/form";
 import Link from "next/link";
-import { login } from "../login/action";
+import { login } from "@/app/(auth)/_actions/action";
+import { AuthForm } from "@/app/(auth)/_components/common/AuthForm";
+
+const loginSchema = z.object({
+  email: z.string().email(),
+  password: z
+    .string()
+    .min(6, { message: "Password must be at least 6 characters long" }),
+});
+
+type LoginFormData = z.infer<typeof loginSchema>;
 
 export default function LoginPage() {
-  const loginSchema = z.object({
-    email: z.string().email(),
-    password: z
-      .string()
-      .min(6, { message: "Password must be at least 6 characters long" }),
-  });
-
-  const loginForm = useForm<z.infer<typeof loginSchema>>({
+  const formMethods = useForm<LoginFormData>({
     mode: "onChange",
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -34,8 +35,7 @@ export default function LoginPage() {
     },
   });
 
-  const onSubmit = () => {
-    const data = loginForm.getValues();
+  const onSubmit = (data: LoginFormData) => {
     const formData = new FormData();
     formData.append("email", data.email);
     formData.append("password", data.password);
@@ -43,63 +43,44 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="container mx-auto">
-      <Card>
-        <CardHeader>
-          <CardTitle>Login</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <Form {...loginForm}>
-            <form
-              onSubmit={loginForm.handleSubmit(onSubmit)}
-              className="space-y-10"
-            >
-              {/* email */}
-              <FormField
-                control={loginForm.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>email</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        type="email"
-                        placeholder="Enter email..."
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
+    <AuthForm title="Login" formMethods={formMethods} onSubmit={onSubmit}>
+      {/* Email Field */}
+      <FormField
+        control={formMethods.control}
+        name="email"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Email</FormLabel>
+            <FormControl>
+              <Input {...field} type="email" placeholder="Enter email..." />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      {/* Password Field */}
+      <FormField
+        control={formMethods.control}
+        name="password"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Password</FormLabel>
+            <FormControl>
+              <Input
+                {...field}
+                type="password"
+                placeholder="Enter password..."
               />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
 
-              {/* password */}
-              <FormField
-                control={loginForm.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Password</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        type="password"
-                        placeholder="Enter password..."
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <Link href="login">
-                If you already have an account, log in here.
-              </Link>
-              <Button>Login</Button>
-            </form>
-          </Form>
-        </CardContent>
-      </Card>
-    </div>
+      <div className="flex flex-col gap-4">
+        <Link href="/reset-password">Forgot your password? Reset it here.</Link>
+        <Button type="submit">Login</Button>
+      </div>
+    </AuthForm>
   );
 }

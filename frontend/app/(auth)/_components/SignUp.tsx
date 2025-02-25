@@ -1,34 +1,35 @@
 "use client";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-
-import { z } from "zod";
+import React from "react";
 import { useForm } from "react-hook-form";
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+} from "@/components/ui/form";
 import Link from "next/link";
-import { signup } from "../sign-up/actions";
+import { signup } from "@/app/(auth)/_actions/action";
+import { AuthForm } from "@/app/(auth)/_components/common/AuthForm";
 
-export default function SignUp() {
-  const signUpSchema = z.object({
-    email: z.string().email(),
-    password: z
-      .string()
-      .min(6, { message: "Password must be at least 6 characters long" }),
-    name: z
-      .string()
-      .min(2, { message: "Name must be at least 2 characters long" }),
-  });
+const signUpSchema = z.object({
+  email: z.string().email(),
+  password: z
+    .string()
+    .min(6, { message: "Password must be at least 6 characters long" }),
+  name: z
+    .string()
+    .min(2, { message: "Name must be at least 2 characters long" }),
+});
 
-  const signUpForm = useForm<z.infer<typeof signUpSchema>>({
+type SignUpFormData = z.infer<typeof signUpSchema>;
+
+export default function SignUpPage() {
+  const formMethods = useForm<SignUpFormData>({
     mode: "onChange",
     resolver: zodResolver(signUpSchema),
     defaultValues: {
@@ -38,8 +39,7 @@ export default function SignUp() {
     },
   });
 
-  const onSubmit = () => {
-    const data = signUpForm.getValues();
+  const onSubmit = (data: SignUpFormData) => {
     const formData = new FormData();
     formData.append("email", data.email);
     formData.append("password", data.password);
@@ -48,77 +48,57 @@ export default function SignUp() {
   };
 
   return (
-    <div className="container mx-auto">
-      <Card>
-        <CardHeader>
-          <CardTitle>Sign up</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <Form {...signUpForm}>
-            <form
-              onSubmit={signUpForm.handleSubmit(onSubmit)}
-              className="space-y-10"
-            >
-              {/* name */}
-              <FormField
-                control={signUpForm.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Name</FormLabel>
-                    <FormControl>
-                      <Input {...field} placeholder="Enter name..." />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
+    <AuthForm title="Sign up" formMethods={formMethods} onSubmit={onSubmit}>
+      {/* Name Field */}
+      <FormField
+        control={formMethods.control}
+        name="name"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Name</FormLabel>
+            <FormControl>
+              <Input {...field} placeholder="Enter name..." />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      {/* Email Field */}
+      <FormField
+        control={formMethods.control}
+        name="email"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Email</FormLabel>
+            <FormControl>
+              <Input {...field} type="email" placeholder="Enter email..." />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      {/* Password Field */}
+      <FormField
+        control={formMethods.control}
+        name="password"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Password</FormLabel>
+            <FormControl>
+              <Input
+                {...field}
+                type="password"
+                placeholder="Enter password..."
               />
-              {/* email */}
-              <FormField
-                control={signUpForm.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>email</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        type="email"
-                        placeholder="Enter email..."
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              {/* password */}
-              <FormField
-                control={signUpForm.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Password</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        type="password"
-                        placeholder="Enter password..."
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <Link href="login">
-                If you already have an account, log in here.
-              </Link>
-              <Button>Sign up</Button>
-            </form>
-          </Form>
-        </CardContent>
-      </Card>
-    </div>
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <div className="flex flex-col gap-4">
+        <Link href="/login">If you already have an account, log in here.</Link>
+        <Button type="submit">Sign up</Button>
+      </div>
+    </AuthForm>
   );
 }
