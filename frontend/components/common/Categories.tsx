@@ -5,6 +5,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Earth,
+  GraduationCap,
   Handshake,
   HeartHandshake,
   Laptop,
@@ -16,7 +17,6 @@ import {
   Smartphone,
   Stethoscope,
   Store,
-  TreePalm,
 } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -32,39 +32,34 @@ export interface Category {
 // サイト全体のパス情報
 export const CATEGORY_LIST: Category[] = [
   {
-    name: "バンクーバーのお家",
+    name: "シェアハウス",
     icon: null,
     pathname: "/properties",
   },
   {
-    name: "仕事探し",
+    name: "お仕事探し",
     icon: BriefcaseBusiness,
     pathname: "/jobs",
   },
   {
-    name: "インターン・ボランティア",
+    name: "インターン",
     icon: Handshake,
-    pathname: "/internship",
+    pathname: "/internships",
   },
   {
-    name: "ミートアップ・イベント",
+    name: "ミートアップ",
     icon: PartyPopper,
-    pathname: "/events",
+    pathname: "/meetups",
   },
   {
-    name: "フリマ",
+    name: "フリーマーケット",
     icon: ShoppingCart,
-    pathname: "/marketplace",
-  },
-  {
-    name: "おすすめの観光地",
-    icon: TreePalm,
-    pathname: "/tourist-spots",
+    pathname: "/marketplaces",
   },
   {
     name: "スキルマーケット",
     icon: Laugh,
-    pathname: "/skill-market",
+    pathname: "/skill-markets",
   },
   {
     name: "個人経営のお店",
@@ -72,39 +67,44 @@ export const CATEGORY_LIST: Category[] = [
     pathname: "/local-shops",
   },
   {
-    name: "病院・クリニック",
-    icon: Stethoscope,
-    pathname: "/clinics",
-  },
-  {
     name: "留学エージェント",
     icon: Building,
     pathname: "/agencies",
   },
   {
-    name: "留学体験談",
-    icon: Earth,
-    pathname: "/experience",
+    name: "トイレマップ",
+    icon: MapPinned,
+    pathname: "/washrooms",
   },
   {
-    name: "携帯会社",
+    name: "留学校サーチ",
+    icon: GraduationCap,
+    pathname: "/schools",
+  },
+  {
+    name: "エピソードシェア",
+    icon: Earth,
+    pathname: "/experiences",
+  },
+  {
+    name: "携帯SIMカード",
     icon: Smartphone,
     pathname: "/mobile-carriers",
   },
   {
-    name: "保険会社",
+    name: "海外留学保険",
     icon: HeartHandshake,
     pathname: "/insurance",
   },
   {
-    name: "お役立ちブログ",
-    icon: Laptop,
-    pathname: "/blogs",
+    name: "クリニック",
+    icon: Stethoscope,
+    pathname: "/clinics",
   },
   {
-    name: "トイレマップ",
-    icon: MapPinned,
-    pathname: "/washrooms",
+    name: "おすすめブログ",
+    icon: Laptop,
+    pathname: "/blogs",
   },
 ] as const;
 /**
@@ -261,13 +261,16 @@ function Categories() {
     <div className="relative base-px pt-2 pb-1">
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex">
-          {CATEGORY_LIST.map((item) => (
+          {CATEGORY_LIST.map((item, index) => (
             <div
               key={item.name}
               ref={(el) => {
                 categoryRefs.current[item.pathname] = el;
               }}
               onClick={() => handleCategoryClick(item.pathname)}
+              className={`${index === 0 ? "ml-0" : "ml-2 lg:ml-3"} ${
+                index === CATEGORY_LIST.length - 1 ? "mr-0" : "mr-2 lg:mr-3"
+              }`}
             >
               <CategoryBox
                 icon={item.icon}
@@ -283,7 +286,7 @@ function Categories() {
       <div className="hidden lg:block">
         {prevBtnEnabled && (
           <button
-            className="absolute left-4 md:left-10 lg:left-20 top-1/2 transform -translate-y-1/2 border bg-white p-1 rounded-full shadow-md z-10"
+            className="absolute left-10 xl:left-20 top-1/2 transform -translate-y-1/2 border bg-white p-1 rounded-full shadow-md z-10"
             onClick={scrollPrev}
           >
             <ChevronLeft size={18} />
@@ -291,7 +294,7 @@ function Categories() {
         )}
         {nextBtnEnabled && (
           <button
-            className="absolute right-4 md:right-10 lg:right-20 top-1/2 transform -translate-y-1/2 border bg-white p-1 rounded-full shadow-md z-10"
+            className="absolute right-10 xl:right-20 top-1/2 transform -translate-y-1/2 border bg-white p-1 rounded-full shadow-md z-10"
             onClick={scrollNext}
           >
             <ChevronRight size={18} />
@@ -324,7 +327,7 @@ function CategoryBox({
     <div className="flex-grow-0 flex-shrink-0 basis-1/12 group">
       <div
         onClick={handleClick}
-        className={`flex flex-col items-center justify-between gap-1 mx-3 py-2 border-b-2 group-hover:text-gray-800 transition cursor-pointer
+        className={`flex flex-col items-center justify-between gap-1 py-2 border-b-2 group-hover:text-gray-800 transition cursor-pointer
         ${
           selected
             ? "border-b-gray-800 font-semibold"

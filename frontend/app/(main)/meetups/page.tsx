@@ -1,6 +1,6 @@
 import { DevelopingPage } from "@/components/common/page";
 
-const EventPage = () => {
+const MeetupPage = () => {
   return (
     <main>
       <DevelopingPage />
@@ -8,4 +8,4 @@ const EventPage = () => {
   );
 };
 
-export default EventPage;
+export default MeetupPage;

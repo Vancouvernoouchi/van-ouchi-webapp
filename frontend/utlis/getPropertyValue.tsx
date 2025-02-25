@@ -165,7 +165,6 @@ export const formatPropertyDetailData = (
       data.properties["スタッフからのコメント"]?.rich_text?.[0]?.plain_text ||
       null,
     hasPool: data.properties["プール"]?.checkbox || false,
-    moveOutDate: data.properties["退去予定日"]?.date?.start || null,
     forFemale: data.properties["女性限定"]?.checkbox || false,
     hasWifi: data.properties["Wifi込み"]?.checkbox || false,
     hasUtilities: data.properties["光熱費込み"]?.checkbox || false,
@@ -209,7 +208,6 @@ export const formatPropertyCardData = (
     status: data.properties["ステータス"]?.status?.name || null,
     closestStation: data.properties["最寄り駅"]?.select?.name || null,
     area: data.properties["エリア"]?.select?.name || null,
-    moveOutDate: data.properties["退去予定日"]?.date?.start || null,
     timeToStation: data.properties["最寄り駅まで"]?.select?.name || null,
     thumbnail: data.properties["サムネイル"]?.files?.[0]?.file?.url || null,
     zone: data.properties["ゾーン"]?.select?.name || null,
@@ -318,7 +316,6 @@ export const formatDateToJapanese = (dateString: string): string => {
  * 入居可能日の表示を整える関数
  *
  * @param moveInDate {string} - 例：　２０２５−０１−０１
- * @param moveOutDate {string} - 例：　２０２５−０１−０１
  * @param status
  *
  * @return {string} - statusに応じた入居可能日の表示
