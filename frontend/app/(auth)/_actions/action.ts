@@ -56,6 +56,10 @@ export async function login(formData: FormData) {
   redirect("/properties");
 }
 
+/**
+ * TODO
+ * SupabaseのAuthentication URL ConfigurationにRedirect URLを設定する必要あり。
+ */
 export async function resetPassword(formData: FormData) {
   const supabase = await createClient();
 
@@ -73,8 +77,24 @@ export async function resetPassword(formData: FormData) {
     redirect("/error");
   }
 
-  revalidatePath("/properties", "layout");
-  redirect("/properties");
+  revalidatePath("/", "layout");
+  redirect("/login");
+}
+
+export async function updatePassword(formData: FormData) {
+  const supabase = await createClient();
+
+  const { error } = await supabase.auth.updateUser({
+    password: formData.get("password") as string,
+  });
+
+  if (error) {
+    console.error(error);
+    redirect("/error");
+  }
+
+  revalidatePath("/");
+  redirect("/");
 }
 
 export async function logout(formData: FormData) {
@@ -88,23 +108,6 @@ export async function logout(formData: FormData) {
   }
 
   // キャッシュを再検証（必要に応じて対象パスを変更）
-  revalidatePath("/");
-  redirect("/");
-}
-
-export async function updatePassword(formData: FormData) {
-  const supabase = await createClient();
-
-  const { error } = await supabase.auth.updateUser({
-    email: formData.get("email") as string,
-    password: formData.get("password") as string,
-  });
-
-  if (error) {
-    console.error("Sign out error:", error);
-    redirect("/error");
-  }
-
   revalidatePath("/");
   redirect("/");
 }
