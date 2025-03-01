@@ -1,5 +1,21 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface BlogBlogContent extends Struct.ComponentSchema {
+  collectionName: 'components_blog_blog_contents';
+  info: {
+    description: '';
+    displayName: 'Blog Content';
+  };
+  attributes: {
+    contentText: Schema.Attribute.RichText;
+    contentTitle: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 30;
+      }>;
+  };
+}
+
 export interface CommonLinkButton extends Struct.ComponentSchema {
   collectionName: 'components_common_link_buttons';
   info: {
@@ -80,6 +96,7 @@ export interface SharedSlider extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'blog.blog-content': BlogBlogContent;
       'common.link-button': CommonLinkButton;
       'shared.media': SharedMedia;
       'shared.quote': SharedQuote;
