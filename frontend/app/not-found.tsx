@@ -1,4 +1,3 @@
-import { Categories } from "@/components/common";
 import { Footer } from "@/components/common/footer";
 import { Header } from "@/components/common/header";
 import Link from "next/link";

@@ -258,7 +258,7 @@ function Categories() {
     //     isFixed ? "fixed top-0 left-0 bg-white shadow-md" : ""
     //   }`}
     // >
-    <div className="relative base-px pt-2 pb-1">
+    <div className="relative base-px py-2 h-20">
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex">
           {CATEGORY_LIST.map((item, index) => (

@@ -28,16 +28,17 @@ function GoogleMapMarker({ geoPosition, className }: Coordinates) {
 
   try {
     if (!geoPosition || !geoPosition.includes(",")) {
-      throw new Error(MESSAGES.ERROR_PREPAIRING("この物件のマップ"));
+      throw new Error("ただいま準備中です。");
     }
 
     [lat, lng] = geoPosition.split(",").map(Number);
 
     if (isNaN(lat) || isNaN(lng)) {
-      throw new Error(MESSAGES.ERROR_PREPAIRING("この物件のマップ"));
+      throw new Error("ただいま準備中です。");
     }
   } catch (err) {
-    error = err instanceof Error ? err.message : MESSAGES.ERROR_UNEXPECTED;
+    error =
+      err instanceof Error ? err.message : "予期せぬエラーが発生しました。";
   }
 
   const center = lat !== null && lng !== null ? { lat, lng } : null;
@@ -52,13 +53,11 @@ function GoogleMapMarker({ geoPosition, className }: Coordinates) {
   }
 
   if (loadError) {
-    return <MapNotFound message={MESSAGES.ERROR_LOADING("マップ")} />;
+    return <MapNotFound message="マップの読み込みに失敗しました。" />;
   }
 
   if (!center) {
-    return (
-      <MapNotFound message={MESSAGES.ERROR_PREPAIRING("この物件のマップ")} />
-    );
+    return <MapNotFound message="ただいま準備中です。" />;
   }
 
   if (!isLoaded) {

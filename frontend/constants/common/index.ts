@@ -6,7 +6,7 @@ export type { AreaDescription } from "./areas";
 export { LINKS } from "./links";
 
 //　メッセージ
-export { MESSAGES } from "./messages";
+export { MESSAGES, ERRORS, generateMessages } from "./messages";
 
 // ルーティング
 export { ROUTES } from "./routes";
