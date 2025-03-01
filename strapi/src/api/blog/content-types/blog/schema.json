@@ -14,12 +14,13 @@
   "attributes": {
     "title": {
       "type": "string",
-      "maxLength": 80,
+      "maxLength": 30,
       "required": true
     },
     "description": {
       "type": "text",
-      "required": true
+      "required": true,
+      "maxLength": 300
     },
     "coverImage": {
       "type": "media",
@@ -28,10 +29,6 @@
       "allowedTypes": [
         "images"
       ]
-    },
-    "content": {
-      "type": "richtext",
-      "required": true
     },
     "metadata": {
       "type": "component",
@@ -43,6 +40,16 @@
       "relation": "manyToOne",
       "target": "api::blog-category.blog-category",
       "inversedBy": "blogs"
+    },
+    "contents": {
+      "type": "component",
+      "repeatable": true,
+      "component": "blog.blog-content"
+    },
+    "author": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::author.author"
     }
   }
 }
