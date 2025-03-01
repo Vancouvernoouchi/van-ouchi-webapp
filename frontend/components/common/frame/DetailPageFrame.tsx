@@ -14,7 +14,7 @@ function DetailPageFrame({
   children: ReactNode;
 }) {
   return (
-    <div className="px-4 sm:px-12 lg:px-22 xl:px-32">
+    <div className="px-4 sm:px-12 lg:px-22 xl:px-32 py-4">
       {detailHeaderList && (
         <DetailPageHeader headerOptions={detailHeaderList} />
       )}

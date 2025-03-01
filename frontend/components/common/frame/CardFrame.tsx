@@ -3,7 +3,7 @@ import Image from "next/image";
 import { ReactNode } from "react";
 
 interface CardFrameProps {
-  href: string;
+  linkTo: string;
   imageSrc?: string;
   imageAlt?: string;
   labelMessage?: string;
@@ -14,7 +14,7 @@ interface CardFrameProps {
 /**
  * 全ての一覧ページに共通するカードフレームコンポーネント
  *
- * ＠params href　{string} - カード押下時の遷移先
+ * ＠params linkTo　{string} - カード押下時の遷移先
  * ＠params imageSrc　{string} - 画像URL
  * ＠params imageAlt {string} - 画像説明文
  * ＠params labelMessage {string}　- 画像左上に表示するメッセージ
@@ -22,15 +22,16 @@ interface CardFrameProps {
  * ＠params children {ReactNode}　- カードの画像下に来るコンテンツ
  */
 function CardFrame({
-  href,
+  linkTo,
   imageSrc,
   imageAlt,
   labelMessage,
   labelColor = "bg-white",
   cardContent,
+  ...props
 }: CardFrameProps) {
   return (
-    <Link href={`/properties/${href}`} className="relative">
+    <Link href={linkTo} className="relative">
       {/* 画像 */}
       <div className="relative z-0 w-full rounded-lg aspect-[9/8]">
         {imageSrc ? (

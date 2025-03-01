@@ -30,7 +30,7 @@ const PropertyListPage = async ({
       />
     );
   } catch (error: any) {
-    return <ErrorPage errorMessage={MESSAGES.ERROR} />;
+    return <ErrorPage errorMessages={MESSAGES.ERROR_UNEXPECTED} />;
   }
 };
 

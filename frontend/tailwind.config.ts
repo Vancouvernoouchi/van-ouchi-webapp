@@ -23,6 +23,7 @@ const config = {
         "bloom-blue": "#2E83C6",
         "bloom-lightBlue": "#E3F2FA",
         "bloom-red": "#FA2C37",
+        "bloom-pink": "#FFF0F5",
         "bloom-white": "#FFFFFF",
         "bloom-balck": "#000000",
         "bloom-gray": "#61738E",
@@ -84,7 +85,7 @@ const config = {
   },
   plugins: [
     require("tailwindcss-animate"),
-    // スクロールバーを表示するとデザインが崩れる時に使う
+    require("@tailwindcss/typography"),
     function ({ addUtilities }: { addUtilities: (utilities: object) => void }) {
       addUtilities({
         ".hide-scrollbar": {

@@ -127,11 +127,11 @@ const PropertyDetail = ({ property }: { property: PropertyDetailData }) => {
   return (
     <DetailPageFrame detailHeaderList={propertyDetailHeaderList}>
       {/* --- 左上エリア：　パンクズリスト　--- 　*/}
-      <div className="pt-5 text-sm">
+      <div className="text-sm">
         <BreadcrumbArea label={property.roomName} />
       </div>
 
-      <div className="flex flex-col sm:flex-row sm:justify-between items-center gap-3 py-3 sm:py-6">
+      <div className="flex flex-col sm:flex-row sm:justify-between items-center gap-4 py-4">
         <div className="flex flex-col items-start gap-2 w-full sm:w-[50%] lg:w-[60%]">
           {/* 空き状況ステータス */}
           <div className="py-1.5 px-4 bg-white rounded-full z-40 top-3 left-3 opacity-85 text-xs sm:text-sm border border-bloom-blue text-bloom-blue">
