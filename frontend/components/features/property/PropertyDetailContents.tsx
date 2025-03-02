@@ -16,20 +16,10 @@ import {
 } from "lucide-react";
 import { ReactNode, useEffect, useState } from "react";
 import { MapNotFound } from "@/components/common/map";
-import { MESSAGES } from "@/constants/common/messages";
 import Image from "next/image";
 import Link from "next/link";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-import { useRouter } from "next/navigation";
 import { getAreaDiscription } from "@/utlis/getPropertyValue";
 
 /**
@@ -76,53 +66,6 @@ export const SectionTitle = ({
     >
       {title}
     </h5>
-  );
-};
-
-/**
- * パンクズリストコンポーネント
- *
- * @param currentPageName {string}　- 現在のページの名前
- */
-export const BreadcrumbArea = ({ label }: { label: string }) => {
-  const router = useRouter();
-
-  /**
-   * パンクズリスト物件一覧に戻る
-   * @param e {React.MouseEvent<HTMLAnchorElement>}
-   */
-  const handleBack = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault(); // リンクのデフォルト動作を無効化
-
-    // 履歴がある場合は戻る
-    if (window.history.length > 2) {
-      router.back();
-    } else {
-      // 外部ページから遷移した場合等、履歴がない場合は特定のURLに遷移
-      router.push("/properties");
-    }
-  };
-  return (
-    <Breadcrumb>
-      <BreadcrumbList>
-        {/* TODO: ルートにホームページを作ったらこれ使う */}
-        {/* <BreadcrumbItem>
-        <BreadcrumbLink>
-          <Link href="/">Home</Link>
-        </BreadcrumbLink>
-      </BreadcrumbItem>
-      <BreadcrumbSeparator /> */}
-        <BreadcrumbItem>
-          <BreadcrumbLink onClick={handleBack} className="cursor-pointer">
-            物件一覧
-          </BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        <BreadcrumbItem>
-          <BreadcrumbPage className="text-bloom-gray">{label}</BreadcrumbPage>
-        </BreadcrumbItem>
-      </BreadcrumbList>
-    </Breadcrumb>
   );
 };
 
