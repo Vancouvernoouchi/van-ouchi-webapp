@@ -22,7 +22,6 @@ import {
   Neighbors,
   PropertyImage,
   RecommendPoint,
-  BreadcrumbArea,
 } from "@/components/features/property/PropertyDetailContents";
 import { formatMoveInDate } from "@/utlis/getPropertyValue";
 import { DetailPageHeaderOption } from "@/components/common/header";
@@ -125,12 +124,10 @@ const PropertyDetail = ({ property }: { property: PropertyDetailData }) => {
   ];
 
   return (
-    <DetailPageFrame detailHeaderList={propertyDetailHeaderList}>
-      {/* --- 左上エリア：　パンクズリスト　--- 　*/}
-      <div className="text-sm">
-        <BreadcrumbArea label={property.roomName} />
-      </div>
-
+    <DetailPageFrame
+      detailHeaderList={propertyDetailHeaderList}
+      pageName={property.roomName}
+    >
       <div className="flex flex-col sm:flex-row sm:justify-between items-center gap-4 py-4">
         <div className="flex flex-col items-start gap-2 w-full sm:w-[50%] lg:w-[60%]">
           {/* 空き状況ステータス */}

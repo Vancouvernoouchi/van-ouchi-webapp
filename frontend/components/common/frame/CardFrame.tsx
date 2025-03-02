@@ -1,6 +1,8 @@
+"use client";
 import Link from "next/link";
 import Image from "next/image";
 import { ReactNode } from "react";
+import { useRouter } from "next/navigation";
 
 interface CardFrameProps {
   linkTo: string;
@@ -30,8 +32,20 @@ function CardFrame({
   cardContent,
   ...props
 }: CardFrameProps) {
+  const router = useRouter();
+
+  /**
+   * クリック時に sessionStorage に保存して遷移
+   */
+  const goToDetail = () => {
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem("prevPath", window.location.pathname);
+    }
+    router.push(linkTo);
+  };
+
   return (
-    <Link href={linkTo} className="relative">
+    <div className="relative cursor-pointer" onClick={goToDetail}>
       {/* 画像 */}
       <div className="relative z-0 w-full rounded-lg aspect-[9/8]">
         {imageSrc ? (
@@ -62,7 +76,7 @@ function CardFrame({
 
       {/* カードコンテンツ */}
       <div className="flex flex-col w-full gap-1 pt-2 pb-6">{cardContent}</div>
-    </Link>
+    </div>
   );
 }
 

@@ -24,11 +24,11 @@ interface Blog {
   author: {
     id: number;
     name: string;
-    message: string;
+    description: string;
     avatar: {
-      url: string;
+      url: string | null;
     };
-  };
+  } | null;
   /** 最終更新日時 */
   updatedAt: string;
   /** メタデータ */
