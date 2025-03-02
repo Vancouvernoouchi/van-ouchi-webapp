@@ -26,6 +26,13 @@ export default factories.createCoreController(
           coverImage: { fields: ["url"] },
           contents: true,
           category: true,
+          author: {
+            populate: {
+              avatar: {
+                fields: ["url"],
+              },
+            },
+          },
           metadata: true,
         },
       });
