@@ -13,8 +13,8 @@ const MainLayout = ({
   return (
     <div className="min-w-screen">
       <Header />
-      <main className="min-h-[calc(100vh-64px-64px)] lg:min-h-[calc(100vh-80px-68px)] z-0">
-        <Categories />
+      <Categories />
+      <main className="content-height z-0">
         <Suspense fallback={<Loader />}>{children}</Suspense>
       </main>
       <Analytics />

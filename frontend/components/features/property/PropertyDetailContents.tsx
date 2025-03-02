@@ -397,7 +397,7 @@ export const AccessMap = ({
         className=" w-full h-[400px]"
       /> */}
       <SectionTitle title="アクセスマップ" />
-      <MapNotFound message={MESSAGES.ERROR_PREPAIRING("この物件のマップ")} />
+      <MapNotFound message="ただいま準備中です。" />
 
       <div className="pt-5 py-2 font-semibold">最寄駅 / バス停</div>
       {closestStation && timeToStation && (

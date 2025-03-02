@@ -1,9 +1,10 @@
 "use client";
 
 import { ErrorPage } from "@/components/common/page";
+import { MESSAGES } from "@/constants/common";
 
 const ExperiencePageError = () => {
-  return <ErrorPage errorMessage="予期せぬエラーが発生しました。" />;
+  return <ErrorPage errorMessages={MESSAGES.ERROR_UNEXPECTED} />;
 };
 
 export default ExperiencePageError;

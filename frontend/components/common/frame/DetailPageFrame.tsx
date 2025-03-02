@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { DetailPageHeader, DetailPageHeaderOption } from "../header";
+import { cn } from "@/lib/utils";
 
 /**
  * 全ての詳細ページに共通するフレームコンポーネント
@@ -9,12 +10,14 @@ import { DetailPageHeader, DetailPageHeaderOption } from "../header";
 function DetailPageFrame({
   detailHeaderList,
   children,
+  className,
 }: {
   detailHeaderList?: DetailPageHeaderOption[];
   children: ReactNode;
+  className?: string;
 }) {
   return (
-    <div className="px-4 sm:px-12 lg:px-22 xl:px-32">
+    <div className={cn("px-4 sm:px-12 lg:px-22 xl:px-32 py-4", className)}>
       {detailHeaderList && (
         <DetailPageHeader headerOptions={detailHeaderList} />
       )}
