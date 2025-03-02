@@ -20,6 +20,15 @@ interface Blog {
   contents: BlogContent[];
   /** カテゴリー */
   category: { categoryId: string; categoryName: string } | null;
+  /** 著者 */
+  author: {
+    id: number;
+    name: string;
+    message: string;
+    avatar: {
+      url: string;
+    };
+  };
   /** 最終更新日時 */
   updatedAt: string;
   /** メタデータ */

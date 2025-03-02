@@ -25,21 +25,26 @@ function MarkdownRenderer({ content }: { readonly content: string }) {
             </div>
           ),
           p: ({ node, children, ...props }) => (
-            <p {...props} className="mb-4">
+            <p
+              {...props}
+              className="text-sm sm:text-base leading-loose tracking-wider"
+            >
               {children}
             </p>
           ),
           ul: ({ children }) => (
-            <ul className="inline-block list-disc pl-4 space-y-1 marker:text-bloom-blue">
+            <ul className="inline-block list-disc pl-4 ml-2 space-y-1 marker:text-bloom-blue text-sm sm:text-base">
               {children}
             </ul>
           ),
           ol: ({ children }) => (
-            <ol className="list-decimal pl-6 space-y-2 marker:text-bloom-balck">
+            <ol className="list-decimal pl-6 space-y-2 marker:text-bloom-balck text-sm sm:text-base">
               {children}
             </ol>
           ),
-          li: ({ children }) => <li className="m-0">{children}</li>,
+          li: ({ children }) => (
+            <li className="text-sm sm:text-base">{children}</li>
+          ),
           h1: ({ children }) => (
             <h1 className="text-2xl font-bold border-b pb-2">{children}</h1>
           ),
