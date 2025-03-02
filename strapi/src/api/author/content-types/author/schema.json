@@ -33,13 +33,14 @@
       "relation": "oneToOne",
       "target": "api::agent.agent"
     },
-    "blog": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::blog.blog"
-    },
-    "message": {
+    "description": {
       "type": "text"
+    },
+    "blogs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::blog.blog",
+      "mappedBy": "author"
     }
   }
 }
