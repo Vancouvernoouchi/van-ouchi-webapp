@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 
 const RETRY_CODES = [409, 429, 500, 503]; // 再試行ボタンを表示するエラーコード
 
-function ErrorPage({
+function ErrorMessage({
   responseCode,
   errorMessages,
 }: {
@@ -62,4 +62,4 @@ function ErrorPage({
   );
 }
 
-export { ErrorPage };
+export { ErrorMessage };

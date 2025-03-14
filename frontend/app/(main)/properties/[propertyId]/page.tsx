@@ -6,7 +6,7 @@ import { getPropertyValue } from "@/utlis/getPropertyValue";
 import type { Metadata, ResolvingMetadata } from "next";
 import { ERRORS, generateMessages } from "@/constants/common/messages";
 import PropertyDetail from "@/components/features/property/PropertyDetail";
-import { ErrorPage } from "@/components/common/page";
+import { ErrorMessage } from "@/components/common/message";
 
 type Props = {
   params: Promise<{ propertyId: string }>;
@@ -64,7 +64,7 @@ const PropertyDetailPage = async ({
 
     if (!propertyData) {
       return (
-        <ErrorPage
+        <ErrorMessage
           responseCode={ERRORS.NOT_FOUND.code}
           errorMessages={generateMessages(ERRORS.NOT_FOUND.code)}
         />
@@ -74,7 +74,7 @@ const PropertyDetailPage = async ({
     return <PropertyDetail property={propertyData} />;
   } catch (error: any) {
     return (
-      <ErrorPage
+      <ErrorMessage
         responseCode={ERRORS.UNEXPECTED.code}
         errorMessages={generateMessages(ERRORS.UNEXPECTED.code)}
       />

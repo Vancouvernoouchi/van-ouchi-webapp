@@ -1,4 +1,4 @@
-import { ErrorPage } from "@/components/common/page";
+import { ErrorMessage } from "@/components/common/message";
 import PropertyList from "@/components/features/property/PropertyList";
 import { MESSAGES } from "@/constants/common/messages";
 import {
@@ -30,7 +30,7 @@ const PropertyListPage = async ({
       />
     );
   } catch (error: any) {
-    return <ErrorPage errorMessages={MESSAGES.ERROR_UNEXPECTED} />;
+    return <ErrorMessage errorMessages={MESSAGES.ERROR_UNEXPECTED} />;
   }
 };
 

@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import React from "react";
 
-function DevelopingPage() {
+function DevelopingMessage() {
   const router = useRouter();
 
   return (
@@ -24,4 +24,4 @@ function DevelopingPage() {
   );
 }
 
-export { DevelopingPage };
+export { DevelopingMessage };

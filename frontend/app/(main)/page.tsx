@@ -1,9 +1,9 @@
-import { DevelopingPage } from "@/components/common/page";
+import { DevelopingMessage } from "@/components/common/message";
 
 const Home = () => {
   return (
     <main>
-      <DevelopingPage />
+      <DevelopingMessage />
     </main>
   );
 };

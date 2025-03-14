@@ -1,9 +1,9 @@
 "use client";
-import { ErrorPage } from "@/components/common/page";
+import { ErrorMessage } from "@/components/common/message";
 import { MESSAGES } from "@/constants/common/messages";
 
-const DevelopingPageError = () => {
-  return <ErrorPage errorMessages={[MESSAGES.ERROR_UNEXPECTED]} />;
+const DevelopingMessageError = () => {
+  return <ErrorMessage errorMessages={[MESSAGES.ERROR_UNEXPECTED]} />;
 };
 
-export default DevelopingPageError;
+export default DevelopingMessageError;

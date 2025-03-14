@@ -1,4 +1,4 @@
-import { ErrorPage } from "@/components/common/page";
+import { ErrorMessage } from "@/components/common/message";
 import BlogDetail from "@/components/features/blog/BlogDetail";
 import { STRAPI_API_URL } from "@/constants/common/api";
 import { ERRORS, generateMessages } from "@/constants/common/messages";
@@ -89,7 +89,7 @@ const PropertyDetailPage = async ({
   if (!data) {
     const errorMessages = generateMessages(responseCode);
     return (
-      <ErrorPage responseCode={responseCode} errorMessages={errorMessages} />
+      <ErrorMessage responseCode={responseCode} errorMessages={errorMessages} />
     );
   }
 

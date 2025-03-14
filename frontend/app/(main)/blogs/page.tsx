@@ -1,4 +1,4 @@
-import { EmptyMessage, ErrorPage } from "@/components/common/page";
+import { EmptyMessage, ErrorMessage } from "@/components/common/message";
 import BlogList from "@/components/features/blog/BlogList";
 import { ERRORS, generateMessages } from "@/constants/common";
 import { STRAPI_API_URL } from "@/constants/common/api";
@@ -46,7 +46,7 @@ async function BlogPage() {
     // responseのstatusに応じたエラーメッセージを生成
     const errorMessages = generateMessages(responseCode);
     return (
-      <ErrorPage responseCode={responseCode} errorMessages={errorMessages} />
+      <ErrorMessage responseCode={responseCode} errorMessages={errorMessages} />
     );
   }
 
