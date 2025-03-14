@@ -4,7 +4,7 @@ import { ErrorPage } from "@/components/common/page";
 import { MESSAGES } from "@/constants/common";
 
 const CompanyPageError = () => {
-  return <ErrorPage errorMessages={MESSAGES.ERROR_UNEXPECTED} />;
+  return <ErrorPage errorMessages={[MESSAGES.ERROR_UNEXPECTED]} />;
 };
 
 export default CompanyPageError;
