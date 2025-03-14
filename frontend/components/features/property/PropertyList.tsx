@@ -134,8 +134,8 @@ const PropertyCard = ({ property }: { property: PropertyCardData }) => {
       linkTo={`/properties/${property.id}`}
       imageSrc={property.thumbnail}
       imageAlt={property.title ?? "物件画像"}
-      labelMessage={labelMessage}
-      labelColor={labelColor}
+      badgeMessage={labelMessage}
+      badgeStyle={labelColor}
       cardContent={<CardContent property={property} />}
     />
   );

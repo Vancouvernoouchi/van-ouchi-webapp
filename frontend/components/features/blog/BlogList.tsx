@@ -7,55 +7,58 @@ import { formatDateToJapanese } from "@/utlis/getPropertyValue";
 
 /**
  * ブログ一覧ページ
- * ＠params blogs {Blog[]} - ブログリスト
+ * ＠params data {Blog[]} - ブログリスト
  * @params pagination {pagination}
  */
 export default function BlogList({
-  blogs,
+  data,
   pagination,
 }: {
-  blogs: Blog[];
+  data: Blog[];
   pagination: PaginationType;
 }) {
   return (
     <ListPageFrame
       pagination={pagination}
-      cardArea={<CardArea blogs={blogs} />}
+      cardArea={<CardArea data={data} />}
     />
   );
 }
 
 /**
  * ブログ一覧ページのカードを一覧で表示するエリア
- * ＠params blogs {Blog[]} - ブログリスト
+ * ＠params data {Blog[]} - ブログリスト
  */
-const CardArea = ({ blogs }: { blogs: Blog[] }) => {
+function CardArea({ data }: { data: Blog[] }) {
   return (
     <>
-      {blogs.map((blog) => (
+      {/* マップで並べる */}
+      {data.map((blog) => (
         <CardFrame
           key={blog.id}
-          linkTo={`/blogs/${blog.id.toString()}`}
-          imageSrc={blog.coverImage.url}
-          imageAlt={blog.title}
-          cardContent={<CardContent blog={blog} />}
-          labelMessage={blog.category?.categoryName}
+          linkTo={`/blogs/${blog.id.toString()}`} // 詳細画面の遷移先パス
+          imageSrc={blog.coverImage.url} // カードの画像
+          imageAlt={blog.title} // 画像の説明文
+          cardContent={<CardContent blog={blog} />} // 画像下にくる部分　（別途作成）
+          badgeMessage={blog.category?.categoryName} // 左上のバッヂ
         />
       ))}
     </>
   );
-};
+}
 
 /**
  * カードの画像以下の部分
  * ＠params peoperty {PropertyCardData}
  */
-const CardContent = ({ blog }: { blog: Blog }) => {
+function CardContent({ blog }: { blog: Blog }) {
   const updatedAt = formatDateToJapanese(blog.updatedAt);
   return (
     <>
+      {/* ブログタイトル */}
       <p className="text-sm sm:text-base font-medium">{blog.title}</p>
+      {/* 更新日 */}
       <p className="text-sm text-bloom-gray">{updatedAt}</p>
     </>
   );
-};
+}
