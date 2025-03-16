@@ -35,8 +35,8 @@ function CardArea({ data }: { data: Blog[] }) {
       {/* マップで並べる */}
       {data.map((blog) => (
         <CardFrame
-          key={blog.id}
-          linkTo={`/blogs/${blog.id.toString()}`} // 詳細画面の遷移先パス
+          key={blog.documentId}
+          linkTo={`/blogs/${blog.documentId.toString()}`} // 詳細画面の遷移先パス
           imageSrc={blog.coverImage.url} // カードの画像
           imageAlt={blog.title} // 画像の説明文
           cardContent={<CardContent blog={blog} />} // 画像下にくる部分　（別途作成）
@@ -49,7 +49,7 @@ function CardArea({ data }: { data: Blog[] }) {
 
 /**
  * カードの画像以下の部分
- * ＠params peoperty {PropertyCardData}
+ * ＠params property {PropertyCardData}
  */
 function CardContent({ blog }: { blog: Blog }) {
   const updatedAt = formatDateToJapanese(blog.updatedAt);
