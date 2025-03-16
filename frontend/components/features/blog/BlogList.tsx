@@ -3,7 +3,7 @@
 import { CardFrame, ListPageFrame } from "@/components/common/frame";
 import { Blog } from "@/types/blog";
 import { PaginationType } from "@/types/common/strapi/index";
-import { formatDateToJapanese } from "@/utlis/getPropertyValue";
+import { formatDateToJapanese } from "@/utils/getPropertyValue";
 
 /**
  * ブログ一覧ページ

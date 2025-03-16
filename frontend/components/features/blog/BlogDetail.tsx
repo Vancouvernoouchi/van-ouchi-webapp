@@ -3,7 +3,7 @@
 import { DetailPageFrame } from "@/components/common/frame";
 import { MarkdownRenderer } from "@/components/common/text";
 import { Blog } from "@/types/blog";
-import { formatDateToJapanese } from "@/utlis/getPropertyValue";
+import { formatDateToJapanese } from "@/utils/getPropertyValue";
 import { SearchCheck } from "lucide-react";
 import Image from "next/image";
 

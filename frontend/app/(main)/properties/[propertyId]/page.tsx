@@ -1,8 +1,8 @@
 import { NotionProperty, PropertyDetailData } from "@/types/notionTypes";
-import { formatPropertyDetailData } from "@/utlis/getPropertyValue";
+import { formatPropertyDetailData } from "@/utils/getPropertyValue";
 import { AxiosResponse } from "axios";
 import { apiClient } from "@/config/apiClient";
-import { getPropertyValue } from "@/utlis/getPropertyValue";
+import { getPropertyValue } from "@/utils/getPropertyValue";
 import type { Metadata, ResolvingMetadata } from "next";
 import { ERRORS, generateMessages } from "@/constants/common/messages";
 import PropertyDetail from "@/components/features/property/PropertyDetail";

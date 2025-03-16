@@ -20,7 +20,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
-import { getAreaDiscription } from "@/utlis/getPropertyValue";
+import { getAreaDiscription } from "@/utils/getPropertyValue";
 
 /**
  * 各セクションのラッパーコンポーネント

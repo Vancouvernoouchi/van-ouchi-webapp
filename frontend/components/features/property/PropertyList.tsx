@@ -4,7 +4,7 @@ import PaginationList from "@/components/common/PaginationList";
 import {
   formatMoveInDate,
   formatPropertyCardData,
-} from "@/utlis/getPropertyValue";
+} from "@/utils/getPropertyValue";
 import { optionType } from "@/config/commonOptions";
 import { CardFrame } from "@/components/common/frame";
 import { SearchBar, Sort } from "@/components/common";

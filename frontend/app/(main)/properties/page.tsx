@@ -4,7 +4,7 @@ import { MESSAGES } from "@/constants/common/messages";
 import {
   fetchAndFilterProperties,
   SearchParams,
-} from "@/utlis/filterSort/propertyService";
+} from "@/utils/filterSort/propertyService";
 
 const PropertyListPage = async ({
   searchParams,
