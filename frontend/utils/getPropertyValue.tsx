@@ -223,7 +223,7 @@ export const formatPropertyCardData = (
  * @param area {string} - エリア
  * @return エリア説明文章
  */
-export const getAreaDiscription = (area: Area) => {
+export const getAreaDescription = (area: Area) => {
   if (area === "ダウンタウン") {
     return AREA_DESCRIPTION.DOWNTOWN;
   } else if (area === "イーストバンクーバー") {

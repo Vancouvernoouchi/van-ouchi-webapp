@@ -20,7 +20,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
-import { getAreaDiscription } from "@/utils/getPropertyValue";
+import { getAreaDescription } from "@/utils/getPropertyValue";
 
 /**
  * 各セクションのラッパーコンポーネント
@@ -363,12 +363,12 @@ export const AccessMap = ({
 export const Neighbors = ({ area }: { area: Area }) => {
   const tabLabels: string[] = ["エリア紹介", "飲食店", "その他"];
 
-  const areaDiscription = getAreaDiscription(area);
+  const areaDescription = getAreaDescription(area);
 
   const contents: ReactNode[] = [
     <div key="0">
       {area && <p className="font-semibold pb-1">{area}ってどんなとこ？</p>}
-      <p className="text-sm">{areaDiscription}</p>
+      <p className="text-sm">{areaDescription}</p>
     </div>,
     <div key="1">飲食店調査中！</div>,
     <div key="2">その他周辺情報調査中！</div>,
@@ -377,7 +377,7 @@ export const Neighbors = ({ area }: { area: Area }) => {
   return (
     <SectionWrapper id="neighbors">
       <SectionTitle title="周辺情報" />
-      <Tab tablLabels={tabLabels} contents={contents} />
+      <Tab tabLabels={tabLabels} contents={contents} />
     </SectionWrapper>
   );
 };

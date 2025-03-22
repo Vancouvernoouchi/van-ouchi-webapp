@@ -11,7 +11,7 @@ import {
   SelectItem,
   SelectTrigger,
 } from "@/components/ui/select";
-import { OuchiLogo, SearchBar } from "../index";
+import { SearchBar } from "../index";
 import { LINKS } from "@/constants/common/links";
 import { JP, CA, CN, FlagComponent } from "country-flag-icons/react/3x2";
 import Image from "next/image";
