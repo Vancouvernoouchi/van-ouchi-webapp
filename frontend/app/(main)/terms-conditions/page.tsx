@@ -1,5 +1,3 @@
-import { DevelopingPage } from "@/components/common/page";
-
 const TermsAndConditionPage = () => {
   return (
     <main className="base-px md:px-20 lg:px-60 py-4 lg:py-10 tracking-wider leading-relaxed text-sm lg:text-base">

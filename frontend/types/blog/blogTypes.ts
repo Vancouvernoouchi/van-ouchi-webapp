@@ -7,7 +7,7 @@ interface BlogData {
 
 interface Blog {
   /**　ID */
-  id: number;
+  documentId: number;
   /** タイトル */
   title: string;
   /** 説明文 */

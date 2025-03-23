@@ -4,7 +4,6 @@ import React from "react";
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
-import { MESSAGES } from "@/constants/common/messages";
 import { MapNotFound } from "@/components/common/map";
 
 type Coordinates = {

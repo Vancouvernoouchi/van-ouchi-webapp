@@ -23,7 +23,7 @@ import {
   PropertyImage,
   RecommendPoint,
 } from "@/components/features/property/PropertyDetailContents";
-import { formatMoveInDate } from "@/utlis/getPropertyValue";
+import { formatMoveInDate } from "@/utils/getPropertyValue";
 import { DetailPageHeaderOption } from "@/components/common/header";
 import { DetailPageFrame } from "@/components/common/frame";
 

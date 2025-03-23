@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import { CircleX, Search } from "lucide-react";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { createQueryString } from "@/utlis/queryStringHelper";
+import { createQueryString } from "@/utils/queryStringHelper";
 import { toast } from "sonner";
 
 /**

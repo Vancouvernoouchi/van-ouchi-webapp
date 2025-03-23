@@ -4,7 +4,7 @@ import PaginationList from "@/components/common/PaginationList";
 import {
   formatMoveInDate,
   formatPropertyCardData,
-} from "@/utlis/getPropertyValue";
+} from "@/utils/getPropertyValue";
 import { optionType } from "@/config/commonOptions";
 import { CardFrame } from "@/components/common/frame";
 import { SearchBar, Sort } from "@/components/common";
@@ -114,7 +114,7 @@ const CardArea = ({ properties }: { properties: NotionProperty[] }) => {
 
 /**
  * 物件一覧ページのカード
- * ＠params peoperty {PropertyCardData}
+ * ＠params property {PropertyCardData}
  */
 const PropertyCard = ({ property }: { property: PropertyCardData }) => {
   /* 募集中の物件のみ「入居者募集中」 or 「即入居可能」のラベル */
@@ -134,8 +134,8 @@ const PropertyCard = ({ property }: { property: PropertyCardData }) => {
       linkTo={`/properties/${property.id}`}
       imageSrc={property.thumbnail}
       imageAlt={property.title ?? "物件画像"}
-      labelMessage={labelMessage}
-      labelColor={labelColor}
+      badgeMessage={labelMessage}
+      badgeStyle={labelColor}
       cardContent={<CardContent property={property} />}
     />
   );
@@ -143,18 +143,18 @@ const PropertyCard = ({ property }: { property: PropertyCardData }) => {
 
 /**
  * カードの画像以下の部分
- * ＠params peoperty {PropertyCardData}
+ * ＠params property {PropertyCardData}
  */
 const CardContent = ({ property }: { property: PropertyCardData }) => {
   /* 入居可能日 */
-  const moveIndate = formatMoveInDate(property.moveInDate);
+  const moveInDate = formatMoveInDate(property.moveInDate);
   return (
     <>
       <div className="text-sm sm:text-base">
         {property.title ? property.title : property.roomName}
       </div>
       <div className="text-xs sm:text-sm text-bloom-gray">
-        入居可能日: {moveIndate}
+        入居可能日: {moveInDate}
       </div>
       <div className="text-xs sm:text-sm text-bloom-gray">
         【{property.zone}】 {property.area}エリア

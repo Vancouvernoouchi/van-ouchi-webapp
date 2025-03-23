@@ -1,4 +1,4 @@
-import { LINKS, ROUTES } from "@/constants/common";
+import { ROUTES } from "@/constants/common";
 import Link from "next/link";
 
 function Footer() {
@@ -8,7 +8,7 @@ function Footer() {
         <Link href={ROUTES.PRIVACY_POLICY.pathname}>プライバシーポリシー</Link>
         <Link href={ROUTES.TERMS_CONDITIONS.pathname}>利用規約</Link>
       </div>
-      <p className="text-bloom-balck">&copy; 2025 BLOOM CONSULTING Inc.</p>
+      <p className="text-bloom-black">&copy; 2025 BLOOM CONSULTING Inc.</p>
     </footer>
   );
 }

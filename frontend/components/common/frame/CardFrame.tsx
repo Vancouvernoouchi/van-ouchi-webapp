@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import Image from "next/image";
 import { ReactNode } from "react";
 import { useRouter } from "next/navigation";
@@ -8,8 +7,8 @@ interface CardFrameProps {
   linkTo: string;
   imageSrc?: string;
   imageAlt?: string;
-  labelMessage?: string;
-  labelColor?: string;
+  badgeMessage?: string;
+  badgeStyle?: string;
   cardContent: ReactNode;
 }
 
@@ -19,18 +18,17 @@ interface CardFrameProps {
  * ＠params linkTo　{string} - カード押下時の遷移先
  * ＠params imageSrc　{string} - 画像URL
  * ＠params imageAlt {string} - 画像説明文
- * ＠params labelMessage {string}　- 画像左上に表示するメッセージ
- * ＠params labelColor {string}　- 画像左上に表示するメッセージの色指定
- * ＠params children {ReactNode}　- カードの画像下に来るコンテンツ
+ * ＠params badgeMessage {string}　- 画像左上に表示するメッセージ
+ * ＠params badgeStyle {string}　- 画像左上に表示するメッセージの色指定
+ * ＠params cardContent {ReactNode}　- カードの画像下に来るコンテンツ
  */
 function CardFrame({
   linkTo,
   imageSrc,
   imageAlt,
-  labelMessage,
-  labelColor = "bg-white",
+  badgeMessage,
+  badgeStyle = "bg-white",
   cardContent,
-  ...props
 }: CardFrameProps) {
   const router = useRouter();
 
@@ -66,11 +64,11 @@ function CardFrame({
       </div>
 
       {/* 画像右上に表示するラベル */}
-      {labelMessage && (
+      {badgeMessage && (
         <div
-          className={`absolute py-1.5 px-4 rounded-full z-50 top-3 left-3 shadow-md text-xs sm:text-sm opacity-85 ${labelColor}`}
+          className={`absolute py-1.5 px-4 rounded-full z-50 top-3 left-3 shadow-md text-xs sm:text-sm opacity-85 ${badgeStyle}`}
         >
-          {labelMessage}
+          {badgeMessage}
         </div>
       )}
 
