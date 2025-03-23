@@ -10,9 +10,9 @@ import { Blog } from "@/types/blog";
 export async function generateMetadata({
   params,
 }: {
-  params: { blogId: string };
+  params: Promise<{ blogId: string }>;
 }) {
-  const { data } = await getBlogById(params.blogId);
+  const { data } = await getBlogById((await params).blogId);
 
   if (!data) {
     return {
