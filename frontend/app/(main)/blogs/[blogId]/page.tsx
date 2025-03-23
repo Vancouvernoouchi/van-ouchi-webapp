@@ -12,7 +12,8 @@ export async function generateMetadata({
 }: {
   params: Promise<{ blogId: string }>;
 }) {
-  const { data } = await getBlogById((await params).blogId);
+  const { blogId } = await params;
+  const { data } = await getBlogById(blogId);
 
   if (!data) {
     return {
@@ -82,9 +83,10 @@ async function getBlogById(blogId: string): Promise<BlogResponse> {
 const PropertyDetailPage = async ({
   params,
 }: {
-  params: { blogId: string };
+  params: Promise<{ blogId: string }>;
 }) => {
-  const { data, responseCode } = await getBlogById(params.blogId);
+  const { blogId } = await params;
+  const { data, responseCode } = await getBlogById(blogId);
 
   if (!data) {
     const errorMessages = generateMessages(responseCode);
