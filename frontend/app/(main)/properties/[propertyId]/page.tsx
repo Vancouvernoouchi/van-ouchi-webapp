@@ -18,9 +18,8 @@ export async function generateMetadata({
   params: Promise<{ propertyId: string }>;
 }): Promise<Metadata> {
   try {
-    const propertyId = await params;
+    const { propertyId } = await params;
 
-    // fetch data
     const { data: property } = await apiClient.get(`/properties/${propertyId}`);
 
     const previousImage = getPropertyValue(
@@ -51,9 +50,10 @@ export async function generateMetadata({
 const PropertyDetailPage = async ({
   params,
 }: {
-  params: Promise<{ blogId: string }>;
+  params: Promise<{ propertyId: string }>;
 }) => {
-  const propertyId = await params;
+  const { propertyId } = await params;
+
   try {
     const response: AxiosResponse = await apiClient.get(
       `/properties/${propertyId}`
