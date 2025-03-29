@@ -2,7 +2,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FC, ReactNode } from "react";
 
 type TabProps = {
-  tablLabels: string[];
+  tabLabels: string[];
   contents: ReactNode[]; // タブの中にどんなコンテンツが来ても対応できるようにReactNode
 };
 
@@ -12,13 +12,13 @@ type TabProps = {
  * @param tabLabels {TabLabels[]}
  * @param contents {ReactNode[]}
  */
-function Tab({ tablLabels, contents }: TabProps) {
+function Tab({ tabLabels, contents }: TabProps) {
   return (
     <Tabs defaultValue="0" className="w-full">
       <TabsList
-        className={`grid w-full grid-cols-${tablLabels.length} bg-bloom-lightBlue rounded-full`}
+        className={`grid w-full grid-cols-${tabLabels.length} bg-bloom-lightBlue rounded-full`}
       >
-        {tablLabels.map((label, index) => (
+        {tabLabels.map((label, index) => (
           <TabsTrigger
             key={index}
             value={index.toString()}

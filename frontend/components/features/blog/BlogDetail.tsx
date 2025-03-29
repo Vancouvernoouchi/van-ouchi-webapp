@@ -3,11 +3,11 @@
 import { DetailPageFrame } from "@/components/common/frame";
 import { MarkdownRenderer } from "@/components/common/text";
 import { Blog } from "@/types/blog";
-import { formatDateToJapanese } from "@/utlis/getPropertyValue";
+import { formatDateToJapanese } from "@/utils/getPropertyValue";
 import { SearchCheck } from "lucide-react";
 import Image from "next/image";
 
-export default function BlogDetail({ blog }: { blog: Blog }) {
+export default function BlogDetail({ data }: { data: Blog }) {
   // 目次のクリック時に該当要素へスクロール
   const handleScroll = (id: string) => {
     const targetElement = document.getElementById(id);
@@ -16,18 +16,18 @@ export default function BlogDetail({ blog }: { blog: Blog }) {
     }
   };
 
-  const updatedAt = formatDateToJapanese(blog.updatedAt);
+  const updatedAt = formatDateToJapanese(data.updatedAt);
 
   return (
     <DetailPageFrame
       className="flex flex-col items-center w-full lg:w-[75vw]"
-      pageName={blog.title}
+      pageName={data.title}
     >
       <div className="tracking-wider flex flex-col">
         {/* 画像 */}
         <Image
-          src={blog.coverImage.url}
-          alt={blog.title}
+          src={data.coverImage.url}
+          alt={data.title}
           width={250}
           height={200}
           className="w-full h-[250px] lg:h-[400px] object-cover"
@@ -40,11 +40,11 @@ export default function BlogDetail({ blog }: { blog: Blog }) {
         </p>
         {/* タイトル */}
         <h1 className="text-2xl sm:text-3xl font-bold py-6 sm:py-10">
-          {blog.title}
+          {data.title}
         </h1>
         {/* 説明 */}
         <p className="text-sm sm:text-base leading-relaxed">
-          {blog.description}
+          {data.description}
         </p>
 
         {/* 目次 */}
@@ -56,7 +56,7 @@ export default function BlogDetail({ blog }: { blog: Blog }) {
             </div>
 
             <ul className="list-disc pl-10 flex flex-col gap-1 p-6 sm:pl-10 sm:pr-12">
-              {blog.contents.map((item) => (
+              {data.contents.map((item) => (
                 <li
                   key={item.id}
                   className="marker:text-bloom-blue cursor-pointer hover:underline"
@@ -75,7 +75,7 @@ export default function BlogDetail({ blog }: { blog: Blog }) {
 
         {/* コンテンツ */}
         <div className="flex flex-col gap-16 lg:gap-20 pb-14">
-          {blog.contents.map((item) => (
+          {data.contents.map((item) => (
             <div key={item.id} id={`content-${item.id}`}>
               <h3 className="relative text-base sm:text-xl tracking-widest font-semibold text-bloom-blue py-4 px-4 sm:px-6 border-2 border-bloom-blue mb-4 rounded-lg w-full">
                 <span className="absolute top-[5px] left-[5px] w-[calc(100%+3px)] h-[calc(100%+3px)] bg-bloom-lightBlue z-[-1] rounded-lg"></span>
@@ -87,7 +87,7 @@ export default function BlogDetail({ blog }: { blog: Blog }) {
         </div>
 
         {/* 著者 */}
-        {blog.author && (
+        {data.author && (
           <div className="relative border-2 border-bloom-blue rounded-lg pt-6 pb-8 sm:py-10 px-6 sm:px-10 mt-10 mb-14">
             <h3 className="absolute -top-4 text-lg font-semibold tracking-widest text-bloom-blue bg-white px-2 ml-2">
               この記事を書いた人
@@ -95,20 +95,20 @@ export default function BlogDetail({ blog }: { blog: Blog }) {
             <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-10">
               <div className="flex flex-row sm:flex-col gap-4 sm:gap-1 items-center">
                 <Image
-                  src={blog.author.avatar.url ?? "/user.png"}
-                  alt={blog.author.name}
+                  src={data.author.avatar.url ?? "/user.png"}
+                  alt={data.author.name}
                   width={50}
                   height={50}
                   className="object-cover rounded-full w-16 h-16"
                 />
                 <p className="text-lg font-semibold tracking-widest">
-                  {blog.author.name}
+                  {data.author.name}
                 </p>
               </div>
 
               <div className="flex items-center justify-start">
                 <div className="text-xs sm:text-sm whitespace-pre-wrap text-bloom-gray">
-                  {blog.author.description}
+                  {data.author.description}
                 </div>
               </div>
             </div>

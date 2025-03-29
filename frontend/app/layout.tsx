@@ -1,17 +1,16 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import { Noto_Sans_JP } from "next/font/google";
 
 import "./globals.css";
 import { headers } from "next/headers";
 import { UAParser } from "ua-parser-js";
 import { Toaster } from "sonner";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const fontNotoSansJP = Noto_Sans_JP({ subsets: ["latin"] });
 
 export async function generateMetadata() {
   const headersList = headers();
-  const ua = headersList.get("user-agent");
+  const ua = (await headersList).get("user-agent");
 
   const device = new UAParser(ua || "").getDevice();
 
@@ -39,6 +38,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const gaId = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_GAID || "";
   return (
     <html lang="ja">
       <body className={fontNotoSansJP.className}>
@@ -55,6 +55,7 @@ export default function RootLayout({
         />
         {children}
       </body>
+      <GoogleAnalytics gaId={gaId} />
     </html>
   );
 }

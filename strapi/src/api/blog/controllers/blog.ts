@@ -19,9 +19,10 @@ export default factories.createCoreController(
     },
 
     async findOne(ctx) {
-      const { id } = ctx.params;
+      const documentId = ctx.params.id;
 
-      const entity = await strapi.entityService.findOne("api::blog.blog", id, {
+      const entity = await strapi.documents("api::blog.blog").findOne({
+        documentId,
         populate: {
           coverImage: { fields: ["url"] },
           contents: true,

@@ -7,7 +7,7 @@ import {
   SelectTrigger,
 } from "@/components/ui/select";
 import { optionType } from "@/config/commonOptions";
-import { createQueryString } from "@/utlis/queryStringHelper";
+import { createQueryString } from "@/utils/queryStringHelper";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";

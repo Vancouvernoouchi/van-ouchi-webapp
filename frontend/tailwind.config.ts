@@ -25,7 +25,7 @@ const config = {
         "bloom-red": "#FA2C37",
         "bloom-pink": "#FFF0F5",
         "bloom-white": "#FFFFFF",
-        "bloom-balck": "#000000",
+        "bloom-black": "#000000",
         "bloom-gray": "#61738E",
 
         border: "#E2E8F1",

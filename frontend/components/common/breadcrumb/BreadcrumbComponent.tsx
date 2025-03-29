@@ -42,9 +42,6 @@ function BreadcrumbComponent({ pageName }: { pageName: string }) {
     currentPath.startsWith(c.pathname)
   );
 
-  console.log("前のページ:", prevPath);
-  console.log("現在のパス:", currentPath);
-
   /**
    * パンクズで戻る
    */

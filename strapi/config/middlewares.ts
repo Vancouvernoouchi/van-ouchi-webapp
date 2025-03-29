@@ -30,7 +30,11 @@ export default [
   {
     name: "strapi::cors",
     config: {
-      origin: ["https://www.van-ouchi.com"], // 許可するフロントエンドのURL
+      origin: [
+        "https://www.bloom-ryugaku.com",
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+      ], // 許可するフロントエンドのURL
       methods: ["GET", "POST", "PUT", "DELETE"], // 許可するHTTPメソッド
       allowedHeaders: ["Content-Type", "Authorization"], // 許可するヘッダー
     },

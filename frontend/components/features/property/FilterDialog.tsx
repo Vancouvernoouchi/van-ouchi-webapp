@@ -29,7 +29,7 @@ import {
   priceSchema,
   stationTimeSchema,
 } from "@/types/filterTypesSchema";
-import { createQueryString } from "@/utlis/queryStringHelper";
+import { createQueryString } from "@/utils/queryStringHelper";
 import { SlidersHorizontal } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { SetStateAction, useState } from "react";

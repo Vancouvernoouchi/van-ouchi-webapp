@@ -38,7 +38,7 @@ function MarkdownRenderer({ content }: { readonly content: string }) {
             </ul>
           ),
           ol: ({ children }) => (
-            <ol className="list-decimal pl-6 space-y-2 marker:text-bloom-balck text-sm sm:text-base">
+            <ol className="list-decimal pl-6 space-y-2 marker:text-bloom-black text-sm sm:text-base">
               {children}
             </ol>
           ),

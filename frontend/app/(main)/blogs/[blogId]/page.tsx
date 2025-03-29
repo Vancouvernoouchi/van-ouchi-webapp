@@ -1,50 +1,81 @@
-import { ErrorPage } from "@/components/common/page";
+import { ErrorMessage } from "@/components/common/message";
 import BlogDetail from "@/components/features/blog/BlogDetail";
 import { STRAPI_API_URL } from "@/constants/common/api";
 import { ERRORS, generateMessages } from "@/constants/common/messages";
 import { Blog } from "@/types/blog";
 
-async function getBlogById(blogId: string) {
+/**
+ * メタデータの生成（SEO対策）
+ */
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ blogId: string }>;
+}) {
+  const { blogId } = await params;
+  const { data } = await getBlogById(blogId);
+
+  if (!data) {
+    return {
+      title: "ページが見つかりません",
+      description: "指定されたブログは存在しません。",
+    };
+  }
+
+  return {
+    title: data.metadata.metaTitle || "ブログ詳細",
+    description: data.metadata.metaDescription || "ブログ詳細ページです。",
+    openGraph: {
+      images: [data.coverImage],
+    },
+  };
+}
+
+interface BlogResponse {
+  data: Blog | null;
+  responseCode: number;
+}
+
+/**
+ * ブログ詳細を取得
+ */
+async function getBlogById(blogId: string): Promise<BlogResponse> {
   try {
     const response = await fetch(`${STRAPI_API_URL}/api/blogs/${blogId}`);
 
     // レスポンス失敗
     if (!response.ok) {
       return {
-        blog: null,
+        data: null,
         responseCode: response.status,
-        messages: generateMessages(response.status),
       };
     }
 
-    const blog: Blog = await response.json();
+    const data: Blog = await response.json();
 
-    // データが存在しない
-    if (!blog) {
+    // データが存在しない(ページが見つからない)
+    if (!data) {
       return {
-        blog: null,
+        data: null,
         responseCode: ERRORS.NOT_FOUND.code,
-        messages: generateMessages(ERRORS.NOT_FOUND.code),
       };
     }
 
     // 通常時
     return {
-      blog,
-      responseCode: undefined,
-      messages: [""],
+      data,
+      responseCode: 200,
     };
   } catch (error) {
     return {
-      blog: null,
+      data: null,
       responseCode: ERRORS.UNEXPECTED.code,
-      messages: generateMessages(ERRORS.UNEXPECTED.code),
     };
   }
 }
 
 /**
- * ブログ詳細ページに必要なデータをfetchし整理するコンポーネント
+ * ブログ詳細ページ
  *
  * @param params { blogId: string }
  *
@@ -52,15 +83,19 @@ async function getBlogById(blogId: string) {
 const PropertyDetailPage = async ({
   params,
 }: {
-  params: { blogId: string };
+  params: Promise<{ blogId: string }>;
 }) => {
-  const { blog, responseCode, messages } = await getBlogById(params.blogId);
+  const { blogId } = await params;
+  const { data, responseCode } = await getBlogById(blogId);
 
-  if (!blog) {
-    return <ErrorPage responseCode={responseCode} errorMessages={messages} />;
+  if (!data) {
+    const errorMessages = generateMessages(responseCode);
+    return (
+      <ErrorMessage responseCode={responseCode} errorMessages={errorMessages} />
+    );
   }
 
-  return <BlogDetail blog={blog} />;
+  return <BlogDetail data={data} />;
 };
 
 export default PropertyDetailPage;

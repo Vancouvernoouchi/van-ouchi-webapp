@@ -9,7 +9,7 @@ import { PaginationComponent } from "../pagination";
  * ＠params filterArea {ReactNode}　- フィルターエリア
  * ＠params sortArea {ReactNode}　- ソートエリア
  * ＠params pagination {PaginationType} - strapiで作成されるページネーションデータ
- * ＠cardArea {ReactNode}　- カード表示エリア
+ * ＠params cardArea {ReactNode}　- カード表示エリア
  *
  */
 function ListPageFrame({

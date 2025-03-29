@@ -8,7 +8,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { createQueryString } from "@/utlis/queryStringHelper";
+import { createQueryString } from "@/utils/queryStringHelper";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 interface PaginationListProps {
