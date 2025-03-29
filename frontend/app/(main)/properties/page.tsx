@@ -7,10 +7,12 @@ import {
 } from "@/utils/filterSort/propertyService";
 
 const PropertyListPage = async ({
-  searchParams,
+  params,
 }: {
-  searchParams: SearchParams;
+  params: Promise<SearchParams>;
 }) => {
+  const searchParams = await params;
+
   try {
     const {
       filteredPropertiesNumber,

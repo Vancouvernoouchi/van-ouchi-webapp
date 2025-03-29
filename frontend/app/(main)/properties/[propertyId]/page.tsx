@@ -3,7 +3,7 @@ import { formatPropertyDetailData } from "@/utils/getPropertyValue";
 import { AxiosResponse } from "axios";
 import { apiClient } from "@/config/apiClient";
 import { getPropertyValue } from "@/utils/getPropertyValue";
-import type { Metadata, ResolvingMetadata } from "next";
+import type { Metadata } from "next";
 import { ERRORS, generateMessages } from "@/constants/common/messages";
 import PropertyDetail from "@/components/features/property/PropertyDetail";
 import { ErrorMessage } from "@/components/common/message";
@@ -12,12 +12,13 @@ type Props = {
   params: Promise<{ propertyId: string }>;
 };
 
-export async function generateMetadata(
-  { params }: Props,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ propertyId: string }>;
+}): Promise<Metadata> {
   try {
-    const propertyId = (await params).propertyId;
+    const propertyId = await params;
 
     // fetch data
     const { data: property } = await apiClient.get(`/properties/${propertyId}`);
@@ -50,9 +51,9 @@ export async function generateMetadata(
 const PropertyDetailPage = async ({
   params,
 }: {
-  params: { propertyId: string };
+  params: Promise<{ blogId: string }>;
 }) => {
-  const { propertyId } = params;
+  const propertyId = await params;
   try {
     const response: AxiosResponse = await apiClient.get(
       `/properties/${propertyId}`
