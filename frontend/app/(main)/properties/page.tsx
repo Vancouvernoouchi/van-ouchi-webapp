@@ -7,11 +7,11 @@ import {
 } from "@/utils/filterSort/propertyService";
 
 const PropertyListPage = async ({
-  params,
+  searchParams,
 }: {
-  params: Promise<SearchParams>;
+  searchParams: Promise<SearchParams>;
 }) => {
-  const searchParams = await params;
+  const query = await searchParams;
 
   try {
     const {
@@ -20,7 +20,7 @@ const PropertyListPage = async ({
       currentPage,
       totalPage,
       itemsPerPage,
-    } = await fetchAndFilterProperties(searchParams);
+    } = await fetchAndFilterProperties(query);
 
     return (
       <PropertyList
