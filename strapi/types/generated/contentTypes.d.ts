@@ -488,7 +488,7 @@ export interface ApiBlogBlog extends Struct.CollectionTypeSchema {
       'manyToOne',
       'api::blog-category.blog-category'
     >;
-    contents: Schema.Attribute.Component<'blog.blog-content', true>;
+    contents: Schema.Attribute.Component<'common.article-content', true>;
     coverImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

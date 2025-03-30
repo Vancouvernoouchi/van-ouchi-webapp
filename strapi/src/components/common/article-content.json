@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_common_article_contents",
+  "info": {
+    "displayName": "Article Content"
+  },
+  "options": {},
+  "attributes": {
+    "contentTitle": {
+      "type": "string",
+      "maxLength": 30,
+      "required": true
+    },
+    "contentText": {
+      "type": "richtext",
+      "required": true
+    }
+  }
+}
