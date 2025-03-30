@@ -81,4 +81,5 @@ function GoogleMapMarker({ geoPosition, className }: Coordinates) {
   );
 }
 
+/** @package */
 export { GoogleMapMarker };

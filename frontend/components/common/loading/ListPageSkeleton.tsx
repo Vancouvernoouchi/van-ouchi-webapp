@@ -37,4 +37,5 @@ function ListPageSkeleton() {
   );
 }
 
+/** @package */
 export { ListPageSkeleton };

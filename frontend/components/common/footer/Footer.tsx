@@ -1,4 +1,4 @@
-import { ROUTES } from "@/constants/common";
+import { ROUTES } from "@/constants/common/routes";
 import Link from "next/link";
 
 function Footer() {
@@ -13,4 +13,5 @@ function Footer() {
   );
 }
 
+/** @package */
 export { Footer };

@@ -40,21 +40,21 @@ function ErrorMessage({
       </div>
 
       <div className="flex gap-4">
-        {/* 戻るボタン */}
-        <button
-          className="text-bloom-blue border-b border-bloom-blue cursor-pointer hover:opacity-60"
-          onClick={goBack}
-        >
-          戻る / Back
-        </button>
-
         {/* 再試行ボタン（特定のエラーコードのときのみ表示） */}
-        {responseCode && RETRY_CODES.includes(responseCode) && (
+        {responseCode && RETRY_CODES.includes(responseCode) ? (
           <button
             className="text-bloom-red border-b border-bloom-red cursor-pointer hover:opacity-60"
             onClick={reloadPage}
           >
             再試行 / Retry
+          </button>
+        ) : (
+          // 戻るボタン
+          <button
+            className="text-bloom-blue border-b border-bloom-blue cursor-pointer hover:opacity-60"
+            onClick={goBack}
+          >
+            戻る / Back
           </button>
         )}
       </div>
@@ -62,4 +62,5 @@ function ErrorMessage({
   );
 }
 
+/** @package */
 export { ErrorMessage };

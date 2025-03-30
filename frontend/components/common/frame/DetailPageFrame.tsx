@@ -32,4 +32,5 @@ function DetailPageFrame({
   );
 }
 
+/** @package */
 export { DetailPageFrame };

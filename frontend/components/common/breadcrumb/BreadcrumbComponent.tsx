@@ -81,4 +81,5 @@ function BreadcrumbComponent({ pageName }: { pageName: string }) {
   );
 }
 
+/** @package */
 export { BreadcrumbComponent };

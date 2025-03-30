@@ -29,4 +29,5 @@ function DetailPageSkeleton() {
   );
 }
 
+/** @package */
 export { DetailPageSkeleton };
