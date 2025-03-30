@@ -78,4 +78,5 @@ function CardFrame({
   );
 }
 
+/** @package */
 export { CardFrame };

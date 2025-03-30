@@ -80,4 +80,5 @@ function ListPageFrame({
   );
 }
 
+/** @package */
 export { ListPageFrame };

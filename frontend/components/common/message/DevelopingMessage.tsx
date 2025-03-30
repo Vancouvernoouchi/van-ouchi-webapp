@@ -24,4 +24,5 @@ function DevelopingMessage() {
   );
 }
 
+/** @package */
 export { DevelopingMessage };

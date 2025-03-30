@@ -111,4 +111,5 @@ function PaginationComponent({ pagination }: { pagination: PaginationType }) {
   );
 }
 
+/** @package */
 export { PaginationComponent };

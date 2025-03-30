@@ -247,4 +247,5 @@ const LanguageSelectPC = ({
   );
 };
 
+/** @package */
 export { Header };

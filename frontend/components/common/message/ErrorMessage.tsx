@@ -62,4 +62,5 @@ function ErrorMessage({
   );
 }
 
+/** @package */
 export { ErrorMessage };
