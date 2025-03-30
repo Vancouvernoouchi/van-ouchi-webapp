@@ -3,15 +3,12 @@ import type { Schema, Struct } from '@strapi/strapi';
 export interface CommonArticleContent extends Struct.ComponentSchema {
   collectionName: 'components_common_article_contents';
   info: {
+    description: '';
     displayName: 'Article Content';
   };
   attributes: {
     contentText: Schema.Attribute.RichText & Schema.Attribute.Required;
-    contentTitle: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 30;
-      }>;
+    contentTitle: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 

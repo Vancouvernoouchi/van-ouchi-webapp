@@ -1,13 +1,13 @@
 {
   "collectionName": "components_common_article_contents",
   "info": {
-    "displayName": "Article Content"
+    "displayName": "Article Content",
+    "description": ""
   },
   "options": {},
   "attributes": {
     "contentTitle": {
       "type": "string",
-      "maxLength": 30,
       "required": true
     },
     "contentText": {
