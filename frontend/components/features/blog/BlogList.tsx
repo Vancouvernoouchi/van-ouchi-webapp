@@ -1,8 +1,8 @@
 "use client";
 
 import { CardFrame, ListPageFrame } from "@/components/common/frame";
-import { Blog } from "@/types/blog";
-import { PaginationType } from "@/types/common/strapi/index";
+import { Blog } from "@/types/blog/blogTypes";
+import { PaginationType } from "@/types/common/strapi/strapi";
 import { formatDateToJapanese } from "@/utils/getPropertyValue";
 
 /**

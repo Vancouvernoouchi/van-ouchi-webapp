@@ -24,20 +24,20 @@ import {
  *
  * @param triggerLabel {string} - トリガーボタンのラベル
  * @param title {string} - ダイアログタイトル
- * @param discription {string}　- ダイアログ説明
+ * @param description {string}　- ダイアログ説明
  * @param contentsArea {ReactNode}　- ダイアログコンテンツエリア
  * @param footerArea {ReactNode}　- 下部ボタン配置エリア
  */
 function DialogFrame({
   triggerLabel,
   title,
-  discription,
+  description,
   contentsArea,
   footerArea,
 }: {
   triggerLabel: string;
   title: string;
-  discription: string;
+  description: string;
   contentsArea: ReactNode;
   footerArea: ReactNode;
 }) {
@@ -47,7 +47,7 @@ function DialogFrame({
         <DialogSP
           triggerLabel={triggerLabel}
           title={title}
-          discription={discription}
+          description={description}
           footerArea={footerArea}
           contentsArea={contentsArea}
         />
@@ -56,7 +56,7 @@ function DialogFrame({
         <DialogPC
           triggerLabel={triggerLabel}
           title={title}
-          discription={discription}
+          description={description}
           footerArea={footerArea}
           contentsArea={contentsArea}
         />
@@ -71,13 +71,13 @@ function DialogFrame({
 function DialogPC({
   triggerLabel,
   title,
-  discription,
+  description,
   contentsArea,
   footerArea,
 }: {
   triggerLabel: string;
   title: string;
-  discription: string;
+  description: string;
   contentsArea: ReactNode;
   footerArea: ReactNode;
 }) {
@@ -91,7 +91,7 @@ function DialogPC({
           {/* タイトル */}
           <DialogTitle>{title}</DialogTitle>
           {/* 説明 */}
-          <DialogDescription>{discription}</DialogDescription>
+          <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
         {/* コンテンツ */}
         <div className="h-[400px] overflow-y-auto p-6">{contentsArea}</div>
@@ -108,13 +108,13 @@ function DialogPC({
 function DialogSP({
   triggerLabel,
   title,
-  discription,
+  description,
   contentsArea,
   footerArea,
 }: {
   triggerLabel: string;
   title: string;
-  discription: string;
+  description: string;
   contentsArea: ReactNode;
   footerArea: ReactNode;
 }) {
@@ -129,7 +129,7 @@ function DialogSP({
           <SheetTitle>{title}</SheetTitle>
           {/* 説明 */}
           <SheetDescription className="mt-0 text-xs">
-            {discription}
+            {description}
           </SheetDescription>
         </SheetHeader>
         {/* コンテンツ */}
@@ -141,4 +141,5 @@ function DialogSP({
   );
 }
 
+/** @package */
 export { DialogFrame };

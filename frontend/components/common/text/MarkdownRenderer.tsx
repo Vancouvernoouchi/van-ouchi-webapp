@@ -79,4 +79,5 @@ function MarkdownRenderer({ content }: { readonly content: string }) {
   );
 }
 
+/** @package */
 export { MarkdownRenderer };

@@ -2,7 +2,7 @@ import { EmptyMessage, ErrorMessage } from "@/components/common/message";
 import BlogList from "@/components/features/blog/BlogList";
 import { generateMessages, RESPONSE_CODES } from "@/constants/common/messages";
 import { STRAPI_API_URL } from "@/constants/common/api";
-import { BlogData } from "@/types/blog";
+import { BlogData } from "@/types/blog/blogTypes";
 
 /**
  * ブログ一覧を取得

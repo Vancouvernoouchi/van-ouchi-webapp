@@ -2,7 +2,7 @@ import { ErrorMessage } from "@/components/common/message";
 import BlogDetail from "@/components/features/blog/BlogDetail";
 import { STRAPI_API_URL } from "@/constants/common/api";
 import { generateMessages, RESPONSE_CODES } from "@/constants/common/messages";
-import { Blog } from "@/types/blog";
+import { Blog } from "@/types/blog/blogTypes";
 
 /**
  * メタデータの生成（SEO対策）

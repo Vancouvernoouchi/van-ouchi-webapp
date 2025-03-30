@@ -8,7 +8,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { PaginationType } from "@/types/common/strapi";
+import { PaginationType } from "@/types/common/strapi/strapi";
 import { useRouter } from "next/navigation";
 
 /**
@@ -111,4 +111,5 @@ function PaginationComponent({ pagination }: { pagination: PaginationType }) {
   );
 }
 
+/** @package */
 export { PaginationComponent };

@@ -18,4 +18,11 @@ interface Metadata {
   metaDescription: string;
 }
 
-export { type PaginationType, type Metadata };
+// ブログ記事等のコンテンツの型
+interface ArticleContent {
+  id: number;
+  contentTitle: string;
+  contentText: string;
+}
+
+export { type PaginationType, type Metadata, type ArticleContent };

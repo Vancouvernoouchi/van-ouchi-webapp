@@ -229,5 +229,6 @@ function ScrollToSection({
   );
 }
 
+/** @package */
 export { DetailPageHeader };
 export type { DetailPageHeaderOption };
