@@ -1,4 +1,8 @@
-import { Metadata, PaginationType } from "../common/strapi";
+import {
+  PaginationType,
+  Metadata,
+  ArticleContent,
+} from "../common/strapi/strapi";
 
 interface BlogData {
   data: Blog[];
@@ -17,7 +21,7 @@ interface Blog {
     url: string;
   };
   /** ブログ本文 */
-  contents: BlogContent[];
+  contents: ArticleContent[];
   /** カテゴリー */
   category: { categoryId: string; categoryName: string } | null;
   /** 著者 */
@@ -33,12 +37,6 @@ interface Blog {
   updatedAt: string;
   /** メタデータ */
   metadata: Metadata;
-}
-
-interface BlogContent {
-  id: number;
-  contentTitle: string;
-  contentText: string;
 }
 
 export { type BlogData, type Blog };

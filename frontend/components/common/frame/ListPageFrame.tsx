@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { SearchBar } from "../index";
-import { PaginationType } from "@/types/common/strapi";
+import { PaginationType } from "@/types/common/strapi/strapi";
 import { PaginationComponent } from "../pagination";
 
 /**
