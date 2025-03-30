@@ -1,21 +1,13 @@
 "use client";
 
 import { DetailPageFrame } from "@/components/common/frame";
+import { ArticleOutlineFrame, ArticleTitle } from "@/components/common/article";
 import { MarkdownRenderer } from "@/components/common/text";
-import { Blog } from "@/types/blog";
+import { Blog } from "@/types/blog/blogTypes";
 import { formatDateToJapanese } from "@/utils/getPropertyValue";
-import { SearchCheck } from "lucide-react";
 import Image from "next/image";
 
 export default function BlogDetail({ data }: { data: Blog }) {
-  // 目次のクリック時に該当要素へスクロール
-  const handleScroll = (id: string) => {
-    const targetElement = document.getElementById(id);
-    if (targetElement) {
-      targetElement.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   const updatedAt = formatDateToJapanese(data.updatedAt);
 
   return (
@@ -48,39 +40,13 @@ export default function BlogDetail({ data }: { data: Blog }) {
         </p>
 
         {/* 目次 */}
-        <div className="sm:flex sm:items-start w-full">
-          <div className="my-16 rounded-lg border-2 border-bloom-blue">
-            <div className="flex items-center gap-2 font-semibold py-3 px-6 bg-bloom-lightBlue border-b-2 border-bloom-blue text-bloom-blue rounded-t-lg">
-              <SearchCheck />
-              <span>この記事について</span>
-            </div>
-
-            <ul className="list-disc pl-10 flex flex-col gap-1 p-6 sm:pl-10 sm:pr-12">
-              {data.contents.map((item) => (
-                <li
-                  key={item.id}
-                  className="marker:text-bloom-blue cursor-pointer hover:underline"
-                >
-                  <button
-                    className="block w-full text-left"
-                    onClick={() => handleScroll(`content-${item.id}`)}
-                  >
-                    {item.contentTitle}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
+        <ArticleOutlineFrame contents={data.contents} />
 
         {/* コンテンツ */}
         <div className="flex flex-col gap-16 lg:gap-20 pb-14">
           {data.contents.map((item) => (
             <div key={item.id} id={`content-${item.id}`}>
-              <h3 className="relative text-base sm:text-xl tracking-widest font-semibold text-bloom-blue py-4 px-4 sm:px-6 border-2 border-bloom-blue mb-4 rounded-lg w-full">
-                <span className="absolute top-[5px] left-[5px] w-[calc(100%+3px)] h-[calc(100%+3px)] bg-bloom-lightBlue z-[-1] rounded-lg"></span>
-                {item.contentTitle}
-              </h3>
+              <ArticleTitle contentTitle={item.contentTitle} />
               <MarkdownRenderer content={item.contentText} />
             </div>
           ))}
