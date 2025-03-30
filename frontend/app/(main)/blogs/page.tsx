@@ -1,15 +1,13 @@
 import { EmptyMessage, ErrorMessage } from "@/components/common/message";
 import BlogList from "@/components/features/blog/BlogList";
-import { ERRORS, generateMessages } from "@/constants/common";
+import { generateMessages, RESPONSE_CODES } from "@/constants/common/messages";
 import { STRAPI_API_URL } from "@/constants/common/api";
 import { BlogData } from "@/types/blog";
 
-interface BlogResponse {
-  blogData?: BlogData;
-  responseCode?: number;
-}
-
-const getBlogs = async (): Promise<BlogResponse> => {
+/**
+ * ブログ一覧を取得
+ */
+const getBlogs = async () => {
   try {
     const response = await fetch(`${STRAPI_API_URL}/api/blogs`, {
       method: "GET",
@@ -33,11 +31,14 @@ const getBlogs = async (): Promise<BlogResponse> => {
     };
   } catch (error) {
     return {
-      responseCode: ERRORS.UNEXPECTED.code,
+      responseCode: RESPONSE_CODES.ERROR_UNEXPECTED,
     };
   }
 };
 
+/**
+ * ブログ一覧ページ
+ */
 async function BlogPage() {
   const { blogData, responseCode } = await getBlogs();
 

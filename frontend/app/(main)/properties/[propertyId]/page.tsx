@@ -4,13 +4,9 @@ import { AxiosResponse } from "axios";
 import { apiClient } from "@/config/apiClient";
 import { getPropertyValue } from "@/utils/getPropertyValue";
 import type { Metadata } from "next";
-import { ERRORS, generateMessages } from "@/constants/common/messages";
+import { generateMessages, RESPONSE_CODES } from "@/constants/common/messages";
 import PropertyDetail from "@/components/features/property/PropertyDetail";
 import { ErrorMessage } from "@/components/common/message";
-
-type Props = {
-  params: Promise<{ propertyId: string }>;
-};
 
 export async function generateMetadata({
   params,
@@ -66,20 +62,15 @@ const PropertyDetailPage = async ({
     if (!propertyData) {
       return (
         <ErrorMessage
-          responseCode={ERRORS.NOT_FOUND.code}
-          errorMessages={generateMessages(ERRORS.NOT_FOUND.code)}
+          responseCode={RESPONSE_CODES.ERROR_NOT_FOUND}
+          errorMessages={generateMessages(RESPONSE_CODES.ERROR_NOT_FOUND)}
         />
       );
     }
 
     return <PropertyDetail property={propertyData} />;
   } catch (error: any) {
-    return (
-      <ErrorMessage
-        responseCode={ERRORS.UNEXPECTED.code}
-        errorMessages={generateMessages(ERRORS.UNEXPECTED.code)}
-      />
-    );
+    return <ErrorMessage errorMessages={error.message} />;
   }
 };
 
