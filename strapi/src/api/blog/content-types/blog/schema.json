@@ -14,7 +14,6 @@
   "attributes": {
     "title": {
       "type": "string",
-      "maxLength": 30,
       "required": true
     },
     "description": {
@@ -41,16 +40,16 @@
       "target": "api::blog-category.blog-category",
       "inversedBy": "blogs"
     },
-    "contents": {
-      "type": "component",
-      "repeatable": true,
-      "component": "blog.blog-content"
-    },
     "author": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::author.author",
       "inversedBy": "blogs"
+    },
+    "contents": {
+      "type": "component",
+      "repeatable": true,
+      "component": "common.article-content"
     }
   }
 }

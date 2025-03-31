@@ -7,4 +7,5 @@ function EmptyMessage() {
   return <p className="pt-10">お探しの情報は見つかりませんでした。</p>;
 }
 
+/** @package */
 export { EmptyMessage };

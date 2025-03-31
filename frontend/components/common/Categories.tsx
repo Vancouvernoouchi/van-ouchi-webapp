@@ -5,6 +5,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Earth,
+  Flower2,
   GraduationCap,
   Handshake,
   HeartHandshake,
@@ -100,6 +101,11 @@ export const CATEGORY_LIST: Category[] = [
     name: "クリニック",
     icon: Stethoscope,
     pathname: "/clinics",
+  },
+  {
+    name: "BLOOMニュース",
+    icon: Flower2,
+    pathname: "/bloom-news",
   },
   {
     name: "おすすめブログ",

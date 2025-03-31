@@ -20,9 +20,9 @@ const config = {
     extend: {
       colors: {
         // bloom　カラーパレット
-        "bloom-blue": "#2E83C6",
+        "bloom-blue": "#067ACC",
         "bloom-lightBlue": "#E3F2FA",
-        "bloom-red": "#FA2C37",
+        "bloom-red": "#D11B4C",
         "bloom-pink": "#FFF0F5",
         "bloom-white": "#FFFFFF",
         "bloom-black": "#000000",

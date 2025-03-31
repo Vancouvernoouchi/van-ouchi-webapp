@@ -1,5 +1,5 @@
 import { formatDateToYMD } from "@/components/features/property/FilterDialog";
-import { AREA_DESCRIPTION } from "@/constants/common";
+import { AREA_DESCRIPTION } from "@/constants/common/areas";
 import {
   Area,
   DateProperty,

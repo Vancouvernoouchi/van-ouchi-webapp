@@ -33,4 +33,5 @@ const Loader = ({
   );
 };
 
+/** @package */
 export { Loader };
