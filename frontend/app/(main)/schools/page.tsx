@@ -1,22 +1,26 @@
 import { EmptyMessage, ErrorMessage } from "@/components/common/message";
-import BlogList from "@/components/features/blog/BlogList";
-import { ERRORS, generateMessages } from "@/constants/common";
+import SchoolList from "@/components/features/school/SchoolList";
+import { generateMessages, RESPONSE_CODES } from "@/constants/common/messages";
 import { STRAPI_API_URL } from "@/constants/common/api";
-import { BlogData } from "@/types/blog";
+import { SchoolData } from "@/types/school/schoolTypes";
 
-interface BlogResponse {
-  blogData?: BlogData;
-  responseCode?: number;
-}
-
-const getBlogs = async (): Promise<BlogResponse> => {
+const getSchools = async () => {
   try {
-    const response = await fetch(`${STRAPI_API_URL}/api/blogs`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      `${STRAPI_API_URL}/api/schools?populate=coverImage`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const res = await fetch(
+      `${STRAPI_API_URL}/api/schools?populate=coverImage`
+    );
+    const json = await res.json();
+    console.log("School API response", JSON.stringify(json, null, 2));
 
     // サーバーエラー
     if (!response.ok) {
@@ -25,24 +29,24 @@ const getBlogs = async (): Promise<BlogResponse> => {
       };
     }
 
-    const blogData: BlogData = await response.json();
+    const schoolData: SchoolData = await response.json();
 
     // データあり
     return {
-      blogData,
+      schoolData,
     };
   } catch (error) {
     return {
-      responseCode: ERRORS.UNEXPECTED.code,
+      responseCode: RESPONSE_CODES.ERROR_UNEXPECTED,
     };
   }
 };
 
 async function SchoolPage() {
-  const { blogData, responseCode } = await getBlogs();
+  const { schoolData, responseCode } = await getSchools();
 
   // エラー
-  if (!blogData) {
+  if (!schoolData) {
     // responseのstatusに応じたエラーメッセージを生成
     const errorMessages = generateMessages(responseCode);
     return (
@@ -51,12 +55,15 @@ async function SchoolPage() {
   }
 
   // 該当のデータがないとき
-  if (blogData.data.length === 0) {
+  if (schoolData.data.length === 0) {
     <EmptyMessage />;
   }
 
   return (
-    <BlogList data={blogData.data} pagination={blogData?.meta.pagination} />
+    <SchoolList
+      data={schoolData.data}
+      pagination={schoolData?.meta.pagination}
+    />
   );
 }
 
