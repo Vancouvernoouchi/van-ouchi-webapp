@@ -3,36 +3,39 @@
 import { DetailPageFrame } from "@/components/common/frame";
 import { ArticleOutlineFrame, ArticleTitle } from "@/components/common/article";
 import { MarkdownRenderer } from "@/components/common/text";
-import { Blog } from "@/types/blog/blogTypes";
+import { School } from "@/types/school/schoolTypes";
 import { formatDateToJapanese } from "@/utils/getPropertyValue";
 import Image from "next/image";
 
-export default function BlogDetail({ data }: { data: Blog }) {
+export default function SchoolDetail({ data }: { data: School }) {
   const updatedAt = formatDateToJapanese(data.updatedAt);
+
+  // console.log("data:::::", data.coverImage.url);
 
   return (
     <DetailPageFrame
       className="flex flex-col items-center w-full lg:w-[75vw]"
-      pageName={data.title}
+      pageName={data.schoolName}
     >
       <div className="tracking-wider flex flex-col">
         {/* 画像 */}
         <Image
-          src={data.coverImage.url}
-          alt={data.title}
+          src={data.coverImage?.url}
+          alt={data.schoolName}
           width={250}
           height={200}
           className="w-full h-[250px] lg:h-[400px] object-cover"
           objectFit="cover"
           unoptimized
         />
+
         {/* 最終更新日 */}
         <p className="text-right w-full pt-2 text-xs sm:text-sm text-bloom-gray">
           最終更新日: {updatedAt}
         </p>
         {/* タイトル */}
         <h1 className="text-2xl sm:text-3xl font-bold py-6 sm:py-10">
-          {data.title}
+          {data.schoolName}
         </h1>
         {/* 説明 */}
         <p className="text-sm sm:text-base leading-relaxed">
@@ -40,17 +43,17 @@ export default function BlogDetail({ data }: { data: Blog }) {
         </p>
 
         {/* 目次 */}
-        <ArticleOutlineFrame contents={data.contents} />
+        {/* <ArticleOutlineFrame contents={data.contents} /> */}
 
         {/* コンテンツ */}
-        <div className="flex flex-col gap-16 lg:gap-20 pb-14">
+        {/* <div className="flex flex-col gap-16 lg:gap-20 pb-14">
           {data.contents.map((item) => (
             <div key={item.id} id={`content-${item.id}`}>
               <ArticleTitle contentTitle={item.contentTitle} />
               <MarkdownRenderer content={item.contentText} />
             </div>
           ))}
-        </div>
+        </div> */}
 
         {/* 著者 */}
         {data.author && (

@@ -1,8 +1,8 @@
 import { ErrorMessage } from "@/components/common/message";
-import BlogDetail from "@/components/features/blog/BlogDetail";
+import SchoolDetail from "@/components/features/school/SchoolDetail";
 import { STRAPI_API_URL } from "@/constants/common/api";
-import { ERRORS, generateMessages } from "@/constants/common/messages";
-import { Blog } from "@/types/blog";
+import { generateMessages, RESPONSE_CODES } from "@/constants/common/messages";
+import { School } from "@/types/school/schoolTypes";
 
 /**
  * メタデータの生成（SEO対策）
@@ -10,38 +10,40 @@ import { Blog } from "@/types/blog";
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ blogId: string }>;
+  params: Promise<{ schoolId: string }>;
 }) {
-  const { blogId } = await params;
-  const { data } = await getBlogById(blogId);
+  const { schoolId } = await params;
+  const { data } = await getSchoolById(schoolId);
 
   if (!data) {
     return {
       title: "ページが見つかりません",
-      description: "指定されたブログは存在しません。",
+      description: "指定された学校ページは存在しません。",
     };
   }
 
   return {
-    title: data.metadata.metaTitle || "ブログ詳細",
-    description: data.metadata.metaDescription || "ブログ詳細ページです。",
+    title: data.metadata?.metaTitle || "学校詳細",
+    description: data.metadata?.metaDescription || "学校詳細ページです。",
     openGraph: {
       images: [data.coverImage],
     },
   };
 }
 
-interface BlogResponse {
-  data: Blog | null;
+interface SchoolResponse {
+  data: School | null;
   responseCode: number;
 }
 
 /**
- * ブログ詳細を取得
+ * 学校詳細を取得
  */
-async function getBlogById(blogId: string): Promise<BlogResponse> {
+async function getSchoolById(schoolId: string): Promise<SchoolResponse> {
   try {
-    const response = await fetch(`${STRAPI_API_URL}/api/blogs/${blogId}`);
+    const response = await fetch(
+      `${STRAPI_API_URL}/api/schools/${schoolId}?populate[coverImage]=true&populate[contents]=true&populate[metaData]=true`
+    );
 
     // レスポンス失敗
     if (!response.ok) {
@@ -50,43 +52,45 @@ async function getBlogById(blogId: string): Promise<BlogResponse> {
         responseCode: response.status,
       };
     }
-
-    const data: Blog = await response.json();
+    const json = await response.json();
+    const data: School = json.data;
+    console.log("SchoolById API response", JSON.stringify(data, null, 2));
 
     // データが存在しない(ページが見つからない)
     if (!data) {
       return {
         data: null,
-        responseCode: ERRORS.NOT_FOUND.code,
+        responseCode: RESPONSE_CODES.ERROR_NOT_FOUND,
       };
     }
 
     // 通常時
     return {
-      data,
+      // data,
+      data: json.data,
       responseCode: 200,
     };
   } catch (error) {
     return {
       data: null,
-      responseCode: ERRORS.UNEXPECTED.code,
+      responseCode: RESPONSE_CODES.ERROR_NOT_FOUND,
     };
   }
 }
 
 /**
- * ブログ詳細ページ
+ * 学校詳細ページ
  *
- * @param params { blogId: string }
+ * @param params { schoolId: string }
  *
  */
 const PropertyDetailPage = async ({
   params,
 }: {
-  params: Promise<{ blogId: string }>;
+  params: Promise<{ schoolId: string }>;
 }) => {
-  const { blogId } = await params;
-  const { data, responseCode } = await getBlogById(blogId);
+  const { schoolId } = await params;
+  const { data, responseCode } = await getSchoolById(schoolId);
 
   if (!data) {
     const errorMessages = generateMessages(responseCode);
@@ -95,7 +99,7 @@ const PropertyDetailPage = async ({
     );
   }
 
-  return <BlogDetail data={data} />;
+  return <SchoolDetail data={data} />;
 };
 
 export default PropertyDetailPage;

@@ -6,8 +6,8 @@ import { School } from "@/types/school/schoolTypes";
 import { formatDateToJapanese } from "@/utils/getPropertyValue";
 
 /**
- * ブログ一覧ページ
- * ＠params data {Blog[]} - ブログリスト
+ * 学校一覧ページ
+ * ＠params data {School[]} - 学校リスト
  * @params pagination {pagination}
  */
 export default function SchoolList({
@@ -26,8 +26,8 @@ export default function SchoolList({
 }
 
 /**
- * ブログ一覧ページのカードを一覧で表示するエリア
- * ＠params data {Blog[]} - ブログリスト
+ * 学校一覧ページのカードを一覧で表示するエリア
+ * ＠params data {Blog[]} - 学校リスト
  */
 function CardArea({ data }: { data: School[] }) {
   return (
@@ -36,7 +36,7 @@ function CardArea({ data }: { data: School[] }) {
       {data.map((school) => (
         <CardFrame
           key={school.documentId}
-          linkTo={`/school/${school.documentId.toString()}`} // 詳細画面の遷移先パス
+          linkTo={`/schools/${school.documentId.toString()}`} // 詳細画面の遷移先パス
           imageSrc={school.coverImage?.url}
           imageAlt={school.schoolName} // 画像の説明文
           cardContent={<CardContent school={school} />} // 画像下にくる部分　（別途作成）
@@ -55,7 +55,7 @@ function CardContent({ school }: { school: School }) {
   const updatedAt = formatDateToJapanese(school.updatedAt);
   return (
     <>
-      {/* ブログタイトル */}
+      {/* 学校タイトル */}
       <p className="text-sm sm:text-base font-medium">{school.schoolName}</p>
       {/* 更新日 */}
       <p className="text-sm text-bloom-gray">{updatedAt}</p>

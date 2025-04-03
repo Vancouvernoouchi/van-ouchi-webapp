@@ -551,6 +551,7 @@ export interface ApiSchoolSchool extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    contents: Schema.Attribute.Component<'common.article-content', true>;
     coverImage: Schema.Attribute.Media<'images' | 'files'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

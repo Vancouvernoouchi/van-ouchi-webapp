@@ -15,12 +15,7 @@ const getSchools = async () => {
         },
       }
     );
-
-    const res = await fetch(
-      `${STRAPI_API_URL}/api/schools?populate=coverImage`
-    );
-    const json = await res.json();
-    console.log("School API response", JSON.stringify(json, null, 2));
+    console.log("School API response", JSON.stringify(response, null, 2));
 
     // サーバーエラー
     if (!response.ok) {
