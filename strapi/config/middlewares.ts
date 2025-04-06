@@ -35,7 +35,7 @@ export default [
         "http://localhost:3000",
         "http://127.0.0.1:3000",
       ], // 許可するフロントエンドのURL
-      methods: ["GET", "POST", "PUT", "DELETE"], // 許可するHTTPメソッド
+      methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // 許可するHTTPメソッド
       allowedHeaders: ["Content-Type", "Authorization"], // 許可するヘッダー
     },
   },
