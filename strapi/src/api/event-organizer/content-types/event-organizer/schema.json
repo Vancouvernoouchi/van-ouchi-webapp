@@ -1,0 +1,57 @@
+{
+  "kind": "collectionType",
+  "collectionName": "event_organizers",
+  "info": {
+    "singularName": "event-organizer",
+    "pluralName": "event-organizers",
+    "displayName": "Event Organizer"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "avatar": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "email": {
+      "type": "email",
+      "required": true
+    },
+    "phoneNumber": {
+      "type": "string"
+    },
+    "instagramUrl": {
+      "type": "string"
+    },
+    "tiktokUrl": {
+      "type": "string"
+    },
+    "xUrl": {
+      "type": "string"
+    },
+    "homepageUrl": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "events": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::event.event",
+      "mappedBy": "organizer"
+    }
+  }
+}
