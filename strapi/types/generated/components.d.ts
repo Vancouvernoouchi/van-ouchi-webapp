@@ -12,6 +12,31 @@ export interface CommonArticleContent extends Struct.ComponentSchema {
   };
 }
 
+export interface CommonFaq extends Struct.ComponentSchema {
+  collectionName: 'components_common_faqs';
+  info: {
+    description: '';
+    displayName: 'QA';
+  };
+  attributes: {
+    answer: Schema.Attribute.Text & Schema.Attribute.Required;
+    question: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface CommonImageWithDescription extends Struct.ComponentSchema {
+  collectionName: 'components_common_image_with_descriptions';
+  info: {
+    description: '';
+    displayName: 'Image with Description';
+  };
+  attributes: {
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+      Schema.Attribute.Required;
+    imageDescription: Schema.Attribute.String;
+  };
+}
+
 export interface CommonLinkButton extends Struct.ComponentSchema {
   collectionName: 'components_common_link_buttons';
   info: {
@@ -93,6 +118,8 @@ declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'common.article-content': CommonArticleContent;
+      'common.faq': CommonFaq;
+      'common.image-with-description': CommonImageWithDescription;
       'common.link-button': CommonLinkButton;
       'shared.media': SharedMedia;
       'shared.quote': SharedQuote;
