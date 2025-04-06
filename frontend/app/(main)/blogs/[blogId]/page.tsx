@@ -23,8 +23,8 @@ export async function generateMetadata({
   }
 
   return {
-    title: data.metadata.metaTitle || "ブログ詳細",
-    description: data.metadata.metaDescription || "ブログ詳細ページです。",
+    title: data.metadata?.metaTitle || "ブログ詳細",
+    description: data.metadata?.metaDescription || "ブログ詳細ページです。",
     openGraph: {
       images: [data.coverImage],
     },
