@@ -23,8 +23,8 @@ export async function generateMetadata({
   }
 
   return {
-    title: data.metadata.metaTitle || "ブログ詳細",
-    description: data.metadata.metaDescription || "ブログ詳細ページです。",
+    title: data.metadata?.metaTitle || "ブログ詳細",
+    description: data.metadata?.metaDescription || "ブログ詳細ページです。",
     openGraph: {
       images: [data.coverImage],
     },
@@ -36,7 +36,13 @@ export async function generateMetadata({
  */
 async function getBlogById(blogId: string) {
   try {
-    const response = await fetch(`${STRAPI_API_URL}/api/blogs/${blogId}`);
+    const response = await fetch(`${STRAPI_API_URL}/api/blogs/${blogId}`, {
+      method: "GET",
+      credentials: "omit",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
     // レスポンス失敗
     if (!response.ok) {

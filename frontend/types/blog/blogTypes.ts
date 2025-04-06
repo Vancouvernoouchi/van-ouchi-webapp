@@ -36,7 +36,7 @@ interface Blog {
   /** 最終更新日時 */
   updatedAt: string;
   /** メタデータ */
-  metadata: Metadata;
+  metadata: Metadata | null;
 }
 
 export { type BlogData, type Blog };
