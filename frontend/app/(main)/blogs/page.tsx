@@ -11,6 +11,7 @@ const getBlogs = async () => {
   try {
     const response = await fetch(`${STRAPI_API_URL}/api/blogs`, {
       method: "GET",
+      credentials: "omit",
       headers: {
         "Content-Type": "application/json",
       },
