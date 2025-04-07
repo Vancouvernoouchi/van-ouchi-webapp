@@ -264,17 +264,20 @@ function Categories() {
     //     isFixed ? "fixed top-0 left-0 bg-white shadow-md" : ""
     //   }`}
     // >
-    <div className="relative base-px py-2 h-20">
+    <div className="relative base-px py-2 h-20 justify-center w-full flex">
       <div className="overflow-hidden" ref={emblaRef}>
-        <div className="flex justify-center">
+        <div className="flex">
           {CATEGORY_LIST.map((item, index) => (
             <div
+              tabIndex={30 + index}
               key={item.name}
               ref={(el) => {
                 categoryRefs.current[item.pathname] = el;
               }}
               onClick={() => handleCategoryClick(item.pathname)}
-              className={`${index === 0 ? "ml-0" : "ml-2 lg:ml-3"} ${
+              className={` min-w-[80px] ${
+                index === 0 ? "ml-0" : "ml-2 lg:ml-3:"
+              } ${
                 index === CATEGORY_LIST.length - 1 ? "mr-0" : "mr-2 lg:mr-3"
               }`}
             >

@@ -11,16 +11,6 @@ const MainLayout = ({
   children: React.ReactNode;
 }>) => {
   return (
-    // <div className="min-w-screen">
-    //   <Header />
-    //   <Categories />
-    //   <main className="content-height z-0">
-    //     <Suspense fallback={<Loader />}>{children}</Suspense>
-    //   </main>
-    //   <Analytics />
-    //   <Footer />
-    // </div>
-
     <div className="min-w-screen">
       <Header />
       <Categories />
