@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "schools",
+  "info": {
+    "singularName": "school",
+    "pluralName": "schools",
+    "displayName": "school"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "schoolName": {
+      "type": "string"
+    },
+    "schoolEnglishName": {
+      "type": "string"
+    },
+    "coverImage": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "content": {
+      "type": "component",
+      "repeatable": true,
+      "component": "common.article-content"
+    }
+  }
+}
