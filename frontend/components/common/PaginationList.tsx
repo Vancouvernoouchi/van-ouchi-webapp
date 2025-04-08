@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/pagination";
 import { createQueryString } from "@/utils/queryStringHelper";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { handleEnterKey } from "@/utils/accessibility/a11y";
 
 interface PaginationListProps {
   currentPage: number;
@@ -41,6 +42,9 @@ function PaginationList({ currentPage, totalPage }: PaginationListProps) {
             <PaginationPrevious
               tabIndex={200}
               onClick={() => handlePageChange(currentPage - 1)}
+              onKeyDown={(e) =>
+                handleEnterKey(e, () => handlePageChange(currentPage - 1))
+              }
             />
           </PaginationItem>
         )}
@@ -50,6 +54,7 @@ function PaginationList({ currentPage, totalPage }: PaginationListProps) {
             <PaginationLink
               tabIndex={201}
               onClick={() => handlePageChange(1)}
+              onKeyDown={(e) => handleEnterKey(e, () => handlePageChange(1))}
               isActive={currentPage === 1}
             >
               1
@@ -70,6 +75,9 @@ function PaginationList({ currentPage, totalPage }: PaginationListProps) {
             <PaginationLink
               tabIndex={202}
               onClick={() => handlePageChange(currentPage - 1)}
+              onKeyDown={(e) =>
+                handleEnterKey(e, () => handlePageChange(currentPage - 1))
+              }
             >
               {currentPage - 1}
             </PaginationLink>
@@ -93,6 +101,9 @@ function PaginationList({ currentPage, totalPage }: PaginationListProps) {
             <PaginationLink
               tabIndex={204}
               onClick={() => handlePageChange(currentPage + 1)}
+              onKeyDown={(e) =>
+                handleEnterKey(e, () => handlePageChange(currentPage + 1))
+              }
             >
               {currentPage + 1}
             </PaginationLink>
@@ -112,6 +123,9 @@ function PaginationList({ currentPage, totalPage }: PaginationListProps) {
             <PaginationLink
               tabIndex={205}
               onClick={() => handlePageChange(totalPage)}
+              onKeyDown={(e) =>
+                handleEnterKey(e, () => handlePageChange(totalPage))
+              }
               isActive={currentPage === totalPage}
             >
               {totalPage}
@@ -125,6 +139,9 @@ function PaginationList({ currentPage, totalPage }: PaginationListProps) {
             <PaginationNext
               tabIndex={206}
               onClick={() => handlePageChange(currentPage + 1)}
+              onKeyDown={(e) =>
+                handleEnterKey(e, () => handlePageChange(currentPage + 1))
+              }
             />
           </PaginationItem>
         )}

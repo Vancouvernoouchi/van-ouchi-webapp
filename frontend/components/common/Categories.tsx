@@ -24,7 +24,6 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import { handleEnterKey } from "@/utils/accessibility/a11y";
-import { log } from "console";
 
 export interface Category {
   name: string;
@@ -212,8 +211,6 @@ function Categories() {
    * カテゴリがクリックされたときのスクロール制御
    */
   const handleCategoryClick = (pathname: string) => {
-    console.log("handle category clicked!!");
-
     if (!emblaApi) return;
 
     const element = categoryRefs.current[pathname];
@@ -395,8 +392,6 @@ function CategoryBox({
   const router = useRouter();
 
   const handleClick = useCallback(() => {
-    console.log("testtttt");
-
     router.push(pathname);
   }, [pathname, router]);
 

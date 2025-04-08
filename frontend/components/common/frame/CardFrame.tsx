@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { ReactNode } from "react";
 import { useRouter } from "next/navigation";
+import { handleEnterKey } from "@/utils/accessibility/a11y";
 
 interface CardFrameProps {
   linkTo: string;
@@ -11,6 +12,7 @@ interface CardFrameProps {
   badgeStyle?: string;
   cardContent: ReactNode;
   tabIndex?: number;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLDivElement>) => void;
 }
 
 /**
@@ -49,6 +51,7 @@ function CardFrame({
       tabIndex={tabIndex}
       className="relative cursor-pointer"
       onClick={goToDetail}
+      onKeyDown={(e) => handleEnterKey(e, goToDetail)}
     >
       {/* 画像 */}
       <div className="relative z-0 w-full rounded-lg aspect-[9/8]">

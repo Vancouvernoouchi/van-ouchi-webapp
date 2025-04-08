@@ -102,20 +102,6 @@ export default function PropertyList({
  * 物件一覧ページのカードを一覧で表示するエリア
  * ＠params data {PropertyCardData}
  */
-// const CardArea = ({ properties }: { properties: NotionProperty[] }) => {
-//   return (
-//     <>
-//       {properties.map((p: NotionProperty) => {
-//         const property: PropertyCardData | null = formatPropertyCardData(p);
-
-//         if (property !== null) {
-//           return <PropertyCard key={property.id} property={property} />;
-//         }
-//       })}
-//     </>
-//   );
-// };
-
 const CardArea = ({
   properties,
   currentPage,
