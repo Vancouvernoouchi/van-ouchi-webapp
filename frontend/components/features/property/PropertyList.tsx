@@ -81,8 +81,12 @@ export default function PropertyList({
         </div>
       ) : (
         <>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 2xl:grid-cols-5 gap-2 sm:gap-4 lg:gap-6">
-            <CardArea properties={paginatedProperties} />
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-4 lg:gap-6">
+            <CardArea
+              properties={paginatedProperties}
+              currentPage={currentPage}
+              itemsPerPage={itemsPerPage}
+            />
           </div>
           <div className="py-5">
             {" "}
@@ -98,14 +102,43 @@ export default function PropertyList({
  * 物件一覧ページのカードを一覧で表示するエリア
  * ＠params data {PropertyCardData}
  */
-const CardArea = ({ properties }: { properties: NotionProperty[] }) => {
+// const CardArea = ({ properties }: { properties: NotionProperty[] }) => {
+//   return (
+//     <>
+//       {properties.map((p: NotionProperty) => {
+//         const property: PropertyCardData | null = formatPropertyCardData(p);
+
+//         if (property !== null) {
+//           return <PropertyCard key={property.id} property={property} />;
+//         }
+//       })}
+//     </>
+//   );
+// };
+
+const CardArea = ({
+  properties,
+  currentPage,
+  itemsPerPage,
+}: {
+  properties: NotionProperty[];
+  currentPage: number;
+  itemsPerPage: number;
+}) => {
   return (
     <>
-      {properties.map((p: NotionProperty) => {
+      {properties.map((p: NotionProperty, index: number) => {
         const property: PropertyCardData | null = formatPropertyCardData(p);
+        const tabIndex = 100 + index; // 各ページで100からスタート
 
         if (property !== null) {
-          return <PropertyCard key={property.id} property={property} />;
+          return (
+            <PropertyCard
+              key={property.id}
+              property={property}
+              tabIndex={tabIndex}
+            />
+          );
         }
       })}
     </>
@@ -116,14 +149,43 @@ const CardArea = ({ properties }: { properties: NotionProperty[] }) => {
  * 物件一覧ページのカード
  * ＠params property {PropertyCardData}
  */
-const PropertyCard = ({ property }: { property: PropertyCardData }) => {
-  /* 募集中の物件のみ「入居者募集中」 or 「即入居可能」のラベル */
+// const PropertyCard = ({ property }: { property: PropertyCardData }) => {
+//   /* 募集中の物件のみ「入居者募集中」 or 「即入居可能」のラベル */
+//   const labelMessage =
+//     property.status === "入居者募集中" || property.status === "即入居可能"
+//       ? property.status
+//       : "";
+
+//   /* ラベルの色 */
+//   const labelColor =
+//     property.status === "入居者募集中"
+//       ? "bg-white"
+//       : "bg-bloom-blue text-white";
+
+//   return (
+//     <CardFrame
+//       linkTo={`/properties/${property.id}`}
+//       imageSrc={property.thumbnail}
+//       imageAlt={property.title ?? "物件画像"}
+//       badgeMessage={labelMessage}
+//       badgeStyle={labelColor}
+//       cardContent={<CardContent property={property} />}
+//     />
+//   );
+// };
+
+const PropertyCard = ({
+  property,
+  tabIndex,
+}: {
+  property: PropertyCardData;
+  tabIndex: number; // ← これを追加！
+}) => {
   const labelMessage =
     property.status === "入居者募集中" || property.status === "即入居可能"
       ? property.status
       : "";
 
-  /* ラベルの色 */
   const labelColor =
     property.status === "入居者募集中"
       ? "bg-white"
@@ -137,6 +199,7 @@ const PropertyCard = ({ property }: { property: PropertyCardData }) => {
       badgeMessage={labelMessage}
       badgeStyle={labelColor}
       cardContent={<CardContent property={property} />}
+      tabIndex={tabIndex}
     />
   );
 };

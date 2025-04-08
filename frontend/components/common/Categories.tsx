@@ -266,14 +266,6 @@ function Categories() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // カテゴリ一覧のpathnameに完全一致するかチェック
-  const isExactMatch = CATEGORY_LIST.some(
-    (category) => category.pathname === pathname
-  );
-
-  // 一致しない場合は表示しない
-  if (!isExactMatch) return null;
-
   const [isInsideFocusActive, setIsInsideFocusActive] = useState(false);
 
   // tabIndex: Enterが押されたときだけカテゴリ内に入る
@@ -298,6 +290,13 @@ function Categories() {
     }
   };
 
+  // カテゴリ一覧のpathnameに完全一致するかチェック
+  const isExactMatch = CATEGORY_LIST.some(
+    (category) => category.pathname === pathname
+  );
+
+  // 一致しない場合は表示しない
+  if (!isExactMatch) return null;
   return (
     // TODO: 全ページのフィルターが完成したらヘッダーを固定する。下のdivのコメントを解除すると固定される。
     // <div
@@ -343,6 +342,7 @@ function Categories() {
       <div className="hidden lg:block">
         {prevBtnEnabled && (
           <button
+            tabIndex={60}
             className="absolute left-10 xl:left-20 top-1/2 transform -translate-y-1/2 border bg-white p-1 rounded-full shadow-md z-10"
             onClick={scrollPrev}
           >
@@ -351,6 +351,7 @@ function Categories() {
         )}
         {nextBtnEnabled && (
           <button
+            tabIndex={61}
             className="absolute right-10 xl:right-20 top-1/2 transform -translate-y-1/2 border bg-white p-1 rounded-full shadow-md z-10"
             onClick={scrollNext}
           >

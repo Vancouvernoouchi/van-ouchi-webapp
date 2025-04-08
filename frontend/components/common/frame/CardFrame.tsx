@@ -10,6 +10,7 @@ interface CardFrameProps {
   badgeMessage?: string;
   badgeStyle?: string;
   cardContent: ReactNode;
+  tabIndex?: number;
 }
 
 /**
@@ -29,6 +30,7 @@ function CardFrame({
   badgeMessage,
   badgeStyle = "bg-white",
   cardContent,
+  tabIndex,
 }: CardFrameProps) {
   const router = useRouter();
 
@@ -43,7 +45,11 @@ function CardFrame({
   };
 
   return (
-    <div className="relative cursor-pointer" onClick={goToDetail}>
+    <div
+      tabIndex={tabIndex}
+      className="relative cursor-pointer"
+      onClick={goToDetail}
+    >
       {/* 画像 */}
       <div className="relative z-0 w-full rounded-lg aspect-[9/8]">
         {imageSrc ? (
