@@ -123,6 +123,23 @@ function Categories() {
     dragFree: true, // 指やマウスで自由にスクロール可能にする
   });
 
+  function useCombinedRefs<T>(
+    ...refs: (React.Ref<T> | undefined)[]
+  ): React.RefCallback<T> {
+    return (element: T) => {
+      refs.forEach((ref) => {
+        if (typeof ref === "function") {
+          ref(element);
+        } else if (ref && typeof ref === "object") {
+          (ref as React.MutableRefObject<T | null>).current = element;
+        }
+      });
+    };
+  }
+
+  const categoryBarRef = useRef<HTMLDivElement>(null);
+  const combinedRef = useCombinedRefs<HTMLDivElement>(emblaRef, categoryBarRef);
+
   // スクロールボタンの有効/無効状態を管理する
   const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
   const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
@@ -257,6 +274,30 @@ function Categories() {
   // 一致しない場合は表示しない
   if (!isExactMatch) return null;
 
+  const [isInsideFocusActive, setIsInsideFocusActive] = useState(false);
+
+  // tabIndex: Enterが押されたときだけカテゴリ内に入る
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === "Enter") {
+      setIsInsideFocusActive(true);
+      const categoryEls =
+        categoryBarRef.current?.querySelectorAll("[data-category]");
+      if (categoryEls && categoryEls.length > 0) {
+        (categoryEls[0] as HTMLElement).focus();
+      }
+    }
+  };
+
+  // tabIndex: カテゴリーアイテムで、フォーカスが外れたときに元に戻す
+  const handleBlur = (e: React.FocusEvent<HTMLDivElement>) => {
+    // 次にフォーカスされる要素がカテゴリ内でなければ解除
+    const relatedTarget = e.relatedTarget as HTMLElement | null;
+    const stillInside = relatedTarget?.dataset?.category !== undefined;
+    if (!stillInside) {
+      setIsInsideFocusActive(false);
+    }
+  };
+
   return (
     // TODO: 全ページのフィルターが完成したらヘッダーを固定する。下のdivのコメントを解除すると固定される。
     // <div
@@ -265,11 +306,18 @@ function Categories() {
     //   }`}
     // >
     <div className="relative base-px py-2 h-20 justify-center w-full flex">
-      <div className="overflow-hidden" ref={emblaRef}>
+      <div
+        tabIndex={30}
+        onKeyDown={handleKeyDown}
+        className="overflow-hidden"
+        ref={combinedRef}
+      >
         <div className="flex">
           {CATEGORY_LIST.map((item, index) => (
             <div
-              tabIndex={30 + index}
+              data-category
+              tabIndex={isInsideFocusActive ? 31 + index : -1} // Enter押されてたら有効、それ以外は無効
+              onBlur={handleBlur}
               key={item.name}
               ref={(el) => {
                 categoryRefs.current[item.pathname] = el;
