@@ -15,7 +15,11 @@ const MainLayout = ({
       <Header />
       <Categories />
       <main className="content-height z-0">
-        <Suspense fallback={<Loader />}>{children}</Suspense>
+        <div className="w-full">
+          <div className="w-full max-w-[1500px] mx-auto px-4">
+            <Suspense fallback={<Loader />}>{children}</Suspense>
+          </div>
+        </div>
       </main>
       <Analytics />
       <Footer />

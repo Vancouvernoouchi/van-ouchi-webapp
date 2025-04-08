@@ -23,6 +23,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
+import { handleEnterKey } from "@/utils/accessibility/a11y";
 
 export interface Category {
   name: string;
@@ -113,15 +114,35 @@ export const CATEGORY_LIST: Category[] = [
     pathname: "/blogs",
   },
 ] as const;
+
 /**
  * カテゴリーコンポーネント
  */
 function Categories() {
+  const router = useRouter();
+
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start", // スライドを左端から配置
     containScroll: "trimSnaps", // スクロール範囲をスナップ位置に制限
     dragFree: true, // 指やマウスで自由にスクロール可能にする
   });
+
+  function useCombinedRefs<T>(
+    ...refs: (React.Ref<T> | undefined)[]
+  ): React.RefCallback<T> {
+    return (element: T) => {
+      refs.forEach((ref) => {
+        if (typeof ref === "function") {
+          ref(element);
+        } else if (ref && typeof ref === "object") {
+          (ref as React.MutableRefObject<T | null>).current = element;
+        }
+      });
+    };
+  }
+
+  const categoryBarRef = useRef<HTMLDivElement>(null);
+  const combinedRef = useCombinedRefs<HTMLDivElement>(emblaRef, categoryBarRef);
 
   // スクロールボタンの有効/無効状態を管理する
   const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
@@ -249,6 +270,30 @@ function Categories() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const [isInsideFocusActive, setIsInsideFocusActive] = useState(false);
+
+  // tabIndex: Enterが押されたときだけカテゴリ内に入る
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === "Enter") {
+      setIsInsideFocusActive(true);
+      const categoryEls =
+        categoryBarRef.current?.querySelectorAll("[data-category]");
+      if (categoryEls && categoryEls.length > 0) {
+        (categoryEls[0] as HTMLElement).focus();
+      }
+    }
+  };
+
+  // tabIndex: カテゴリーアイテムで、フォーカスが外れたときに元に戻す
+  const handleBlur = (e: React.FocusEvent<HTMLDivElement>) => {
+    // 次にフォーカスされる要素がカテゴリ内でなければ解除
+    const relatedTarget = e.relatedTarget as HTMLElement | null;
+    const stillInside = relatedTarget?.dataset?.category !== undefined;
+    if (!stillInside) {
+      setIsInsideFocusActive(false);
+    }
+  };
+
   // カテゴリ一覧のpathnameに完全一致するかチェック
   const isExactMatch = CATEGORY_LIST.some(
     (category) => category.pathname === pathname
@@ -264,34 +309,58 @@ function Categories() {
     //     isFixed ? "fixed top-0 left-0 bg-white shadow-md" : ""
     //   }`}
     // >
-    <div className="relative base-px py-2 h-20">
-      <div className="overflow-hidden" ref={emblaRef}>
+
+    <div className="relative base-px py-2 h-20 justify-center w-full flex">
+      <div
+        tabIndex={30}
+        onKeyDown={handleKeyDown}
+        className="overflow-hidden"
+        ref={combinedRef}
+      >
         <div className="flex">
-          {CATEGORY_LIST.map((item, index) => (
-            <div
-              key={item.name}
-              ref={(el) => {
-                categoryRefs.current[item.pathname] = el;
-              }}
-              onClick={() => handleCategoryClick(item.pathname)}
-              className={`${index === 0 ? "ml-0" : "ml-2 lg:ml-3"} ${
-                index === CATEGORY_LIST.length - 1 ? "mr-0" : "mr-2 lg:mr-3"
-              }`}
-            >
-              <CategoryBox
-                icon={item.icon}
-                name={item.name}
-                pathname={item.pathname}
-                selected={pathname === item.pathname}
-              />
-            </div>
-          ))}
+          {CATEGORY_LIST.map((item, index) => {
+            const handleClick = () => {
+              console.log("handle clicked triggered!!!");
+              router.push(item.pathname);
+            };
+
+            return (
+              <div
+                data-category
+                key={item.name}
+                tabIndex={isInsideFocusActive ? 31 + index : -1}
+                ref={(el) => {
+                  categoryRefs.current[item.pathname] = el;
+                }}
+                onClick={() => handleCategoryClick(item.pathname)}
+                onKeyDown={(e) => {
+                  e.stopPropagation();
+                  handleEnterKey(e, handleClick); // Enter で遷移できる！
+                }}
+                onBlur={handleBlur}
+                className={`min-w-[80px] ${
+                  index === 0 ? "ml-0" : "ml-2 lg:ml-3:"
+                } ${
+                  index === CATEGORY_LIST.length - 1 ? "mr-0" : "mr-2 lg:mr-3"
+                }`}
+              >
+                <CategoryBox
+                  icon={item.icon}
+                  name={item.name}
+                  pathname={item.pathname}
+                  selected={pathname === item.pathname}
+                  onClick={handleClick}
+                />
+              </div>
+            );
+          })}
         </div>
       </div>
       {/* スクロールボタン PCで表示 */}
       <div className="hidden lg:block">
         {prevBtnEnabled && (
           <button
+            tabIndex={60}
             className="absolute left-10 xl:left-20 top-1/2 transform -translate-y-1/2 border bg-white p-1 rounded-full shadow-md z-10"
             onClick={scrollPrev}
           >
@@ -300,6 +369,7 @@ function Categories() {
         )}
         {nextBtnEnabled && (
           <button
+            tabIndex={61}
             className="absolute right-10 xl:right-20 top-1/2 transform -translate-y-1/2 border bg-white p-1 rounded-full shadow-md z-10"
             onClick={scrollNext}
           >
@@ -317,22 +387,20 @@ function CategoryBox({
   name,
   pathname,
   selected,
+  onClick, // ← propsで受け取る
 }: {
   icon: LucideIcon | null;
   name: string;
   pathname: string;
   selected: boolean;
+  onClick: () => void;
 }) {
-  const router = useRouter();
-
-  const handleClick = useCallback(() => {
-    router.push(pathname);
-  }, [pathname, router]);
-
   return (
     <div className="flex-grow-0 flex-shrink-0 basis-1/12 group">
       <div
-        onClick={handleClick}
+        role="link"
+        // onClick={handleClick}
+        onClick={onClick}
         className={`flex flex-col items-center justify-between gap-1 py-2 border-b-2 group-hover:text-gray-800 transition cursor-pointer
         ${
           selected
