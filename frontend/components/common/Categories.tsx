@@ -23,6 +23,8 @@ import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
+import { handleEnterKey } from "@/utils/accessibility/a11y";
+import { log } from "console";
 
 export interface Category {
   name: string;
@@ -210,6 +212,8 @@ function Categories() {
    * カテゴリがクリックされたときのスクロール制御
    */
   const handleCategoryClick = (pathname: string) => {
+    console.log("handle category clicked!!");
+
     if (!emblaApi) return;
 
     const element = categoryRefs.current[pathname];
@@ -297,6 +301,8 @@ function Categories() {
 
   // 一致しない場合は表示しない
   if (!isExactMatch) return null;
+  const router = useRouter();
+
   return (
     // TODO: 全ページのフィルターが完成したらヘッダーを固定する。下のdivのコメントを解除すると固定される。
     // <div
@@ -304,6 +310,7 @@ function Categories() {
     //     isFixed ? "fixed top-0 left-0 bg-white shadow-md" : ""
     //   }`}
     // >
+
     <div className="relative base-px py-2 h-20 justify-center w-full flex">
       <div
         tabIndex={30}
@@ -312,30 +319,40 @@ function Categories() {
         ref={combinedRef}
       >
         <div className="flex">
-          {CATEGORY_LIST.map((item, index) => (
-            <div
-              data-category
-              tabIndex={isInsideFocusActive ? 31 + index : -1} // Enter押されてたら有効、それ以外は無効
-              onBlur={handleBlur}
-              key={item.name}
-              ref={(el) => {
-                categoryRefs.current[item.pathname] = el;
-              }}
-              onClick={() => handleCategoryClick(item.pathname)}
-              className={` min-w-[80px] ${
-                index === 0 ? "ml-0" : "ml-2 lg:ml-3:"
-              } ${
-                index === CATEGORY_LIST.length - 1 ? "mr-0" : "mr-2 lg:mr-3"
-              }`}
-            >
-              <CategoryBox
-                icon={item.icon}
-                name={item.name}
-                pathname={item.pathname}
-                selected={pathname === item.pathname}
-              />
-            </div>
-          ))}
+          {CATEGORY_LIST.map((item, index) => {
+            const handleClick = () => {
+              router.push(item.pathname); // ← これなら item にアクセスできる！
+            };
+
+            return (
+              <div
+                data-category
+                key={item.name}
+                tabIndex={isInsideFocusActive ? 31 + index : -1}
+                ref={(el) => {
+                  categoryRefs.current[item.pathname] = el;
+                }}
+                onKeyDown={(e) => {
+                  e.stopPropagation();
+                  handleEnterKey(e, handleClick); // Enter で遷移できる！
+                }}
+                onClick={() => handleCategoryClick(item.pathname)} // スクロール制御はそのまま
+                onBlur={handleBlur}
+                className={`min-w-[80px] ${
+                  index === 0 ? "ml-0" : "ml-2 lg:ml-3:"
+                } ${
+                  index === CATEGORY_LIST.length - 1 ? "mr-0" : "mr-2 lg:mr-3"
+                }`}
+              >
+                <CategoryBox
+                  icon={item.icon}
+                  name={item.name}
+                  pathname={item.pathname}
+                  selected={pathname === item.pathname}
+                />
+              </div>
+            );
+          })}
         </div>
       </div>
       {/* スクロールボタン PCで表示 */}
@@ -378,6 +395,8 @@ function CategoryBox({
   const router = useRouter();
 
   const handleClick = useCallback(() => {
+    console.log("testtttt");
+
     router.push(pathname);
   }, [pathname, router]);
 
