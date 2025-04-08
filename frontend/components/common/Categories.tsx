@@ -114,10 +114,13 @@ export const CATEGORY_LIST: Category[] = [
     pathname: "/blogs",
   },
 ] as const;
+
 /**
  * カテゴリーコンポーネント
  */
 function Categories() {
+  const router = useRouter();
+
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start", // スライドを左端から配置
     containScroll: "trimSnaps", // スクロール範囲をスナップ位置に制限
@@ -298,7 +301,6 @@ function Categories() {
 
   // 一致しない場合は表示しない
   if (!isExactMatch) return null;
-  const router = useRouter();
 
   return (
     // TODO: 全ページのフィルターが完成したらヘッダーを固定する。下のdivのコメントを解除すると固定される。
@@ -318,7 +320,8 @@ function Categories() {
         <div className="flex">
           {CATEGORY_LIST.map((item, index) => {
             const handleClick = () => {
-              router.push(item.pathname); // ← これなら item にアクセスできる！
+              console.log("handle clicked triggered!!!");
+              router.push(item.pathname);
             };
 
             return (
@@ -329,11 +332,11 @@ function Categories() {
                 ref={(el) => {
                   categoryRefs.current[item.pathname] = el;
                 }}
+                onClick={() => handleCategoryClick(item.pathname)}
                 onKeyDown={(e) => {
                   e.stopPropagation();
                   handleEnterKey(e, handleClick); // Enter で遷移できる！
                 }}
-                onClick={() => handleCategoryClick(item.pathname)} // スクロール制御はそのまま
                 onBlur={handleBlur}
                 className={`min-w-[80px] ${
                   index === 0 ? "ml-0" : "ml-2 lg:ml-3:"
@@ -346,6 +349,7 @@ function Categories() {
                   name={item.name}
                   pathname={item.pathname}
                   selected={pathname === item.pathname}
+                  onClick={handleClick}
                 />
               </div>
             );
@@ -383,22 +387,20 @@ function CategoryBox({
   name,
   pathname,
   selected,
+  onClick, // ← propsで受け取る
 }: {
   icon: LucideIcon | null;
   name: string;
   pathname: string;
   selected: boolean;
+  onClick: () => void;
 }) {
-  const router = useRouter();
-
-  const handleClick = useCallback(() => {
-    router.push(pathname);
-  }, [pathname, router]);
-
   return (
     <div className="flex-grow-0 flex-shrink-0 basis-1/12 group">
       <div
-        onClick={handleClick}
+        role="link"
+        // onClick={handleClick}
+        onClick={onClick}
         className={`flex flex-col items-center justify-between gap-1 py-2 border-b-2 group-hover:text-gray-800 transition cursor-pointer
         ${
           selected
