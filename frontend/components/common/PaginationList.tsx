@@ -39,6 +39,7 @@ function PaginationList({ currentPage, totalPage }: PaginationListProps) {
         {currentPage > 1 && (
           <PaginationItem>
             <PaginationPrevious
+              tabIndex={200}
               onClick={() => handlePageChange(currentPage - 1)}
             />
           </PaginationItem>
@@ -47,6 +48,7 @@ function PaginationList({ currentPage, totalPage }: PaginationListProps) {
         {currentPage > 1 && (
           <PaginationItem>
             <PaginationLink
+              tabIndex={201}
               onClick={() => handlePageChange(1)}
               isActive={currentPage === 1}
             >
@@ -65,7 +67,10 @@ function PaginationList({ currentPage, totalPage }: PaginationListProps) {
         {/* previous page number */}
         {currentPage > 2 && (
           <PaginationItem>
-            <PaginationLink onClick={() => handlePageChange(currentPage - 1)}>
+            <PaginationLink
+              tabIndex={202}
+              onClick={() => handlePageChange(currentPage - 1)}
+            >
               {currentPage - 1}
             </PaginationLink>
           </PaginationItem>
@@ -74,6 +79,7 @@ function PaginationList({ currentPage, totalPage }: PaginationListProps) {
         {/* current page */}
         <PaginationItem>
           <PaginationLink
+            tabIndex={203}
             className="bg-bloom-lightBlue text-bloom-blue border border-bloom-blue"
             isActive
           >
@@ -84,7 +90,10 @@ function PaginationList({ currentPage, totalPage }: PaginationListProps) {
         {/* next page number */}
         {currentPage < totalPage - 1 && (
           <PaginationItem>
-            <PaginationLink onClick={() => handlePageChange(currentPage + 1)}>
+            <PaginationLink
+              tabIndex={204}
+              onClick={() => handlePageChange(currentPage + 1)}
+            >
               {currentPage + 1}
             </PaginationLink>
           </PaginationItem>
@@ -101,6 +110,7 @@ function PaginationList({ currentPage, totalPage }: PaginationListProps) {
         {totalPage > 1 && currentPage < totalPage && (
           <PaginationItem>
             <PaginationLink
+              tabIndex={205}
               onClick={() => handlePageChange(totalPage)}
               isActive={currentPage === totalPage}
             >
@@ -112,7 +122,10 @@ function PaginationList({ currentPage, totalPage }: PaginationListProps) {
         {/* next page */}
         {currentPage < totalPage && (
           <PaginationItem>
-            <PaginationNext onClick={() => handlePageChange(currentPage + 1)} />
+            <PaginationNext
+              tabIndex={206}
+              onClick={() => handlePageChange(currentPage + 1)}
+            />
           </PaginationItem>
         )}
       </PaginationContent>

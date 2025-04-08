@@ -149,31 +149,6 @@ const CardArea = ({
  * 物件一覧ページのカード
  * ＠params property {PropertyCardData}
  */
-// const PropertyCard = ({ property }: { property: PropertyCardData }) => {
-//   /* 募集中の物件のみ「入居者募集中」 or 「即入居可能」のラベル */
-//   const labelMessage =
-//     property.status === "入居者募集中" || property.status === "即入居可能"
-//       ? property.status
-//       : "";
-
-//   /* ラベルの色 */
-//   const labelColor =
-//     property.status === "入居者募集中"
-//       ? "bg-white"
-//       : "bg-bloom-blue text-white";
-
-//   return (
-//     <CardFrame
-//       linkTo={`/properties/${property.id}`}
-//       imageSrc={property.thumbnail}
-//       imageAlt={property.title ?? "物件画像"}
-//       badgeMessage={labelMessage}
-//       badgeStyle={labelColor}
-//       cardContent={<CardContent property={property} />}
-//     />
-//   );
-// };
-
 const PropertyCard = ({
   property,
   tabIndex,
