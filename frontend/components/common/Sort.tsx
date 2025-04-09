@@ -68,6 +68,7 @@ function Sort({ sortOptions }: { sortOptions: optionType[] }) {
     >
       <SelectTrigger
         tabIndex={71}
+        aria-label="ソートドロップダウンメニュー"
         className="flex items-center justify-center gap-1 border-none px-0"
       >
         <span className="text-sm">表示: {selectedLabel}</span>
