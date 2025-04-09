@@ -61,6 +61,7 @@ function SearchBar() {
         variant="outline"
         className="focus-visible:outline focus-visible:outline-2 focus-visible:outline-black focus-visible:outline-offset-2 absolute right-1.5 top-1/2 transform -translate-y-1/2 bg-bloom-blue flex items-center justify-center rounded-full w-8 h-8 p-0 border-0"
         onClick={handleSearch}
+        aria-label="検索する"
       >
         <Search className="text-white" />
       </Button>
