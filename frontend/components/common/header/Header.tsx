@@ -196,7 +196,7 @@ const NavMenu = () => {
 
             return (
               <SelectItem
-                tabIndex={20 + index}
+                // tabIndex={20 + index}
                 key={header.href}
                 value={header.href}
                 className={`${
