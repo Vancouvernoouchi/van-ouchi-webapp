@@ -64,12 +64,11 @@
     @apply mr-2 h-4 w-4;
   }
   .base-px {
-    @apply px-4 md:px-10 xl:px-10;
+    @apply px-4 md:px-20 2xl:px-0 w-full 2xl:max-w-[1436px];
   }
-  .card-base-px {
-    @apply px-4 max-w-[1500px];
-    /* @apply px-4 md:px-10 xl:px-20 max-w-[1200px]; */
-  }
+  /* .card-base-px {
+    @apply px-4 md:px-20 2xl:px-0 w-full 2xl:max-w-[1436px];
+  } */
 
   .base-py {
     @apply py-4 md:py-10 xl:py-20;

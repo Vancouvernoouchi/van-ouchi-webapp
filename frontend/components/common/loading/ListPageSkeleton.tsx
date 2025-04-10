@@ -6,7 +6,7 @@ import { Skeleton } from "../../ui/skeleton";
  */
 function ListPageSkeleton() {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-2 sm:gap-4 lg:gap-6">
+    <div className="base-px grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-2 sm:gap-4 lg:gap-6">
       {[...Array(30)].map((_, i) => (
         <div key={i} className="relative rounded-lg">
           {/* 画像エリア */}
