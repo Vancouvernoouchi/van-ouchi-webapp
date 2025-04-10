@@ -1,10 +1,11 @@
 {
   "kind": "collectionType",
-  "collectionName": "event_categories",
+  "collectionName": "meetup_categories",
   "info": {
-    "singularName": "event-category",
-    "pluralName": "event-categories",
-    "displayName": "Event Category"
+    "singularName": "meetup-category",
+    "pluralName": "meetup-categories",
+    "displayName": "Meetup Category",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -19,11 +20,11 @@
       "type": "string",
       "required": true
     },
-    "events": {
+    "meetups": {
       "type": "relation",
       "relation": "manyToMany",
-      "target": "api::event.event",
-      "mappedBy": "categories"
+      "target": "api::meetup.meetup",
+      "inversedBy": "categories"
     }
   }
 }

@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "events",
+  "collectionName": "meetups",
   "info": {
-    "singularName": "event",
-    "pluralName": "events",
-    "displayName": "Event",
+    "singularName": "meetup",
+    "pluralName": "meetups",
+    "displayName": "Meetup",
     "description": ""
   },
   "options": {
@@ -26,7 +26,11 @@
       "unique": false,
       "default": "全員"
     },
-    "datetime": {
+    "startDatetime": {
+      "type": "datetime",
+      "required": true
+    },
+    "endDatetime": {
       "type": "datetime",
       "required": true
     },
@@ -56,24 +60,7 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ]
-    },
-    "organizer": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::event-organizer.event-organizer",
-      "inversedBy": "events"
-    },
-    "categories": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::event-category.event-category",
-      "inversedBy": "events"
+      "allowedTypes": ["images", "files", "videos", "audios"]
     },
     "applyMethod": {
       "type": "string",
@@ -83,6 +70,18 @@
       "type": "component",
       "repeatable": true,
       "component": "common.faq"
+    },
+    "organizer": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::meetup-organizer.meetup-organizer",
+      "inversedBy": "meetups"
+    },
+    "categories": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::meetup-category.meetup-category",
+      "mappedBy": "meetups"
     }
   }
 }
