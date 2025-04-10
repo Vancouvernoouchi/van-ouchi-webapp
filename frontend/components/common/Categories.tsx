@@ -23,7 +23,6 @@ import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
-import { handleEnterKey } from "@/utils/accessibility/a11y";
 
 export interface Category {
   name: string;
@@ -114,35 +113,15 @@ export const CATEGORY_LIST: Category[] = [
     pathname: "/bloom-news",
   },
 ] as const;
-
 /**
  * カテゴリーコンポーネント
  */
 function Categories() {
-  const router = useRouter();
-
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start", // スライドを左端から配置
     containScroll: "trimSnaps", // スクロール範囲をスナップ位置に制限
     dragFree: true, // 指やマウスで自由にスクロール可能にする
   });
-
-  function useCombinedRefs<T>(
-    ...refs: (React.Ref<T> | undefined)[]
-  ): React.RefCallback<T> {
-    return (element: T) => {
-      refs.forEach((ref) => {
-        if (typeof ref === "function") {
-          ref(element);
-        } else if (ref && typeof ref === "object") {
-          (ref as React.MutableRefObject<T | null>).current = element;
-        }
-      });
-    };
-  }
-
-  const categoryBarRef = useRef<HTMLDivElement>(null);
-  const combinedRef = useCombinedRefs<HTMLDivElement>(emblaRef, categoryBarRef);
 
   // スクロールボタンの有効/無効状態を管理する
   const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
@@ -270,30 +249,6 @@ function Categories() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const [isInsideFocusActive, setIsInsideFocusActive] = useState(false);
-
-  // tabIndex: Enterが押されたときだけカテゴリ内に入る
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === "Enter") {
-      setIsInsideFocusActive(true);
-      const categoryEls =
-        categoryBarRef.current?.querySelectorAll("[data-category]");
-      if (categoryEls && categoryEls.length > 0) {
-        (categoryEls[0] as HTMLElement).focus();
-      }
-    }
-  };
-
-  // tabIndex: カテゴリーアイテムで、フォーカスが外れたときに元に戻す
-  const handleBlur = (e: React.FocusEvent<HTMLDivElement>) => {
-    // 次にフォーカスされる要素がカテゴリ内でなければ解除
-    const relatedTarget = e.relatedTarget as HTMLElement | null;
-    const stillInside = relatedTarget?.dataset?.category !== undefined;
-    if (!stillInside) {
-      setIsInsideFocusActive(false);
-    }
-  };
-
   // カテゴリ一覧のpathnameに完全一致するかチェック
   const isExactMatch = CATEGORY_LIST.some(
     (category) => category.pathname === pathname
@@ -388,20 +343,22 @@ function CategoryBox({
   name,
   pathname,
   selected,
-  onClick, // ← propsで受け取る
 }: {
   icon: LucideIcon | null;
   name: string;
   pathname: string;
   selected: boolean;
-  onClick: () => void;
 }) {
+  const router = useRouter();
+
+  const handleClick = useCallback(() => {
+    router.push(pathname);
+  }, [pathname, router]);
+
   return (
     <div className="flex-grow-0 flex-shrink-0 basis-1/12 group">
       <div
-        role="link"
-        // onClick={handleClick}
-        onClick={onClick}
+        onClick={handleClick}
         className={`flex flex-col items-center justify-between gap-1 py-2 border-b-2 group-hover:text-gray-800 transition cursor-pointer
         ${
           selected

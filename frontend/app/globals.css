@@ -82,25 +82,9 @@
   .propertyPageImage {
     @apply w-full max-w-[1200px] h-[300px] sm:h-[450px] xl:h-[480px] bg-slate-300 relative mx-auto;
   }
-
-  /* スクロールバーを非表示にするユーティリティ */
-  .scrollbar-hide {
-    -ms-overflow-style: none; /* IE, Edge */
-    scrollbar-width: none; /* Firefox */
-  }
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none; /* Chrome, Safari */
-  }
 }
 
 @layer base {
-  a:focus-visible,
-  button:focus-visible,
-  input:focus-visible,
-  textarea:focus-visible {
-    @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-black focus-visible:outline-offset-2;
-  }
-
   * {
     @apply border-border;
   }

@@ -36,7 +36,6 @@ function PaginationComponent({ pagination }: { pagination: PaginationType }) {
         <PaginationItem>
           {page > 1 && (
             <PaginationPrevious
-              tabIndex={200}
               href="#"
               onClick={() => handlePageChange(page - 1)}
             />
@@ -64,7 +63,6 @@ function PaginationComponent({ pagination }: { pagination: PaginationType }) {
           return (
             <PaginationItem key={pageNumber}>
               <PaginationLink
-                tabIndex={201 + pageNumber}
                 href="#"
                 isActive={pageNumber === page}
                 onClick={() => handlePageChange(pageNumber)}
@@ -91,7 +89,6 @@ function PaginationComponent({ pagination }: { pagination: PaginationType }) {
         {pageCount > 5 && page < pageCount - 2 && (
           <PaginationItem>
             <PaginationLink
-              tabIndex={298}
               href="#"
               onClick={() => handlePageChange(pageCount)}
             >
@@ -104,7 +101,6 @@ function PaginationComponent({ pagination }: { pagination: PaginationType }) {
         <PaginationItem>
           {page < pageCount && (
             <PaginationNext
-              tabIndex={299}
               href="#"
               onClick={() => handlePageChange(page + 1)}
             />

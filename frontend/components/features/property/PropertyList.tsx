@@ -102,29 +102,14 @@ export default function PropertyList({
  * 物件一覧ページのカードを一覧で表示するエリア
  * ＠params data {PropertyCardData}
  */
-const CardArea = ({
-  properties,
-  currentPage,
-  itemsPerPage,
-}: {
-  properties: NotionProperty[];
-  currentPage: number;
-  itemsPerPage: number;
-}) => {
+const CardArea = ({ properties }: { properties: NotionProperty[] }) => {
   return (
     <>
-      {properties.map((p: NotionProperty, index: number) => {
+      {properties.map((p: NotionProperty) => {
         const property: PropertyCardData | null = formatPropertyCardData(p);
-        const tabIndex = 100 + index; // 各ページで100からスタート
 
         if (property !== null) {
-          return (
-            <PropertyCard
-              key={property.id}
-              property={property}
-              tabIndex={tabIndex}
-            />
-          );
+          return <PropertyCard key={property.id} property={property} />;
         }
       })}
     </>
@@ -135,18 +120,14 @@ const CardArea = ({
  * 物件一覧ページのカード
  * ＠params property {PropertyCardData}
  */
-const PropertyCard = ({
-  property,
-  tabIndex,
-}: {
-  property: PropertyCardData;
-  tabIndex: number;
-}) => {
+const PropertyCard = ({ property }: { property: PropertyCardData }) => {
+  /* 募集中の物件のみ「入居者募集中」 or 「即入居可能」のラベル */
   const labelMessage =
     property.status === "入居者募集中" || property.status === "即入居可能"
       ? property.status
       : "";
 
+  /* ラベルの色 */
   const labelColor =
     property.status === "入居者募集中"
       ? "bg-white"
@@ -160,7 +141,6 @@ const PropertyCard = ({
       badgeMessage={labelMessage}
       badgeStyle={labelColor}
       cardContent={<CardContent property={property} />}
-      tabIndex={tabIndex}
     />
   );
 };
