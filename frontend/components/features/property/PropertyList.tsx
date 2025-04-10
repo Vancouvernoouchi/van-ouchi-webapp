@@ -46,7 +46,7 @@ export default function PropertyList({
   );
 
   return (
-    <div className="card-base-px">
+    <div className="base-px">
       {/* 検索バーとフィルター（スマホ） */}
       <div className="sm:hidden flex items-center gap-2 pt-2">
         <SearchBar />
@@ -81,7 +81,7 @@ export default function PropertyList({
         </div>
       ) : (
         <>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-4 lg:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-2 sm:gap-4 lg:gap-6">
             <CardArea
               properties={paginatedProperties}
               currentPage={currentPage}

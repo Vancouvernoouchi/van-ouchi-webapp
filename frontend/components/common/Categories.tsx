@@ -39,6 +39,11 @@ export const CATEGORY_LIST: Category[] = [
     pathname: "/properties",
   },
   {
+    name: "おすすめブログ",
+    icon: Laptop,
+    pathname: "/blogs",
+  },
+  {
     name: "お仕事探し",
     icon: BriefcaseBusiness,
     pathname: "/jobs",
@@ -107,11 +112,6 @@ export const CATEGORY_LIST: Category[] = [
     name: "BLOOMニュース",
     icon: Flower2,
     pathname: "/bloom-news",
-  },
-  {
-    name: "おすすめブログ",
-    icon: Laptop,
-    pathname: "/blogs",
   },
 ] as const;
 
@@ -309,73 +309,74 @@ function Categories() {
     //     isFixed ? "fixed top-0 left-0 bg-white shadow-md" : ""
     //   }`}
     // >
+    <div className="w-full flex justify-center">
+      <div className="relative base-px py-2 h-20  ">
+        <div
+          tabIndex={30}
+          onKeyDown={handleKeyDown}
+          className="overflow-hidden"
+          ref={combinedRef}
+        >
+          <div className="flex">
+            {CATEGORY_LIST.map((item, index) => {
+              const handleClick = () => {
+                // console.log("handle clicked triggered!!!");
+                router.push(item.pathname);
+              };
 
-    <div className="relative base-px py-2 h-20 justify-center w-full flex">
-      <div
-        tabIndex={30}
-        onKeyDown={handleKeyDown}
-        className="overflow-hidden"
-        ref={combinedRef}
-      >
-        <div className="flex">
-          {CATEGORY_LIST.map((item, index) => {
-            const handleClick = () => {
-              console.log("handle clicked triggered!!!");
-              router.push(item.pathname);
-            };
-
-            return (
-              <div
-                data-category
-                key={item.name}
-                tabIndex={isInsideFocusActive ? 31 + index : -1}
-                ref={(el) => {
-                  categoryRefs.current[item.pathname] = el;
-                }}
-                onClick={() => handleCategoryClick(item.pathname)}
-                onKeyDown={(e) => {
-                  e.stopPropagation();
-                  handleEnterKey(e, handleClick); // Enter で遷移できる！
-                }}
-                onBlur={handleBlur}
-                className={`min-w-[80px] ${
-                  index === 0 ? "ml-0" : "ml-2 lg:ml-3:"
-                } ${
-                  index === CATEGORY_LIST.length - 1 ? "mr-0" : "mr-2 lg:mr-3"
-                }`}
-              >
-                <CategoryBox
-                  icon={item.icon}
-                  name={item.name}
-                  pathname={item.pathname}
-                  selected={pathname === item.pathname}
-                  onClick={handleClick}
-                />
-              </div>
-            );
-          })}
+              return (
+                <div
+                  data-category
+                  key={item.name}
+                  tabIndex={isInsideFocusActive ? 31 + index : -1}
+                  ref={(el) => {
+                    categoryRefs.current[item.pathname] = el;
+                  }}
+                  onClick={() => handleCategoryClick(item.pathname)}
+                  onKeyDown={(e) => {
+                    e.stopPropagation();
+                    handleEnterKey(e, handleClick); // Enter で遷移できる！
+                  }}
+                  onBlur={handleBlur}
+                  className={`min-w-[80px] ${
+                    index === 0 ? "ml-0" : "ml-2 lg:ml-3:"
+                  } ${
+                    index === CATEGORY_LIST.length - 1 ? "mr-0" : "mr-2 lg:mr-3"
+                  }`}
+                >
+                  <CategoryBox
+                    icon={item.icon}
+                    name={item.name}
+                    pathname={item.pathname}
+                    selected={pathname === item.pathname}
+                    onClick={handleClick}
+                  />
+                </div>
+              );
+            })}
+          </div>
         </div>
-      </div>
-      {/* スクロールボタン PCで表示 */}
-      <div className="hidden lg:block">
-        {prevBtnEnabled && (
-          <button
-            tabIndex={60}
-            className="absolute left-10 xl:left-20 top-1/2 transform -translate-y-1/2 border bg-white p-1 rounded-full shadow-md z-10"
-            onClick={scrollPrev}
-          >
-            <ChevronLeft size={18} />
-          </button>
-        )}
-        {nextBtnEnabled && (
-          <button
-            tabIndex={61}
-            className="absolute right-10 xl:right-20 top-1/2 transform -translate-y-1/2 border bg-white p-1 rounded-full shadow-md z-10"
-            onClick={scrollNext}
-          >
-            <ChevronRight size={18} />
-          </button>
-        )}
+        {/* スクロールボタン PCで表示 */}
+        <div className="hidden lg:block">
+          {prevBtnEnabled && (
+            <button
+              tabIndex={60}
+              className="absolute left-20 2xl:left-0 top-1/2 transform -translate-y-1/2 border bg-white p-1 rounded-full shadow-md z-10"
+              onClick={scrollPrev}
+            >
+              <ChevronLeft size={18} />
+            </button>
+          )}
+          {nextBtnEnabled && (
+            <button
+              tabIndex={61}
+              className="absolute right-20  2xl:right-0 top-1/2 transform -translate-y-1/2 border bg-white p-1 rounded-full shadow-md z-10"
+              onClick={scrollNext}
+            >
+              <ChevronRight size={18} />
+            </button>
+          )}
+        </div>
       </div>
     </div>
     // </div>
