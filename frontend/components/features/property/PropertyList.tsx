@@ -46,7 +46,7 @@ export default function PropertyList({
   );
 
   return (
-    <div className="card-base-px">
+    <div className="base-px">
       {/* 検索バーとフィルター（スマホ） */}
       <div className="sm:hidden flex items-center gap-2 pt-2">
         <SearchBar />
@@ -81,12 +81,8 @@ export default function PropertyList({
         </div>
       ) : (
         <>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-4 lg:gap-6">
-            <CardArea
-              properties={paginatedProperties}
-              currentPage={currentPage}
-              itemsPerPage={itemsPerPage}
-            />
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6 gap-2 sm:gap-4 lg:gap-6">
+            <CardArea properties={paginatedProperties} />
           </div>
           <div className="py-5">
             {" "}
@@ -102,29 +98,14 @@ export default function PropertyList({
  * 物件一覧ページのカードを一覧で表示するエリア
  * ＠params data {PropertyCardData}
  */
-const CardArea = ({
-  properties,
-  currentPage,
-  itemsPerPage,
-}: {
-  properties: NotionProperty[];
-  currentPage: number;
-  itemsPerPage: number;
-}) => {
+const CardArea = ({ properties }: { properties: NotionProperty[] }) => {
   return (
     <>
-      {properties.map((p: NotionProperty, index: number) => {
+      {properties.map((p: NotionProperty) => {
         const property: PropertyCardData | null = formatPropertyCardData(p);
-        const tabIndex = 100 + index; // 各ページで100からスタート
 
         if (property !== null) {
-          return (
-            <PropertyCard
-              key={property.id}
-              property={property}
-              tabIndex={tabIndex}
-            />
-          );
+          return <PropertyCard key={property.id} property={property} />;
         }
       })}
     </>
@@ -135,18 +116,14 @@ const CardArea = ({
  * 物件一覧ページのカード
  * ＠params property {PropertyCardData}
  */
-const PropertyCard = ({
-  property,
-  tabIndex,
-}: {
-  property: PropertyCardData;
-  tabIndex: number; // ← これを追加！
-}) => {
+const PropertyCard = ({ property }: { property: PropertyCardData }) => {
+  /* 募集中の物件のみ「入居者募集中」 or 「即入居可能」のラベル */
   const labelMessage =
     property.status === "入居者募集中" || property.status === "即入居可能"
       ? property.status
       : "";
 
+  /* ラベルの色 */
   const labelColor =
     property.status === "入居者募集中"
       ? "bg-white"
@@ -160,7 +137,6 @@ const PropertyCard = ({
       badgeMessage={labelMessage}
       badgeStyle={labelColor}
       cardContent={<CardContent property={property} />}
-      tabIndex={tabIndex}
     />
   );
 };

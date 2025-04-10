@@ -66,10 +66,7 @@ function Sort({ sortOptions }: { sortOptions: optionType[] }) {
       onValueChange={handleChangeSort}
       onOpenChange={(open) => setIsOpen(open)}
     >
-      <SelectTrigger
-        tabIndex={71}
-        className="flex items-center justify-center gap-1 border-none px-0"
-      >
+      <SelectTrigger className="flex items-center justify-center gap-1 border-none px-0">
         <span className="text-sm">表示: {selectedLabel}</span>
         {isOpen ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
       </SelectTrigger>

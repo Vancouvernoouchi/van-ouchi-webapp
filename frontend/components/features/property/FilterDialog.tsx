@@ -188,7 +188,6 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild className="">
         <Button
-          tabIndex={70}
           variant="outline"
           className="flex items-center justify-center gap-2 sm:px-4 p-0 min-w-10 min-h-10 rounded-full hover:border-bloom-blue hover:text-bloom-blue hover:bg-bloom-lightBlue"
         >
