@@ -140,7 +140,7 @@ const PropertyCard = ({
   tabIndex,
 }: {
   property: PropertyCardData;
-  tabIndex: number;
+  tabIndex: number; // ← これを追加！
 }) => {
   const labelMessage =
     property.status === "入居者募集中" || property.status === "即入居可能"

@@ -189,7 +189,6 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
       <DialogTrigger asChild className="">
         <Button
           tabIndex={70}
-          aria-label="フィルター"
           variant="outline"
           className="flex items-center justify-center gap-2 sm:px-4 p-0 min-w-10 min-h-10 rounded-full hover:border-bloom-blue hover:text-bloom-blue hover:bg-bloom-lightBlue"
         >

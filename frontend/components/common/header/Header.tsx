@@ -180,8 +180,6 @@ const NavMenu = () => {
     >
       <SelectTrigger
         tabIndex={13}
-        role="button"
-        aria-label="ハンバーガーメニュー"
         className="w-12 h-12 cursor-pointer flex items-center justify-end border-none p-0 hover:text-bloom-gray"
       >
         <Menu size={22} />
@@ -198,7 +196,7 @@ const NavMenu = () => {
 
             return (
               <SelectItem
-                // tabIndex={20 + index}
+                tabIndex={20 + index}
                 key={header.href}
                 value={header.href}
                 className={`${
