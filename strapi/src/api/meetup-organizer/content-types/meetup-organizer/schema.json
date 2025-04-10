@@ -1,10 +1,11 @@
 {
   "kind": "collectionType",
-  "collectionName": "event_organizers",
+  "collectionName": "meetup_organizers",
   "info": {
-    "singularName": "event-organizer",
-    "pluralName": "event-organizers",
-    "displayName": "Event Organizer"
+    "singularName": "meetup-organizer",
+    "pluralName": "meetup-organizers",
+    "displayName": "Meetup Organizer",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -16,14 +17,13 @@
       "required": true
     },
     "avatar": {
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ],
       "type": "media",
-      "multiple": false
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images", "files", "videos", "audios"]
+    },
+    "description": {
+      "type": "text"
     },
     "email": {
       "type": "email",
@@ -44,13 +44,13 @@
     "homepageUrl": {
       "type": "string"
     },
-    "description": {
-      "type": "text"
+    "youtubeUrl": {
+      "type": "string"
     },
-    "events": {
+    "meetups": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::event.event",
+      "target": "api::meetup.meetup",
       "mappedBy": "organizer"
     }
   }
