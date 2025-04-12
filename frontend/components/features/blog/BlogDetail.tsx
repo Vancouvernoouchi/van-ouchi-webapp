@@ -15,7 +15,7 @@ export default function BlogDetail({ data }: { data: Blog }) {
       className="flex flex-col items-center w-full lg:w-[75vw]"
       pageName={data.title}
     >
-      <div className="tracking-wider flex flex-col">
+      <div className="tracking-wider flex flex-col w-full">
         {/* 画像 */}
         <Image
           src={data.coverImage.url}
