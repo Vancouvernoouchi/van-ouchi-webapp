@@ -64,7 +64,8 @@
     @apply mr-2 h-4 w-4;
   }
   .base-px {
-    @apply px-4 md:px-10 xl:px-20;
+    /* @apply px-4 md:px-10 xl:px-20; */
+    @apply px-4 md:px-10 2xl:px-0 w-full 2xl:max-w-[1436px];
   }
 
   .base-py {

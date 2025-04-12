@@ -4,7 +4,7 @@ import { Skeleton } from "@/components/ui/skeleton";
  */
 function DetailPageSkeleton() {
   return (
-    <div>
+    <div className="base-px">
       <Skeleton className="w-full h-64" />
       <div className="max-w-[1200px] lg:h-[60lvh] flex flex-col lg:flex-row mx-auto">
         <div className="w-full lg:w-[60%] py-8 lg:pr-2">
