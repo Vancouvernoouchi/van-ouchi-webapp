@@ -542,6 +542,134 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiMeetupCategoryMeetupCategory
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'meetup_categories';
+  info: {
+    description: '';
+    displayName: 'Meetup Category';
+    pluralName: 'meetup-categories';
+    singularName: 'meetup-category';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    categoryId: Schema.Attribute.String & Schema.Attribute.Required;
+    categoryName: Schema.Attribute.String & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::meetup-category.meetup-category'
+    > &
+      Schema.Attribute.Private;
+    meetups: Schema.Attribute.Relation<'manyToMany', 'api::meetup.meetup'>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiMeetupOrganizerMeetupOrganizer
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'meetup_organizers';
+  info: {
+    description: '';
+    displayName: 'Meetup Organizer';
+    pluralName: 'meetup-organizers';
+    singularName: 'meetup-organizer';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    avatar: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    email: Schema.Attribute.Email & Schema.Attribute.Required;
+    homepageUrl: Schema.Attribute.String;
+    instagramUrl: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::meetup-organizer.meetup-organizer'
+    > &
+      Schema.Attribute.Private;
+    meetups: Schema.Attribute.Relation<'oneToMany', 'api::meetup.meetup'>;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    phoneNumber: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    tiktokUrl: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    xUrl: Schema.Attribute.String;
+    youtubeUrl: Schema.Attribute.String;
+  };
+}
+
+export interface ApiMeetupMeetup extends Struct.CollectionTypeSchema {
+  collectionName: 'meetups';
+  info: {
+    description: '';
+    displayName: 'Meetup';
+    pluralName: 'meetups';
+    singularName: 'meetup';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    applyMethod: Schema.Attribute.String & Schema.Attribute.Required;
+    categories: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::meetup-category.meetup-category'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.RichText & Schema.Attribute.Required;
+    endDatetime: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    entryFee: Schema.Attribute.Decimal &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<0>;
+    entryFeeDescription: Schema.Attribute.Text;
+    faq: Schema.Attribute.Component<'common.faq', true>;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    isOnline: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<false>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::meetup.meetup'
+    > &
+      Schema.Attribute.Private;
+    maxParticipant: Schema.Attribute.Integer;
+    organizer: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::meetup-organizer.meetup-organizer'
+    >;
+    placeAddress: Schema.Attribute.String;
+    placeName: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    startDatetime: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    targetParticipant: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'\u5168\u54E1'>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -1056,6 +1184,9 @@ declare module '@strapi/strapi' {
       'api::blog-category.blog-category': ApiBlogCategoryBlogCategory;
       'api::blog.blog': ApiBlogBlog;
       'api::global.global': ApiGlobalGlobal;
+      'api::meetup-category.meetup-category': ApiMeetupCategoryMeetupCategory;
+      'api::meetup-organizer.meetup-organizer': ApiMeetupOrganizerMeetupOrganizer;
+      'api::meetup.meetup': ApiMeetupMeetup;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
