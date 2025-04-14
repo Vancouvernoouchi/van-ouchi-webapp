@@ -20,12 +20,12 @@ function DetailPageFrame({
   className?: string;
 }) {
   return (
-    <div className="base-px flex flex-col items-center">
-      <div className={cn("sm:px-8 lg:px-20 xl:px-32 py-4", className)}>
+    <div className="max-w-screen flex flex-col items-center">
+      {detailHeaderList && (
+        <DetailPageHeader headerOptions={detailHeaderList} />
+      )}
+      <div className={cn("detailPage-base-px py-4", className)}>
         <BreadcrumbComponent pageName={pageName} />
-        {detailHeaderList && (
-          <DetailPageHeader headerOptions={detailHeaderList} />
-        )}
         {children}
       </div>
     </div>
