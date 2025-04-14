@@ -266,7 +266,6 @@ function Categories() {
     // >
     <div className="w-full flex justify-center">
       <div className="relative base-px py-2 h-20  ">
-        {/* <div className="relative base-px py-2 h-20"> */}
         <div className="overflow-hidden" ref={emblaRef}>
           <div className="flex">
             {CATEGORY_LIST.map((item, index) => (
