@@ -87,7 +87,7 @@ export const PropertyImage = ({
 }) => {
   return (
     <div id="images">
-      <div className="propertyPageImage mt-2 flex flex-col rounded-lg">
+      <div className="max-w-full h-[300px] sm:h-[450px] xl:h-[480px] bg-slate-300 relative mt-2 flex flex-col rounded-lg">
         {imgUrl ? (
           <div>
             <Image
