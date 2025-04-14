@@ -82,6 +82,14 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  /* Tabキーフォーカスのあったっているリンクに黒枠を表示する */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible {
+    @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-black focus-visible:outline-offset-2;
+  }
 }
 
 /* インスタ埋め込みのwidth設定 */
