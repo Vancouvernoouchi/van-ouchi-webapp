@@ -41,7 +41,7 @@ export const SectionWrapper = ({
   return (
     <div
       id={id}
-      className={`pt-3 pb-8 sm:pt-5 sm:pb-10 border-b last:border-b-0 ${className}`}
+      className={`pt-3 pb-8 sm:pt-5 sm:pb-10 border-b  ${className}`}
     >
       {children}
     </div>
@@ -87,7 +87,7 @@ export const PropertyImage = ({
 }) => {
   return (
     <div id="images">
-      <div className="propertyPageImage mt-2 flex flex-col rounded-lg">
+      <div className="max-w-full h-[300px] sm:h-[450px] xl:h-[480px] bg-slate-300 relative mt-2 flex flex-col rounded-lg">
         {imgUrl ? (
           <div>
             <Image
@@ -375,7 +375,7 @@ export const Neighbors = ({ area }: { area: Area }) => {
   ];
 
   return (
-    <SectionWrapper id="neighbors">
+    <SectionWrapper id="neighbors" className="border-b lg:border-b-0">
       <SectionTitle title="周辺情報" />
       <Tab tabLabels={tabLabels} contents={contents} />
     </SectionWrapper>
@@ -505,7 +505,7 @@ export const InstagramAds = () => {
   }, []);
 
   return (
-    <SectionWrapper id="about-us">
+    <SectionWrapper id="about-us" className="border-b-0 lg:border-b">
       <SectionTitle title="バンクーバーのお家について" />
       <blockquote
         className="instagram-media"

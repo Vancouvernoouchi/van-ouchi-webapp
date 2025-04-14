@@ -15,7 +15,9 @@ const MainLayout = ({
       <Header />
       <Categories />
       <main className="content-height z-0">
-        <Suspense fallback={<Loader />}>{children}</Suspense>
+        <div className="w-full mx-auto flex justify-center">
+          <Suspense fallback={<Loader />}>{children}</Suspense>
+        </div>
       </main>
       <Analytics />
       <Footer />
