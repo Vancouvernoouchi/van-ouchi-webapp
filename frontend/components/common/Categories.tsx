@@ -353,8 +353,7 @@ function Categories() {
         */}
         <div
           tabIndex={30}
-          // onKeyDown={handleKeyDown}
-          onKeyDownCapture={handleArrowKeyNavigation}
+          onKeyDownCapture={handleArrowKeyNavigation} //矢印キーでの左右移動
           ref={combinedRef}
           className="overflow-hidden"
         >
@@ -375,19 +374,11 @@ function Categories() {
                     categoryRefs.current[item.pathname] = el;
                   }}
                   onClick={() => handleCategoryClick(item.pathname)}
-                  // onKeyDown={(e) => {
-                  //   e.stopPropagation();
-                  //   // 共通の handleEnterKey を使用して Enter キー押下時に handleClick を実行
-                  //   handleEnterKey(e, handleClick);
-                  // }}
-
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
-                      // Enter キーの場合は既存の動作を実行して伝播を止める
                       e.stopPropagation();
                       handleEnterKey(e, handleClick);
                     }
-                    // 矢印キーの場合は伝播を止めない（もしくは、ここで独自に処理しても良い）
                   }}
                   onBlur={handleBlur}
                   className={`min-w-[80px] ${
@@ -401,7 +392,7 @@ function Categories() {
                     name={item.name}
                     pathname={item.pathname}
                     selected={pathname === item.pathname}
-                    onClick={handleClick} // 変更: onClick ハンドラを CategoryBox に渡す
+                    onClick={handleClick}
                   />
                 </div>
               );
