@@ -151,6 +151,7 @@ const PropertyCard = ({
       badgeStyle={labelColor}
       cardContent={<CardContent property={property} />}
       tabIndex={tabIndex}
+      
     />
   );
 };
