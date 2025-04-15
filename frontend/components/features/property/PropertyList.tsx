@@ -101,11 +101,18 @@ export default function PropertyList({
 const CardArea = ({ properties }: { properties: NotionProperty[] }) => {
   return (
     <>
-      {properties.map((p: NotionProperty) => {
+      {properties.map((p: NotionProperty, index: number) => {
         const property: PropertyCardData | null = formatPropertyCardData(p);
+        const tabIndex = 100 + index; // 各ページで100からスタート
 
         if (property !== null) {
-          return <PropertyCard key={property.id} property={property} />;
+          return (
+            <PropertyCard
+              tabIndex={tabIndex}
+              key={property.id}
+              property={property}
+            />
+          );
         }
       })}
     </>
@@ -116,7 +123,13 @@ const CardArea = ({ properties }: { properties: NotionProperty[] }) => {
  * 物件一覧ページのカード
  * ＠params property {PropertyCardData}
  */
-const PropertyCard = ({ property }: { property: PropertyCardData }) => {
+const PropertyCard = ({
+  property,
+  tabIndex,
+}: {
+  property: PropertyCardData;
+  tabIndex: number;
+}) => {
   /* 募集中の物件のみ「入居者募集中」 or 「即入居可能」のラベル */
   const labelMessage =
     property.status === "入居者募集中" || property.status === "即入居可能"
@@ -137,6 +150,7 @@ const PropertyCard = ({ property }: { property: PropertyCardData }) => {
       badgeMessage={labelMessage}
       badgeStyle={labelColor}
       cardContent={<CardContent property={property} />}
+      tabIndex={tabIndex}
     />
   );
 };
