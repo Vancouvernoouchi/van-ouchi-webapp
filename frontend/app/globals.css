@@ -73,6 +73,13 @@
   .content-height {
     @apply min-h-[calc(100vh-64px-80px-64px)] lg:min-h-[calc(100vh-80px-80px-68px)] z-0;
   }
+
+  /* cardList コンポーネント専用の focus-visible スタイル */
+  .cardList:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px black;
+    border-radius: 8px;
+  }
 }
 
 @layer base {
@@ -81,6 +88,14 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+
+  /* Tabキーフォーカスのあったっているリンクに黒枠を表示する */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible {
+    @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-black focus-visible:outline-offset-2;
   }
 }
 

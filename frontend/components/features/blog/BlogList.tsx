@@ -33,16 +33,20 @@ function CardArea({ data }: { data: Blog[] }) {
   return (
     <>
       {/* マップで並べる */}
-      {data.map((blog) => (
-        <CardFrame
-          key={blog.documentId}
-          linkTo={`/blogs/${blog.documentId.toString()}`} // 詳細画面の遷移先パス
-          imageSrc={blog.coverImage.url} // カードの画像
-          imageAlt={blog.title} // 画像の説明文
-          cardContent={<CardContent blog={blog} />} // 画像下にくる部分　（別途作成）
-          badgeMessage={blog.category?.categoryName} // 左上のバッヂ
-        />
-      ))}
+      {data.map((blog, index: number) => {
+        const tabIndex = 100 + index; // 各ページで100からスタート
+        return (
+          <CardFrame
+            tabIndex={tabIndex}
+            key={blog.documentId}
+            linkTo={`/blogs/${blog.documentId.toString()}`} // 詳細画面の遷移先パス
+            imageSrc={blog.coverImage.url} // カードの画像
+            imageAlt={blog.title} // 画像の説明文
+            cardContent={<CardContent blog={blog} />} // 画像下にくる部分　（別途作成）
+            badgeMessage={blog.category?.categoryName} // 左上のバッヂ
+          />
+        );
+      })}
     </>
   );
 }

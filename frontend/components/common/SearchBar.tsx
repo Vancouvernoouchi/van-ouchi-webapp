@@ -48,6 +48,7 @@ function SearchBar() {
   return (
     <div className="relative w-full">
       <Input
+        tabIndex={11}
         type="search"
         placeholder="キーワード検索"
         className="w-full pr-14 pl-5 text-xs rounded-full shadow-sm" // 右側にアイコン分の余白を確保
@@ -55,6 +56,8 @@ function SearchBar() {
         onChange={(e) => handleKeywordChange(e)}
       />
       <Button
+        tabIndex={12}
+        aria-label="検索する"
         type="button"
         variant="outline"
         className="absolute right-1.5 top-1/2 transform -translate-y-1/2 bg-bloom-blue flex items-center justify-center rounded-full w-8 h-8 p-0 border-0"

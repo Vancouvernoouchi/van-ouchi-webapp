@@ -23,6 +23,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
+import { handleEnterKey } from "@/utils/accessibility/a11y";
 
 export interface Category {
   name: string;
@@ -117,11 +118,92 @@ export const CATEGORY_LIST: Category[] = [
  * カテゴリーコンポーネント
  */
 function Categories() {
+  const router = useRouter();
+
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start", // スライドを左端から配置
     containScroll: "trimSnaps", // スクロール範囲をスナップ位置に制限
     dragFree: true, // 指やマウスで自由にスクロール可能にする
   });
+
+  // 複数の ref を統合するためのユーティリティ関数を追加
+  function useCombinedRefs<T>(
+    ...refs: (React.Ref<T> | undefined)[]
+  ): React.RefCallback<T> {
+    return (element: T) => {
+      refs.forEach((ref) => {
+        if (typeof ref === "function") {
+          ref(element);
+        } else if (ref && typeof ref === "object") {
+          (ref as React.MutableRefObject<T | null>).current = element;
+        }
+      });
+    };
+  }
+
+  // カテゴリーバーへの参照を追加し、emblaRef と統合しクセシビリティ用の操作を追加
+  const categoryBarRef = useRef<HTMLDivElement>(null);
+  const combinedRef = useCombinedRefs<HTMLDivElement>(emblaRef, categoryBarRef);
+
+  // キーボード操作のための状態（カテゴリー内のキーボードフォーカス管理用）
+  const [isInsideFocusActive, setIsInsideFocusActive] = useState(false);
+
+  // Enter キー押下時にカテゴリー内へフォーカスを移す（アクセシビリティ対応）
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === "Enter") {
+      setIsInsideFocusActive(true);
+      const categoryEls =
+        categoryBarRef.current?.querySelectorAll("[data-category]");
+      if (categoryEls && categoryEls.length > 0) {
+        (categoryEls[0] as HTMLElement).focus();
+      }
+    }
+  };
+
+  // 矢印キーでカテゴリー項目を移動（アクセシビリティ対応）
+  const handleArrowKeyNavigation = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    const categoryEls =
+      categoryBarRef.current?.querySelectorAll("[data-category]");
+    if (!categoryEls || categoryEls.length === 0) return;
+
+    // 現在フォーカスが当たっている要素のインデックスを調べる
+    let currentIndex = -1;
+    categoryEls.forEach((el, index) => {
+      if (document.activeElement === el) {
+        currentIndex = index;
+      }
+    });
+
+    if (e.key === "ArrowRight") {
+      e.preventDefault();
+      // まだフォーカスされていなければ最初の要素にフォーカス
+      if (currentIndex === -1) {
+        (categoryEls[0] as HTMLElement).focus();
+      } else {
+        const nextIndex = (currentIndex + 1) % categoryEls.length;
+        (categoryEls[nextIndex] as HTMLElement).focus();
+      }
+    } else if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      if (currentIndex === -1) {
+        // フォーカスがなければ最後の要素にフォーカス
+        (categoryEls[categoryEls.length - 1] as HTMLElement).focus();
+      } else {
+        const prevIndex =
+          (currentIndex - 1 + categoryEls.length) % categoryEls.length;
+        (categoryEls[prevIndex] as HTMLElement).focus();
+      }
+    }
+  };
+
+  // カテゴリー項目からフォーカスが外れた場合、キーボード操作状態をリセット（アクセシビリティ対応）
+  const handleBlur = (e: React.FocusEvent<HTMLDivElement>) => {
+    const relatedTarget = e.relatedTarget as HTMLElement | null;
+    const stillInside = relatedTarget?.dataset?.category !== undefined;
+    if (!stillInside) {
+      setIsInsideFocusActive(false);
+    }
+  };
 
   // スクロールボタンの有効/無効状態を管理する
   const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
@@ -266,34 +348,63 @@ function Categories() {
     // >
     <div className="w-full flex justify-center">
       <div className="relative base-px py-2 h-20  ">
-        <div className="overflow-hidden" ref={emblaRef}>
+        {/*
+          combinedRef と tabIndex、onKeyDown を追加してキーボードでの操作を可能に
+        */}
+        <div
+          tabIndex={30}
+          onKeyDownCapture={handleArrowKeyNavigation} //矢印キーでの左右移動
+          ref={combinedRef}
+          className="overflow-hidden"
+        >
           <div className="flex">
-            {CATEGORY_LIST.map((item, index) => (
-              <div
-                key={item.name}
-                ref={(el) => {
-                  categoryRefs.current[item.pathname] = el;
-                }}
-                onClick={() => handleCategoryClick(item.pathname)}
-                className={`${index === 0 ? "ml-0" : "ml-2 lg:ml-3"} ${
-                  index === CATEGORY_LIST.length - 1 ? "mr-0" : "mr-2 lg:mr-3"
-                }`}
-              >
-                <CategoryBox
-                  icon={item.icon}
-                  name={item.name}
-                  pathname={item.pathname}
-                  selected={pathname === item.pathname}
-                />
-              </div>
-            ))}
+            {CATEGORY_LIST.map((item, index) => {
+              // 変更: キーボード操作用のコールバックを定義 (Enter キー押下時にページ遷移させる)
+              const handleClick = () => {
+                router.push(item.pathname);
+              };
+
+              return (
+                <div
+                  data-category
+                  key={item.name}
+                  // isInsideFocusActive によって tabIndex を切り替え、キーボードフォーカス可能にする
+                  tabIndex={isInsideFocusActive ? 31 + index : -1}
+                  ref={(el) => {
+                    categoryRefs.current[item.pathname] = el;
+                  }}
+                  onClick={() => handleCategoryClick(item.pathname)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.stopPropagation();
+                      handleEnterKey(e, handleClick);
+                    }
+                  }}
+                  onBlur={handleBlur}
+                  className={`min-w-[80px] ${
+                    index === 0 ? "ml-0" : "ml-2 lg:ml-3"
+                  } ${
+                    index === CATEGORY_LIST.length - 1 ? "mr-0" : "mr-2 lg:mr-3"
+                  }`}
+                >
+                  <CategoryBox
+                    icon={item.icon}
+                    name={item.name}
+                    pathname={item.pathname}
+                    selected={pathname === item.pathname}
+                    onClick={handleClick}
+                  />
+                </div>
+              );
+            })}
           </div>
         </div>
         {/* スクロールボタン PCで表示 */}
         <div className="hidden lg:block">
           {prevBtnEnabled && (
             <button
-              className="absolute left-10 xl:left-20 top-1/2 transform -translate-y-1/2 border bg-white p-1 rounded-full shadow-md z-10"
+              tabIndex={60}
+              className="absolute left-20 2xl:left-0 top-1/2 transform -translate-y-1/2 border bg-white p-1 rounded-full shadow-md z-10"
               onClick={scrollPrev}
             >
               <ChevronLeft size={18} />
@@ -301,7 +412,8 @@ function Categories() {
           )}
           {nextBtnEnabled && (
             <button
-              className="absolute right-10 xl:right-20 top-1/2 transform -translate-y-1/2 border bg-white p-1 rounded-full shadow-md z-10"
+              tabIndex={61}
+              className="absolute right-20  2xl:right-0 top-1/2 transform -translate-y-1/2 border bg-white p-1 rounded-full shadow-md z-10"
               onClick={scrollNext}
             >
               <ChevronRight size={18} />
@@ -319,11 +431,13 @@ function CategoryBox({
   name,
   pathname,
   selected,
+  onClick,
 }: {
   icon: LucideIcon | null;
   name: string;
   pathname: string;
   selected: boolean;
+  onClick: () => void;
 }) {
   const router = useRouter();
 
