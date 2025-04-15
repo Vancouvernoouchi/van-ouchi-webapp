@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "meetup_categories",
+  "info": {
+    "singularName": "meetup-category",
+    "pluralName": "meetup-categories",
+    "displayName": "Meetup Category",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "categoryName": {
+      "type": "string",
+      "required": true
+    },
+    "categoryId": {
+      "type": "string",
+      "required": true
+    },
+    "meetups": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::meetup.meetup",
+      "inversedBy": "categories"
+    }
+  }
+}

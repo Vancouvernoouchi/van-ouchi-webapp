@@ -114,7 +114,6 @@ export const CATEGORY_LIST: Category[] = [
     pathname: "/bloom-news",
   },
 ] as const;
-
 /**
  * カテゴリーコンポーネント
  */
@@ -127,6 +126,7 @@ function Categories() {
     dragFree: true, // 指やマウスで自由にスクロール可能にする
   });
 
+  // 複数の ref を統合するためのユーティリティ関数を追加
   function useCombinedRefs<T>(
     ...refs: (React.Ref<T> | undefined)[]
   ): React.RefCallback<T> {
@@ -141,8 +141,69 @@ function Categories() {
     };
   }
 
+  // カテゴリーバーへの参照を追加し、emblaRef と統合しクセシビリティ用の操作を追加
   const categoryBarRef = useRef<HTMLDivElement>(null);
   const combinedRef = useCombinedRefs<HTMLDivElement>(emblaRef, categoryBarRef);
+
+  // キーボード操作のための状態（カテゴリー内のキーボードフォーカス管理用）
+  const [isInsideFocusActive, setIsInsideFocusActive] = useState(false);
+
+  // Enter キー押下時にカテゴリー内へフォーカスを移す（アクセシビリティ対応）
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === "Enter") {
+      setIsInsideFocusActive(true);
+      const categoryEls =
+        categoryBarRef.current?.querySelectorAll("[data-category]");
+      if (categoryEls && categoryEls.length > 0) {
+        (categoryEls[0] as HTMLElement).focus();
+      }
+    }
+  };
+
+  // 矢印キーでカテゴリー項目を移動（アクセシビリティ対応）
+  const handleArrowKeyNavigation = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    const categoryEls =
+      categoryBarRef.current?.querySelectorAll("[data-category]");
+    if (!categoryEls || categoryEls.length === 0) return;
+
+    // 現在フォーカスが当たっている要素のインデックスを調べる
+    let currentIndex = -1;
+    categoryEls.forEach((el, index) => {
+      if (document.activeElement === el) {
+        currentIndex = index;
+      }
+    });
+
+    if (e.key === "ArrowRight") {
+      e.preventDefault();
+      // まだフォーカスされていなければ最初の要素にフォーカス
+      if (currentIndex === -1) {
+        (categoryEls[0] as HTMLElement).focus();
+      } else {
+        const nextIndex = (currentIndex + 1) % categoryEls.length;
+        (categoryEls[nextIndex] as HTMLElement).focus();
+      }
+    } else if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      if (currentIndex === -1) {
+        // フォーカスがなければ最後の要素にフォーカス
+        (categoryEls[categoryEls.length - 1] as HTMLElement).focus();
+      } else {
+        const prevIndex =
+          (currentIndex - 1 + categoryEls.length) % categoryEls.length;
+        (categoryEls[prevIndex] as HTMLElement).focus();
+      }
+    }
+  };
+
+  // カテゴリー項目からフォーカスが外れた場合、キーボード操作状態をリセット（アクセシビリティ対応）
+  const handleBlur = (e: React.FocusEvent<HTMLDivElement>) => {
+    const relatedTarget = e.relatedTarget as HTMLElement | null;
+    const stillInside = relatedTarget?.dataset?.category !== undefined;
+    if (!stillInside) {
+      setIsInsideFocusActive(false);
+    }
+  };
 
   // スクロールボタンの有効/無効状態を管理する
   const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
@@ -270,30 +331,6 @@ function Categories() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const [isInsideFocusActive, setIsInsideFocusActive] = useState(false);
-
-  // tabIndex: Enterが押されたときだけカテゴリ内に入る
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === "Enter") {
-      setIsInsideFocusActive(true);
-      const categoryEls =
-        categoryBarRef.current?.querySelectorAll("[data-category]");
-      if (categoryEls && categoryEls.length > 0) {
-        (categoryEls[0] as HTMLElement).focus();
-      }
-    }
-  };
-
-  // tabIndex: カテゴリーアイテムで、フォーカスが外れたときに元に戻す
-  const handleBlur = (e: React.FocusEvent<HTMLDivElement>) => {
-    // 次にフォーカスされる要素がカテゴリ内でなければ解除
-    const relatedTarget = e.relatedTarget as HTMLElement | null;
-    const stillInside = relatedTarget?.dataset?.category !== undefined;
-    if (!stillInside) {
-      setIsInsideFocusActive(false);
-    }
-  };
-
   // カテゴリ一覧のpathnameに完全一致するかチェック
   const isExactMatch = CATEGORY_LIST.some(
     (category) => category.pathname === pathname
@@ -311,16 +348,19 @@ function Categories() {
     // >
     <div className="w-full flex justify-center">
       <div className="relative base-px py-2 h-20  ">
+        {/*
+          combinedRef と tabIndex、onKeyDown を追加してキーボードでの操作を可能に
+        */}
         <div
           tabIndex={30}
-          onKeyDown={handleKeyDown}
-          className="overflow-hidden"
+          onKeyDownCapture={handleArrowKeyNavigation} //矢印キーでの左右移動
           ref={combinedRef}
+          className="overflow-hidden"
         >
           <div className="flex">
             {CATEGORY_LIST.map((item, index) => {
+              // 変更: キーボード操作用のコールバックを定義 (Enter キー押下時にページ遷移させる)
               const handleClick = () => {
-                // console.log("handle clicked triggered!!!");
                 router.push(item.pathname);
               };
 
@@ -328,18 +368,21 @@ function Categories() {
                 <div
                   data-category
                   key={item.name}
+                  // isInsideFocusActive によって tabIndex を切り替え、キーボードフォーカス可能にする
                   tabIndex={isInsideFocusActive ? 31 + index : -1}
                   ref={(el) => {
                     categoryRefs.current[item.pathname] = el;
                   }}
                   onClick={() => handleCategoryClick(item.pathname)}
                   onKeyDown={(e) => {
-                    e.stopPropagation();
-                    handleEnterKey(e, handleClick); // Enter で遷移できる！
+                    if (e.key === "Enter") {
+                      e.stopPropagation();
+                      handleEnterKey(e, handleClick);
+                    }
                   }}
                   onBlur={handleBlur}
                   className={`min-w-[80px] ${
-                    index === 0 ? "ml-0" : "ml-2 lg:ml-3:"
+                    index === 0 ? "ml-0" : "ml-2 lg:ml-3"
                   } ${
                     index === CATEGORY_LIST.length - 1 ? "mr-0" : "mr-2 lg:mr-3"
                   }`}
@@ -388,7 +431,7 @@ function CategoryBox({
   name,
   pathname,
   selected,
-  onClick, // ← propsで受け取る
+  onClick,
 }: {
   icon: LucideIcon | null;
   name: string;
@@ -396,12 +439,16 @@ function CategoryBox({
   selected: boolean;
   onClick: () => void;
 }) {
+  const router = useRouter();
+
+  const handleClick = useCallback(() => {
+    router.push(pathname);
+  }, [pathname, router]);
+
   return (
     <div className="flex-grow-0 flex-shrink-0 basis-1/12 group">
       <div
-        role="link"
-        // onClick={handleClick}
-        onClick={onClick}
+        onClick={handleClick}
         className={`flex flex-col items-center justify-between gap-1 py-2 border-b-2 group-hover:text-gray-800 transition cursor-pointer
         ${
           selected

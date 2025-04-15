@@ -147,15 +147,15 @@ function DetailPageHeader({
 
   return (
     <header
-      className={`fixed base-px top-0 left-0 right-0 h-14 bg-white transition-transform duration-300 ease-in-out z-50 ${
+      className={`fixed top-0 left-0 right-0 h-14 bg-white transition-transform duration-300 ease-in-out z-50 ${
         isVisible ? "translate-y-0 shadow-md" : "-translate-y-full"
       }`}
     >
-      <div className="mx-auto lg:px-12">
+      <div className="mx-auto detailPage-base-px">
         <nav>
           <ul
             ref={headerRef}
-            className="flex space-x-4 overflow-x-auto whitespace-nowrap items-center justify-start h-14"
+            className="flex space-x-6 overflow-x-auto whitespace-nowrap items-center justify-start h-14"
           >
             {headerOptions.map((item) => (
               <li key={item.id} className="inline-block">
@@ -220,7 +220,7 @@ function ScrollToSection({
     <button
       onClick={handleClick}
       data-section={dataSectionAttr}
-      className={`text-sm tracking-wider lg:text-base focus:outline-none whitespace-nowrap px-2 py-1 transition-colors duration-200 ${
+      className={`text-sm tracking-wider lg:text-base focus:outline-none whitespace-nowrap py-1 transition-colors duration-200 ${
         isActive ? "text-bloom-blue font-bold" : "text-bloom-gray"
       }`}
     >

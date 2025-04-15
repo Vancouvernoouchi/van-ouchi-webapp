@@ -180,15 +180,13 @@ const NavMenu = () => {
     >
       <SelectTrigger
         tabIndex={13}
-        role="button"
-        aria-label="ハンバーガーメニュー"
         className="w-12 h-12 cursor-pointer flex items-center justify-end border-none p-0 hover:text-bloom-gray"
       >
         <Menu size={22} />
       </SelectTrigger>
       <SelectContent position={undefined}>
         <SelectGroup>
-          {headerOptions.map((header, index) => {
+          {headerOptions.map((header) => {
             // 現在のリンクがアクティブかどうか
             const isActive =
               header.href === "/"
@@ -198,7 +196,6 @@ const NavMenu = () => {
 
             return (
               <SelectItem
-                // tabIndex={20 + index}
                 key={header.href}
                 value={header.href}
                 className={`${
@@ -240,7 +237,7 @@ const LanguageSelectPC = ({
 
       <SelectContent>
         <SelectGroup>
-          {LanguageOptions.map(({ code, name, Flag }, index) => (
+          {LanguageOptions.map(({ code, name, Flag }) => (
             <SelectItem key={code} value={code}>
               <div className="flex items-center gap-1">
                 <Flag className="w-4 p-0 border" />

@@ -49,7 +49,7 @@ function CardFrame({
   return (
     <div
       tabIndex={tabIndex}
-      className="relative cursor-pointer"
+      className="relative cursor-pointer cardList"
       onClick={goToDetail}
       onKeyDown={(e) => handleEnterKey(e, goToDetail)}
     >

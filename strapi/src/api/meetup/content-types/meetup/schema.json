@@ -1,0 +1,87 @@
+{
+  "kind": "collectionType",
+  "collectionName": "meetups",
+  "info": {
+    "singularName": "meetup",
+    "pluralName": "meetups",
+    "displayName": "Meetup",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "richtext",
+      "required": true
+    },
+    "targetParticipant": {
+      "type": "string",
+      "required": true,
+      "unique": false,
+      "default": "全員"
+    },
+    "startDatetime": {
+      "type": "datetime",
+      "required": true
+    },
+    "endDatetime": {
+      "type": "datetime",
+      "required": true
+    },
+    "entryFee": {
+      "type": "decimal",
+      "default": 0,
+      "required": true
+    },
+    "entryFeeDescription": {
+      "type": "text"
+    },
+    "isOnline": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "placeName": {
+      "type": "string"
+    },
+    "placeAddress": {
+      "type": "string"
+    },
+    "maxParticipant": {
+      "type": "integer"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images", "files", "videos", "audios"]
+    },
+    "applyMethod": {
+      "type": "string",
+      "required": true
+    },
+    "faq": {
+      "type": "component",
+      "repeatable": true,
+      "component": "common.faq"
+    },
+    "organizer": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::meetup-organizer.meetup-organizer",
+      "inversedBy": "meetups"
+    },
+    "categories": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::meetup-category.meetup-category",
+      "mappedBy": "meetups"
+    }
+  }
+}

@@ -60,56 +60,47 @@
 }
 
 @layer components {
-  .iconLabelItem {
-    @apply mr-2 h-4 w-4;
-  }
+  /* 共通px */
   .base-px {
-    @apply px-4 md:px-20 2xl:px-0 w-full 2xl:max-w-[1436px];
-  }
-  /* .card-base-px {
-    @apply px-4 md:px-20 2xl:px-0 w-full 2xl:max-w-[1436px];
-  } */
-
-  .base-py {
-    @apply py-4 md:py-10 xl:py-20;
+    @apply px-4 md:px-10 xl:px-20 2xl:px-0 w-full 2xl:max-w-[1436px];
   }
 
+  /* 詳細画面用px */
+  .detailPage-base-px {
+    @apply px-4 sm:px-12 xl:px-32 2xl:px-12 w-full 2xl:max-w-[1436px];
+  }
   /* ヘッダー、カテゴリーヘッダー、フッターの高さを引いたコンテンツの高さ */
   .content-height {
     @apply min-h-[calc(100vh-64px-80px-64px)] lg:min-h-[calc(100vh-80px-80px-68px)] z-0;
   }
 
-  .propertyPageImage {
-    @apply w-full max-w-[1200px] h-[300px] sm:h-[450px] xl:h-[480px] bg-slate-300 relative mx-auto;
-  }
-
-  /* スクロールバーを非表示にするユーティリティ */
-  .scrollbar-hide {
-    -ms-overflow-style: none; /* IE, Edge */
-    scrollbar-width: none; /* Firefox */
-  }
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none; /* Chrome, Safari */
+  /* cardList コンポーネント専用の focus-visible スタイル */
+  .cardList:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px black;
+    border-radius: 8px;
   }
 }
 
 @layer base {
-  a:focus-visible,
-  button:focus-visible,
-  input:focus-visible,
-  textarea:focus-visible {
-    @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-black focus-visible:outline-offset-2;
-  }
-
   * {
     @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
   }
+
+  /* Tabキーフォーカスのあったっているリンクに黒枠を表示する */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible {
+    @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-black focus-visible:outline-offset-2;
+  }
 }
 
+/* インスタ埋め込みのwidth設定 */
 .instagram-media {
   min-width: 100% !important;
-  max-width: 400px !important;
+  max-width: 300px !important;
 }

@@ -82,11 +82,7 @@ export default function PropertyList({
       ) : (
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-2 sm:gap-4 lg:gap-6">
-            <CardArea
-              properties={paginatedProperties}
-              currentPage={currentPage}
-              itemsPerPage={itemsPerPage}
-            />
+            <CardArea properties={paginatedProperties} />
           </div>
           <div className="py-5">
             {" "}
@@ -102,15 +98,7 @@ export default function PropertyList({
  * 物件一覧ページのカードを一覧で表示するエリア
  * ＠params data {PropertyCardData}
  */
-const CardArea = ({
-  properties,
-  currentPage,
-  itemsPerPage,
-}: {
-  properties: NotionProperty[];
-  currentPage: number;
-  itemsPerPage: number;
-}) => {
+const CardArea = ({ properties }: { properties: NotionProperty[] }) => {
   return (
     <>
       {properties.map((p: NotionProperty, index: number) => {
@@ -120,9 +108,9 @@ const CardArea = ({
         if (property !== null) {
           return (
             <PropertyCard
+              tabIndex={tabIndex}
               key={property.id}
               property={property}
-              tabIndex={tabIndex}
             />
           );
         }
@@ -142,11 +130,13 @@ const PropertyCard = ({
   property: PropertyCardData;
   tabIndex: number;
 }) => {
+  /* 募集中の物件のみ「入居者募集中」 or 「即入居可能」のラベル */
   const labelMessage =
     property.status === "入居者募集中" || property.status === "即入居可能"
       ? property.status
       : "";
 
+  /* ラベルの色 */
   const labelColor =
     property.status === "入居者募集中"
       ? "bg-white"
