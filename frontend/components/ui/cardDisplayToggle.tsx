@@ -1,49 +1,45 @@
-// components/common/CustomToggleGroup.tsx
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+"use client";
+import { useState } from "react";
+import { LayoutGrid, LayoutList } from "lucide-react";
 
-interface CardDisplayToggleProps {
+interface CustomToggleProps {
   value: string;
   onChange: (value: string) => void;
 }
 
-export function CardDisplayToggleGroup({
-  value,
-  onChange,
-}: CardDisplayToggleProps) {
+export function CardDisplayToggle({ value, onChange }: CustomToggleProps) {
+  const isChecked = value === "2col";
+
+  const handleToggle = () => {
+    onChange(isChecked ? "1col" : "2col");
+  };
+
   return (
-    <div className="relative flex items-center w-[120px] h-[50px] bg-blue-500 rounded-full p-1">
-      <div
-        className={`absolute top-1 w-1/2 h-[calc(100%-8px)] bg-white rounded-full shadow transition-transform duration-300 ${
-          value === "grid" ? "translate-x-full" : ""
-        }`}
+    <label className="relative inline-flex w-16 h-7 bg-bloom-blue rounded-full cursor-pointer p-1 items-center justify-between">
+      <input
+        type="checkbox"
+        checked={isChecked}
+        onChange={handleToggle}
+        className="sr-only"
       />
-      <ToggleGroup
-        type="single"
-        value={value}
-        onValueChange={(val) => {
-          if (val) onChange(val);
-        }}
-        className="relative z-10 flex w-full justify-between"
-      >
-        <ToggleGroupItem
-          value="list"
-          className="w-1/2 flex justify-center items-center text-black"
-        >
-          {/* リストアイコン */}
-          <svg width="20" height="20">
-            {/* ... */}
-          </svg>
-        </ToggleGroupItem>
-        <ToggleGroupItem
-          value="grid"
-          className="w-1/2 flex justify-center items-center text-black"
-        >
-          {/* グリッドアイコン */}
-          <svg width="20" height="20">
-            {/* ... */}
-          </svg>
-        </ToggleGroupItem>
-      </ToggleGroup>
-    </div>
+      {/* スライダー（白い丸） */}
+      <span
+        className={`absolute top-0.5 left-[2px] h-6 w-8 rounded-full bg-white shadow-md transition-transform duration-300 ${
+          isChecked ? "translate-x-7" : "translate-x-0"
+        }`}
+      ></span>
+
+      {/* アイコン */}
+      <div className="flex justify-between items-center w-full z-10 px-1 text-white">
+        <LayoutList
+          size={17}
+          className={isChecked ? "text-white" : "text-black"}
+        />
+        <LayoutGrid
+          size={17}
+          className={isChecked ? "text-black" : "text-white"}
+        />
+      </div>
+    </label>
   );
 }

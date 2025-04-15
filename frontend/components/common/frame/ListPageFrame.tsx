@@ -17,11 +17,13 @@ function ListPageFrame({
   sortArea,
   cardArea,
   pagination,
+  toggleButton,
 }: {
   filterArea?: ReactNode;
   sortArea?: ReactNode;
   cardArea: ReactNode;
   pagination: PaginationType;
+  toggleButton?: ReactNode;
 }) {
   /** 総アイテム数 */
   const total = pagination.total;
@@ -29,6 +31,8 @@ function ListPageFrame({
   const startItem = (pagination.page - 1) * pagination.pageSize + 1;
   /** 表示位置 */
   const endItem = Math.min(pagination.page * pagination.pageSize, total);
+
+  const switchToggle = "e";
 
   return (
     <div className="base-px flex flex-col justify-between content-height">
@@ -55,6 +59,7 @@ function ListPageFrame({
               </div>
               {/* 並び替え */}
               {sortArea}
+              <div className="sm:hidden">{toggleButton}</div>
             </div>
           </div>
         </div>
