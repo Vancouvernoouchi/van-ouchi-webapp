@@ -160,6 +160,42 @@ function Categories() {
     }
   };
 
+  // 矢印キーでカテゴリー項目を移動（アクセシビリティ対応）
+  const handleArrowKeyNavigation = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    const categoryEls =
+      categoryBarRef.current?.querySelectorAll("[data-category]");
+    if (!categoryEls || categoryEls.length === 0) return;
+
+    // 現在フォーカスが当たっている要素のインデックスを調べる
+    let currentIndex = -1;
+    categoryEls.forEach((el, index) => {
+      if (document.activeElement === el) {
+        currentIndex = index;
+      }
+    });
+
+    if (e.key === "ArrowRight") {
+      e.preventDefault();
+      // まだフォーカスされていなければ最初の要素にフォーカス
+      if (currentIndex === -1) {
+        (categoryEls[0] as HTMLElement).focus();
+      } else {
+        const nextIndex = (currentIndex + 1) % categoryEls.length;
+        (categoryEls[nextIndex] as HTMLElement).focus();
+      }
+    } else if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      if (currentIndex === -1) {
+        // フォーカスがなければ最後の要素にフォーカス
+        (categoryEls[categoryEls.length - 1] as HTMLElement).focus();
+      } else {
+        const prevIndex =
+          (currentIndex - 1 + categoryEls.length) % categoryEls.length;
+        (categoryEls[prevIndex] as HTMLElement).focus();
+      }
+    }
+  };
+
   // カテゴリー項目からフォーカスが外れた場合、キーボード操作状態をリセット（アクセシビリティ対応）
   const handleBlur = (e: React.FocusEvent<HTMLDivElement>) => {
     const relatedTarget = e.relatedTarget as HTMLElement | null;
@@ -317,7 +353,8 @@ function Categories() {
         */}
         <div
           tabIndex={30}
-          onKeyDown={handleKeyDown}
+          // onKeyDown={handleKeyDown}
+          onKeyDownCapture={handleArrowKeyNavigation}
           ref={combinedRef}
           className="overflow-hidden"
         >
@@ -338,10 +375,19 @@ function Categories() {
                     categoryRefs.current[item.pathname] = el;
                   }}
                   onClick={() => handleCategoryClick(item.pathname)}
+                  // onKeyDown={(e) => {
+                  //   e.stopPropagation();
+                  //   // 共通の handleEnterKey を使用して Enter キー押下時に handleClick を実行
+                  //   handleEnterKey(e, handleClick);
+                  // }}
+
                   onKeyDown={(e) => {
-                    e.stopPropagation();
-                    // 共通の handleEnterKey を使用して Enter キー押下時に handleClick を実行
-                    handleEnterKey(e, handleClick);
+                    if (e.key === "Enter") {
+                      // Enter キーの場合は既存の動作を実行して伝播を止める
+                      e.stopPropagation();
+                      handleEnterKey(e, handleClick);
+                    }
+                    // 矢印キーの場合は伝播を止めない（もしくは、ここで独自に処理しても良い）
                   }}
                   onBlur={handleBlur}
                   className={`min-w-[80px] ${
