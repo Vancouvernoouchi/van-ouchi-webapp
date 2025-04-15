@@ -3,8 +3,8 @@ import { useState } from "react";
 import { LayoutGrid, LayoutList } from "lucide-react";
 
 interface CustomToggleProps {
-  value: string;
-  onChange: (value: string) => void;
+  value: "1col" | "2col";
+  onChange: (value: "1col" | "2col") => void;
 }
 
 export function CardDisplayToggle({ value, onChange }: CustomToggleProps) {

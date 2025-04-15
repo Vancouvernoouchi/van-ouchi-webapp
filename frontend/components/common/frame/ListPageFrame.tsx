@@ -1,7 +1,9 @@
-import { ReactNode } from "react";
+"use client";
+import { ReactNode, useState } from "react";
 import { SearchBar } from "../index";
 import { PaginationType } from "@/types/common/strapi/strapi";
 import { PaginationComponent } from "../pagination";
+import { CardDisplayToggle } from "@/components/ui/cardDisplayToggle";
 
 /**
  * 全ての一覧ページの共通フレームコンポーネント
@@ -31,8 +33,8 @@ function ListPageFrame({
   const startItem = (pagination.page - 1) * pagination.pageSize + 1;
   /** 表示位置 */
   const endItem = Math.min(pagination.page * pagination.pageSize, total);
-
-  const switchToggle = "e";
+  /** トグルボタン状態管理 */
+  const [displayMode, setDisplayMode] = useState<"1col" | "2col">("2col");
 
   return (
     <div className="base-px flex flex-col justify-between content-height">
@@ -59,7 +61,13 @@ function ListPageFrame({
               </div>
               {/* 並び替え */}
               {sortArea}
-              <div className="sm:hidden">{toggleButton}</div>
+              {/* カード表示列切り替え */}
+              <div className="sm:hidden">
+                <CardDisplayToggle
+                  value={displayMode}
+                  onChange={setDisplayMode}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -70,7 +78,11 @@ function ListPageFrame({
             <p>条件に一致する物件が見つかりませんでした。</p>
           </div>
         ) : (
-          <div className="cardList grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-2 sm:gap-4 lg:gap-6">
+          <div
+            className={`cardList grid ${
+              displayMode === "1col" ? "grid-cols-1" : "grid-cols-2"
+            } md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-2 sm:gap-4 lg:gap-6`}
+          >
             {cardArea}
           </div>
         )}

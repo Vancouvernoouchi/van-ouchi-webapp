@@ -4,8 +4,6 @@ import { CardFrame, ListPageFrame } from "@/components/common/frame";
 import { Blog } from "@/types/blog/blogTypes";
 import { PaginationType } from "@/types/common/strapi/strapi";
 import { formatDateToJapanese } from "@/utils/getPropertyValue";
-import { CardDisplayToggle } from "@/components/ui/cardDisplayToggle";
-import { useState } from "react";
 
 /**
  * ブログ一覧ページ
@@ -19,15 +17,10 @@ export default function BlogList({
   data: Blog[];
   pagination: PaginationType;
 }) {
-  const [displayMode, setDisplayMode] = useState<"list" | "grid">("grid");
-
   return (
     <ListPageFrame
       pagination={pagination}
       cardArea={<CardArea data={data} />}
-      toggleButton={
-        <CardDisplayToggle value={displayMode} onChange={setDisplayMode} />
-      }
     />
   );
 }
