@@ -13,6 +13,7 @@ const MainLayout = ({
   return (
     <div className="min-w-screen">
       <Header />
+      <Categories />
       <main className="content-height z-0">
         <div className="w-full mx-auto flex justify-center">
           <Suspense fallback={<Loader />}>{children}</Suspense>

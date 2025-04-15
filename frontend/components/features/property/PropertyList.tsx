@@ -1,3 +1,4 @@
+"use client";
 import { FilterDialog } from "@/components/features/property/FilterDialog";
 import { NotionProperty, PropertyCardData } from "@/types/notionTypes";
 import PaginationList from "@/components/common/PaginationList";
@@ -8,6 +9,8 @@ import {
 import { optionType } from "@/config/commonOptions";
 import { CardFrame } from "@/components/common/frame";
 import { SearchBar, Sort } from "@/components/common";
+import { CardDisplayToggle } from "@/components/ui/cardDisplayToggle";
+import { useState } from "react";
 
 interface PropertyListProps {
   paginatedProperties: NotionProperty[];
@@ -44,6 +47,7 @@ export default function PropertyList({
     currentPage * itemsPerPage,
     filteredPropertiesNumber
   );
+  const [displayMode, setDisplayMode] = useState<"1col" | "2col">("2col");
 
   return (
     <div className="base-px">
@@ -62,7 +66,7 @@ export default function PropertyList({
               ({endItem === 0 ? 0 : `${startItem}〜${endItem}`} 件表示)
             </span>
           </p>
-          <div className="flex gap-4">
+          <div className="flex gap-4 items-center">
             <div className="hidden sm:block">
               {/* フィルター */}
               <FilterDialog
@@ -71,6 +75,13 @@ export default function PropertyList({
             </div>
             {/* 並び替え */}
             <Sort sortOptions={sortOptions} />
+            {/* カード表示列切り替え */}
+            <div className="sm:hidden">
+              <CardDisplayToggle
+                value={displayMode}
+                onChange={setDisplayMode}
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -81,7 +92,11 @@ export default function PropertyList({
         </div>
       ) : (
         <>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-2 sm:gap-4 lg:gap-6">
+          <div
+            className={`cardList grid ${
+              displayMode === "1col" ? "grid-cols-1" : "grid-cols-2"
+            } md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-2 sm:gap-4 lg:gap-6`}
+          >
             <CardArea properties={paginatedProperties} />
           </div>
           <div className="py-5">
