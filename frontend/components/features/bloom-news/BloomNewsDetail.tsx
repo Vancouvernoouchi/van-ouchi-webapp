@@ -26,9 +26,9 @@ export default function BloomNewsDetail({ data }: { data: BloomNews }) {
           objectFit="cover"
           unoptimized
         />
-        {/* 最終更新日 */}
+        {/*  公開日 */}
         <p className="text-right w-full pt-2 text-xs sm:text-sm text-bloom-gray">
-          最終更新日: {updatedAt}
+          {data.reportDate}
         </p>
         {/* タイトル */}
         <h1 className="text-2xl sm:text-3xl font-bold py-6 sm:py-10">

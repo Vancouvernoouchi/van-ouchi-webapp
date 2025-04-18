@@ -23,10 +23,10 @@ export async function generateMetadata({
   }
 
   return {
-    title: data.metadata?.metaTitle ?? "ニュース詳細",
-    description: data.metadata?.metaDescription ?? "ニュース詳細ページです。",
+    title: data.metadata.metaTitle || "ニュース詳細",
+    description: data.metadata.metaDescription || "ニュース詳細ページです。",
     openGraph: {
-      images: [data.coverImage.url],
+      images: [data.coverImage],
     },
   };
 }
@@ -34,11 +34,10 @@ export async function generateMetadata({
 /**
  * ニュース詳細を取得
  */
-// strapiのversion4.0.0以降のため、APIのURLが変更されたため、以下のように修正
 async function getBloomNewsById(bloomNewsId: string) {
   try {
     const response = await fetch(
-      `${STRAPI_API_URL}/api/bloom-news-items/${bloomNewsId}?populate[coverImage]=true&populate[metadata]=true&populate[contents]=true&populate[author][populate][avatar]=true&populate[category]=true`
+      `${STRAPI_API_URL}/api/bloom-news-items/${bloomNewsId}`
     );
 
     // レスポンス失敗
@@ -48,55 +47,7 @@ async function getBloomNewsById(bloomNewsId: string) {
       };
     }
 
-    // レスポンス成功
-    const json = await response.json();
-    const raw = json.data;
-
-    if (!raw || !raw.id || !raw.title) {
-      return {
-        responseCode: 404,
-      };
-    }
-
-    const attributes = raw;
-
-    // フロントエンドで扱いやすいフラットな構造に整形
-    //　const data: BloomNews = await response.json(); は使えない
-    const data: BloomNews = {
-      documentId: raw.id,
-      title: attributes.title,
-      description: attributes.description,
-      updatedAt: attributes.updatedAt,
-
-      coverImage: {
-        url: attributes.coverImage?.url ?? "",
-      },
-
-      contents: attributes.contents ? [attributes.contents] : [],
-
-      metadata: {
-        metaTitle: attributes.metadata?.metaTitle ?? null,
-        metaDescription: attributes.metadata?.metaDescription ?? null,
-      },
-
-      category: attributes.category
-        ? {
-            categoryId: attributes.category.id?.toString(),
-            categoryName: attributes.category.name,
-          }
-        : null,
-
-      author: attributes.author
-        ? {
-            id: attributes.author.id,
-            name: attributes.author.name,
-            description: attributes.author.description,
-            avatar: {
-              url: attributes.author.avatar?.url ?? null,
-            },
-          }
-        : null,
-    };
+    const data: BloomNews = await response.json();
 
     // データが存在しない(ページが見つからない)
     if (!data) {

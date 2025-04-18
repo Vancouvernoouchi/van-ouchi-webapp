@@ -41,6 +41,12 @@
       "relation": "oneToMany",
       "target": "api::blog.blog",
       "mappedBy": "author"
+    },
+    "bloom_news": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::bloom-news.bloom-news",
+      "mappedBy": "author"
     }
   }
 }

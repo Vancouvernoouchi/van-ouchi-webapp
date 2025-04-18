@@ -35,6 +35,8 @@ interface BloomNews {
   } | null;
   /** 最終更新日時 */
   updatedAt: string;
+  /** 公開日 */
+  reportDate: string;
   /** メタデータ */
   metadata: Metadata;
 }

@@ -36,11 +36,11 @@ function CardArea({ data }: { data: BloomNews[] }) {
       {data.map((bloomNews) => (
         <CardFrame
           key={bloomNews.documentId}
-          linkTo={`/bloom-news/${bloomNews.documentId.toString()}`} // 詳細画面の遷移先パス
-          imageSrc={bloomNews.coverImage.url} // カードの画像
-          imageAlt={bloomNews.title} // 画像の説明文
-          cardContent={<CardContent bloomNews={bloomNews} />} // 画像下にくる部分　（別途作成）
-          badgeMessage={bloomNews.category?.categoryName} // 左上のバッヂ
+          linkTo={`/bloom-news/${bloomNews.documentId.toString()}`}
+          imageSrc={bloomNews.coverImage.url}
+          imageAlt={bloomNews.title}
+          cardContent={<CardContent bloomNews={bloomNews} />}
+          badgeMessage={bloomNews.category?.categoryName}
         />
       ))}
     </>
@@ -57,8 +57,8 @@ function CardContent({ bloomNews }: { bloomNews: BloomNews }) {
     <>
       {/* ニュースタイトル */}
       <p className="text-sm sm:text-base font-medium">{bloomNews.title}</p>
-      {/* 更新日 */}
-      <p className="text-sm text-bloom-gray">{updatedAt}</p>
+      {/* 公開日 */}
+      <p className="text-sm text-bloom-gray">{bloomNews.reportDate}</p>
     </>
   );
 }

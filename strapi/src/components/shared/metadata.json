@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_shared_metadata",
+  "info": {
+    "displayName": "metadata",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "metaTitle": {
+      "type": "string",
+      "required": true
+    },
+    "metaDescription": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

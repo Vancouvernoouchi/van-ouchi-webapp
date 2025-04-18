@@ -12,6 +12,18 @@ export interface CommonArticleContent extends Struct.ComponentSchema {
   };
 }
 
+export interface CommonContents extends Struct.ComponentSchema {
+  collectionName: 'components_common_contents';
+  info: {
+    description: '';
+    displayName: 'contents';
+  };
+  attributes: {
+    contentText: Schema.Attribute.RichText & Schema.Attribute.Required;
+    contentTitle: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface CommonLinkButton extends Struct.ComponentSchema {
   collectionName: 'components_common_link_buttons';
   info: {
@@ -36,6 +48,18 @@ export interface SharedMedia extends Struct.ComponentSchema {
   };
   attributes: {
     file: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
+  };
+}
+
+export interface SharedMetadata extends Struct.ComponentSchema {
+  collectionName: 'components_shared_metadata';
+  info: {
+    description: '';
+    displayName: 'metadata';
+  };
+  attributes: {
+    metaDescription: Schema.Attribute.Text & Schema.Attribute.Required;
+    metaTitle: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -93,8 +117,10 @@ declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'common.article-content': CommonArticleContent;
+      'common.contents': CommonContents;
       'common.link-button': CommonLinkButton;
       'shared.media': SharedMedia;
+      'shared.metadata': SharedMetadata;
       'shared.quote': SharedQuote;
       'shared.rich-text': SharedRichText;
       'shared.seo': SharedSeo;

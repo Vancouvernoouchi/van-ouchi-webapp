@@ -416,6 +416,10 @@ export interface ApiAuthorAuthor extends Struct.CollectionTypeSchema {
     agency: Schema.Attribute.Relation<'oneToOne', 'api::agent.agent'>;
     avatar: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
     blogs: Schema.Attribute.Relation<'oneToMany', 'api::blog.blog'>;
+    bloom_news: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::bloom-news.bloom-news'
+    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -503,6 +507,87 @@ export interface ApiBlogBlog extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     metadata: Schema.Attribute.Component<'shared.seo', false>;
     publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiBloomNewsCategoryBloomNewsCategory
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'bloom_news_categories';
+  info: {
+    displayName: 'Bloom News Category';
+    pluralName: 'bloom-news-categories';
+    singularName: 'bloom-news-category';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    bloom_news: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::bloom-news.bloom-news'
+    >;
+    categoryId: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    categoryName: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::bloom-news-category.bloom-news-category'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiBloomNewsBloomNews extends Struct.CollectionTypeSchema {
+  collectionName: 'bloom_news_items';
+  info: {
+    description: '';
+    displayName: 'Bloom News';
+    pluralName: 'bloom-news-items';
+    singularName: 'bloom-news';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    author: Schema.Attribute.Relation<'manyToOne', 'api::author.author'>;
+    category: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::bloom-news-category.bloom-news-category'
+    >;
+    contents: Schema.Attribute.Component<'common.contents', true>;
+    coverImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 300;
+      }>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::bloom-news.bloom-news'
+    > &
+      Schema.Attribute.Private;
+    metadata: Schema.Attribute.Component<'shared.metadata', false>;
+    publishedAt: Schema.Attribute.DateTime;
+    reportDate: Schema.Attribute.Date & Schema.Attribute.Required;
     title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -1055,6 +1140,8 @@ declare module '@strapi/strapi' {
       'api::author.author': ApiAuthorAuthor;
       'api::blog-category.blog-category': ApiBlogCategoryBlogCategory;
       'api::blog.blog': ApiBlogBlog;
+      'api::bloom-news-category.bloom-news-category': ApiBloomNewsCategoryBloomNewsCategory;
+      'api::bloom-news.bloom-news': ApiBloomNewsBloomNews;
       'api::global.global': ApiGlobalGlobal;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

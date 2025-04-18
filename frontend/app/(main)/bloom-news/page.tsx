@@ -10,15 +10,12 @@ import { BloomNewsData } from "@/types/bloomNews/bloomNewsTypes";
 // strapiのversion4.0.0以降のため、APIのURLが変更されたため、以下のように修正
 const getBloomNews = async () => {
   try {
-    const response = await fetch(
-      `${STRAPI_API_URL}/api/bloom-news-items?populate=*`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await fetch(`${STRAPI_API_URL}/api/bloom-news-items`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
     // サーバーエラー
     if (!response.ok) {

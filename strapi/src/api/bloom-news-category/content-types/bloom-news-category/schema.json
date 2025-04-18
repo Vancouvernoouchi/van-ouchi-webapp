@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "bloom_news_categories",
+  "info": {
+    "singularName": "bloom-news-category",
+    "pluralName": "bloom-news-categories",
+    "displayName": "Bloom News Category"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "categoryName": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "categoryId": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "bloom_news": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::bloom-news.bloom-news",
+      "mappedBy": "category"
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "kind": "collectionType",
+  "collectionName": "bloom_news_items",
+  "info": {
+    "singularName": "bloom-news",
+    "pluralName": "bloom-news-items",
+    "displayName": "Bloom News",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true,
+      "maxLength": 300
+    },
+    "metadata": {
+      "displayName": "metadata",
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.metadata"
+    },
+    "author": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::author.author",
+      "inversedBy": "bloom_news"
+    },
+    "contents": {
+      "displayName": "contents",
+      "type": "component",
+      "repeatable": true,
+      "component": "common.contents"
+    },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::bloom-news-category.bloom-news-category",
+      "inversedBy": "bloom_news"
+    },
+    "coverImage": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "reportDate": {
+      "type": "date",
+      "required": true
+    }
+  }
+}
